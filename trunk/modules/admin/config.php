@@ -1,6 +1,8 @@
 <?php
 
 return [
+// 	'homeUrl' => [''],
+
 	// list of component configurations
 	'components' => [
 		'view' => [
@@ -25,6 +27,6 @@ return [
 
 	// list of parameters
 	'params' => [
-
+// 		'dashboardUrl' => ['admin-manager/index'],
 	],
 ];

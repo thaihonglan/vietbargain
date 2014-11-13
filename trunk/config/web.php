@@ -28,6 +28,7 @@ $config = [
 		'user' => [
 			'identityClass' => 'app\models\User',
 			'enableAutoLogin' => true,
+			'loginUrl' => ['auth/login'],
 		],
 		'errorHandler' => [
 			'errorAction' => 'site/error',
@@ -59,7 +60,24 @@ if (YII_ENV_DEV) {
 	$config['modules']['debug'] = 'yii\debug\Module';
 
 	$config['bootstrap'][] = 'gii';
-	$config['modules']['gii'] = 'yii\gii\Module';
+	$config['modules']['gii'] = [
+		'class' => 'yii\gii\Module',
+		'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*', '192.168.178.20'],
+		'generators' => [
+			'crud' => [
+				'class' => 'yii\gii\generators\crud\Generator', //class generator
+				'templates' => [       //setting for out templates
+					'admin' => '@app/components/giiTemplate/crud/admin', //name template => path to template
+				],
+			],
+			'model' => [
+				'class' => 'yii\gii\generators\model\Generator', //class generator
+				'templates' => [       //setting for out templates
+					'all' => '@app/components/giiTemplate/model/default', //name template => path to template
+				],
+			],
+		],
+	];
 }
 
 return $config;

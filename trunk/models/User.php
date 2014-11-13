@@ -2,102 +2,73 @@
 
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+use Yii;
+
+/**
+ * This is the model class for table "user".
+ *
+ * @property string $id
+ * @property string $email
+ * @property string $password
+ * @property string $facebook_login_id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $identifier
+ * @property string $city_id
+ * @property string $address
+ * @property integer $age
+ * @property string $contact_number
+ * @property string $avatar
+ * @property integer $is_unlimited_user
+ * @property string $create_datetime
+ * @property integer $status
+ */
+class User extends \app\components\ActiveRecord
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
     /**
      * @inheritdoc
      */
-    public static function findIdentity($id)
+    public static function tableName()
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return 'user';
     }
 
     /**
      * @inheritdoc
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public function rules()
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Finds user by username
-     *
-     * @param  string      $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return [
+            [['city_id', 'age', 'is_unlimited_user', 'status'], 'integer'],
+            [['contact_number'], 'required'],
+            [['create_datetime'], 'safe'],
+            [['email', 'facebook_login_id', 'first_name', 'last_name', 'identifier', 'contact_number'], 'string', 'max' => 32],
+            [['password', 'avatar'], 'string', 'max' => 64],
+            [['address'], 'string', 'max' => 45]
+        ];
     }
 
     /**
      * @inheritdoc
      */
-    public function getId()
+    public function attributeLabels()
     {
-        return $this->id;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAuthKey()
-    {
-        return $this->authKey;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->authKey === $authKey;
-    }
-
-    /**
-     * Validates password
-     *
-     * @param  string  $password password to validate
-     * @return boolean if password provided is valid for current user
-     */
-    public function validatePassword($password)
-    {
-        return $this->password === $password;
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'email' => Yii::t('app', 'Email'),
+            'password' => Yii::t('app', 'Password'),
+            'facebook_login_id' => Yii::t('app', 'Facebook Login ID'),
+            'first_name' => Yii::t('app', 'First Name'),
+            'last_name' => Yii::t('app', 'Last Name'),
+            'identifier' => Yii::t('app', 'Identifier'),
+            'city_id' => Yii::t('app', 'City ID'),
+            'address' => Yii::t('app', 'Address'),
+            'age' => Yii::t('app', 'Age'),
+            'contact_number' => Yii::t('app', 'Contact Number'),
+            'avatar' => Yii::t('app', 'Avatar'),
+            'is_unlimited_user' => Yii::t('app', 'Is Unlimited User'),
+            'create_datetime' => Yii::t('app', 'Create Datetime'),
+            'status' => Yii::t('app', 'Status'),
+        ];
     }
 }

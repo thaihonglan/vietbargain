@@ -1,0 +1,72 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "post".
+ *
+ * @property string $id
+ * @property string $title
+ * @property string $content
+ * @property string $user_id
+ * @property string $contact_number
+ * @property string $store_address
+ * @property string $link
+ * @property string $discount_code
+ * @property integer $is_owner
+ * @property string $image
+ * @property integer $deal_type
+ * @property string $deal_begin_date
+ * @property string $deal_end_date
+ * @property string $status
+ */
+class Post extends \app\components\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'post';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['content'], 'string'],
+            [['user_id', 'is_owner', 'deal_type', 'status'], 'integer'],
+            [['deal_begin_date', 'deal_end_date'], 'safe'],
+            [['title', 'contact_number', 'discount_code'], 'string', 'max' => 32],
+            [['store_address'], 'string', 'max' => 128],
+            [['link', 'image'], 'string', 'max' => 64]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'title' => Yii::t('app', 'Title'),
+            'content' => Yii::t('app', 'Content'),
+            'user_id' => Yii::t('app', 'User ID'),
+            'contact_number' => Yii::t('app', 'Contact Number'),
+            'store_address' => Yii::t('app', 'Store Address'),
+            'link' => Yii::t('app', 'Link'),
+            'discount_code' => Yii::t('app', 'Discount Code'),
+            'is_owner' => Yii::t('app', 'Is Owner'),
+            'image' => Yii::t('app', 'Image'),
+            'deal_type' => Yii::t('app', 'Deal Type'),
+            'deal_begin_date' => Yii::t('app', 'Deal Begin Date'),
+            'deal_end_date' => Yii::t('app', 'Deal End Date'),
+            'status' => Yii::t('app', 'Status'),
+        ];
+    }
+}
