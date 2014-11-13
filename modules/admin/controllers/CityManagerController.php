@@ -3,17 +3,15 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Admin;
+use app\models\City;
 use yii\data\ActiveDataProvider;
 use app\components\Controller;
-use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
- * AdminManagerController implements the CRUD actions for Admin model.
+ * CityManagerController implements the CRUD actions for City model.
  */
-class AdminManagerController extends Controller
+class CityManagerController extends Controller
 {
 	public function behaviors()
 	{
@@ -21,15 +19,13 @@ class AdminManagerController extends Controller
 	}
 
 	/**
-	 * Lists all Admin models.
+	 * Lists all City models.
 	 * @return mixed
 	 */
 	public function actionIndex()
 	{
-		$this->saveBacklink('admin-manager/index');
-
 		$dataProvider = new ActiveDataProvider([
-			'query' => Admin::find(),
+			'query' => City::find(),
 		]);
 
 		return $this->render('index', [
@@ -38,17 +34,16 @@ class AdminManagerController extends Controller
 	}
 
 	/**
-	 * Creates a new Admin model.
+	 * Creates a new City model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
 	public function actionCreate()
 	{
-		$model = new Admin();
-		$model->setScenario('create');
+		$model = new City();
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect([$this->getBacklink('admin-manager/index')]);
+			return $this->redirect(['view', 'id' => $model->id]);
 		} else {
 			return $this->render('create', [
 				'model' => $model,
@@ -57,32 +52,17 @@ class AdminManagerController extends Controller
 	}
 
 	/**
-	 * Updates an existing Admin model.
+	 * Updates an existing City model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id
+	 * @param string $id
 	 * @return mixed
 	 */
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
-		$model->setScenario('update');
 
-		$attributes = $model->attributes();
-		if ($post = Yii::$app->request->post('Admin')) {
-			if ($post['password'] == '') {
-				$key = array_search('password', $attributes);
-				if (false !== $key) {
-					unset($attributes[$key]);
-				}
-			}
-
-			$model->password = $post['password'];
-		} else {
-			$model->password = '';
-		}
-
-		if ($model->load(Yii::$app->request->post()) && $model->save(true, $attributes)) {
-			return $this->redirect([$this->getBacklink('admin-manager/index')]);
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->id]);
 		} else {
 			return $this->render('update', [
 				'model' => $model,
@@ -91,9 +71,9 @@ class AdminManagerController extends Controller
 	}
 
 	/**
-	 * Deletes an existing Admin model.
+	 * Deletes an existing City model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id
+	 * @param string $id
 	 * @return mixed
 	 */
 	public function actionDelete($id)
@@ -104,15 +84,15 @@ class AdminManagerController extends Controller
 	}
 
 	/**
-	 * Finds the Admin model based on its primary key value.
+	 * Finds the City model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param integer $id
-	 * @return Admin the loaded model
+	 * @param string $id
+	 * @return City the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	protected function findModel($id)
 	{
-		if (($model = Admin::findOne($id)) !== null) {
+		if (($model = City::findOne($id)) !== null) {
 			return $model;
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');
