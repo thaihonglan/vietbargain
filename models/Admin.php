@@ -138,7 +138,7 @@ class Admin extends \app\components\ActiveRecord implements \yii\web\IdentityInt
 	}
 
 	/**
-	 * Generates password hash from password and sets it to the model
+	 * Generates password hash from password
 	 *
 	 * @param string $password
 	 */
