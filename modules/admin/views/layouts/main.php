@@ -138,8 +138,8 @@ AppAsset::register($this);
 						'items' => [
 							['label' => '<i class="fa fa-dashboard fa-fw"></i> Dashboard', 'url' => ['/admin/index'], 'encode' => false],
 							['label' => '<i class="fa fa-table fa-fw"></i> Admin', 'url' => ['/admin/admin-manager/index'], 'encode' => false],
-							['label' => '<i class="fa fa-edit fa-fw"></i> Forms', 'url' => ['/admin/index'], 'encode' => false],
-							['label' => '<i class="fa fa-wrench fa-fw"></i> UI Elements', 'url' => ['/admin/index'], 'encode' => false],
+							['label' => '<i class="fa fa-edit fa-fw"></i> Post', 'url' => ['/admin/post-manager/index'], 'encode' => false],
+							['label' => '<i class="fa fa-wrench fa-fw"></i> City', 'url' => ['/admin/city-manager/index'], 'encode' => false],
 							['label' => '<i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown', 'url' => ['/admin/index'], 'encode' => false],
 							['label' => '<i class="fa fa-files-o fa-fw"></i> Sample Pages', 'url' => ['/admin/index'], 'encode' => false],
 						],
