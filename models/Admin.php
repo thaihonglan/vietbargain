@@ -126,7 +126,7 @@ class Admin extends \app\components\ActiveRecord implements \yii\web\IdentityInt
 	 */
 	public function getAuthKey()
 	{
-		return $this->auth_key;
+		return '';
 	}
 
 	/**
