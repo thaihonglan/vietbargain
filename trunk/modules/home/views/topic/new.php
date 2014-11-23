@@ -1,6 +1,35 @@
 <?php
 /* @var $this yii\web\View */
 ?>
+<script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+tinymce.init({
+	mode : "textareas",
+        plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
+        ],
+        toolbar1: "newdocument fullpage | fontselect fontsizeselect | forecolor backcolor | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect",
+        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview",
+        toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+        menubar: false,
+        toolbar_items_size: 'small',
+        style_formats: [
+                {title: 'Bold text', inline: 'b'},
+                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Table styles'},
+                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+        ],
+        templates: [
+                {title: 'Test template 1', content: 'Test 1'},
+                {title: 'Test template 2', content: 'Test 2'}
+        ]
+});
+</script>
 <div class="post">
 	<form action="#" class="form newtopic" method="post">
 		<div class="topwrap">
@@ -38,7 +67,7 @@
 				</div>
 
 				<div>
-					<textarea name="desc" id="desc" placeholder="Description"  class="form-control ckeditor"></textarea>
+					<textarea name="desc" id="desc" placeholder="Description" ></textarea>
 				</div>
 				<div class="row newtopcheckbox">
 					<div class="col-lg-6 col-md-6">
