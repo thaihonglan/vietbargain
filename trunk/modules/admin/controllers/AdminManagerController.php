@@ -8,7 +8,6 @@ use yii\data\ActiveDataProvider;
 use app\components\Controller;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * AdminManagerController implements the CRUD actions for Admin model.

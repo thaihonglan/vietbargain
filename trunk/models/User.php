@@ -25,6 +25,9 @@ use Yii;
  */
 class User extends \app\components\ActiveRecord implements \yii\web\IdentityInterface
 {
+	const STATUS_INACTIVE = 0;
+	const STATUS_ACTIVE = 1;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -73,14 +76,24 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 	}
 
 	/**
+	 * Generates password hash from password and sets it to the model
+	 *
+	 * @param string $password
+	 */
+	public function setPassword($password)
+	{
+		$this->password = $this->encryptPassword($password);
+	}
+
+	/**
 	 * Finds user by username
 	 *
 	 * @param string $username
 	 * @return static|null
 	 */
-	public static function findByUsername($username)
+	public static function findByUsername($email)
 	{
-		return static::findOne(['username' => $username]);
+		return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
 	}
 
 	/**
@@ -112,7 +125,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 	 */
 	public function getAuthKey()
 	{
-		return $this->auth_key;
+		return '';
 	}
 
 	/**
