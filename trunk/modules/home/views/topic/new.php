@@ -10,8 +10,8 @@ tinymce.init({
                 "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
                 "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
         ],
-        toolbar1: "newdocument fullpage | fontselect | fontsizeselect | forecolor | backcolor | styleselect | formatselect",
-        toolbar2: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify",
+        toolbar1: "newdocument fullpage | fontselect | fontsizeselect | styleselect | formatselect",
+        toolbar2: "forecolor | backcolor | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify",
         toolbar3: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview",
         toolbar4: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
         menubar: false,
