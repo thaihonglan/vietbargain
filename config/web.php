@@ -7,6 +7,8 @@ $config = [
 	'basePath' => dirname(__DIR__),
 	'bootstrap' => ['log'],
 
+	'language' => 'en-US',
+
 	'modules' => [
 		'admin' => [
 			'class' => 'app\modules\admin\Module',
@@ -33,50 +35,43 @@ $config = [
 			'class' => 'app\components\mailSender',
 		],
 
-// 		'assetManager' => [
-// 			'class' => 'yii\web\AssetManager',
-// 			'basePath' => '@webroot',
-// 			'baseUrl' => '@web',
-// 			'bundles' => [
-// 				'class' => 'app\assets\AppAsset',
-// 				'app\modules\admin\assets\AppAsset' => [ // Custom Theme JavaScript
-// 					'js' => ['js/sb-admin-2.js'],
-// 					'depends' => [
-// 						'bootstrap',
-// 						'metisMenu',
-// 						'dataTables',
-// 						'morris',
-// 						'flot',
-// 					]
-// 				],
-// 				'jquery' => [
-// 					'js' => ['js/jquery.js'],
-// 				],
-// 				'bootstrap' => [
-// 					'js' => ['js/bootstrap.min.js'],
-// 					'depends' => ['jquery']
-// 				],
-// 				'metisMenu' => [ // Metis Menu Plugin JavaScript
-// 					'js' => ['js/plugins/metisMenu/metisMenu.min.js'],
-// 					'depends' => ['jquery']
-// 				],
-// 				'dataTables' => [ // DataTables JavaScript
-// 					'js' => [
-// 						'js/plugins/dataTables/jquery.dataTables.js',
-// 						'js/plugins/dataTables/dataTables.bootstrap.js'
-// 					],
-// 					'depends' => ['jquery']
-// 				],
-// 				'morris' => [ // Morris Charts JavaScript
-// 					'js' => ['js/bootstrap.min.js'],
-// 					'depends' => ['jquery']
-// 				],
-// 				'flot' => [ // Flot Charts JavaScript
-// 					'js' => ['js/bootstrap.min.js'],
-// 					'depends' => ['jquery']
-// 				],
-// 			],
-// 		],
+		'assetManager' => [
+			'class' => 'yii\web\AssetManager',
+			'bundles' => [
+				'yii\web\JqueryAsset' => [
+					'basePath' => '@webroot/plugins/jquery',
+					'baseUrl' => '@web/plugins/jquery',
+				],
+				'bootstrap' => [
+					'class' => 'yii\bootstrap\BootstrapAsset',
+					'basePath' => '@webroot/plugins/bootstrap',
+					'baseUrl' => '@web/plugins/bootstrap',
+					'js' => [YII_ENV_DEV ? 'js/bootstrap.js' : 'js/bootstrap.min.js'],
+					'css' => [YII_ENV_DEV ? 'css/bootstrap.css' : 'css/bootstrap.min.css'],
+				],
+				'metisMenu' => [ // Metis Menu Plugin
+					'class' => 'app\assets\MetisMenuAsset',
+				],
+				'dataTables' => [ // DataTables
+					'class' => 'app\assets\DataTablesAsset',
+				],
+				'morris' => [ // Morris Charts JavaScript
+					'class' => 'app\assets\MorrisAsset',
+				],
+				'flot' => [ // Flot Charts JavaScript
+					'class' => 'app\assets\FlotAsset',
+				],
+				'fontAwesome' => [ // Flot Charts JavaScript
+					'class' => 'app\assets\FontAwesomeAsset',
+				],
+				'socialButtons' => [ // Flot Charts JavaScript
+					'class' => 'app\assets\SocialButtonsAsset',
+				],
+				'sliderRevolution' => [ // Slider Revolution
+					'class' => 'app\assets\SliderRevolutionAsset',
+				],
+			],
+		],
 
 		'request' => [
 			// !!! insert a secret key in the following (if it is empty) - this is required by cookie validation

@@ -8,12 +8,12 @@ use Yii;
  * This is the model class for table "post_type".
  *
  * @property string $id
- * @property string $name
- * @property string $column_name
+ * @property string $name_vi
+ * @property string $name_en
  * @property integer $is_parent
  * @property string $parent_id
  */
-class Post_type extends \app\components\ActiveRecord
+class PostType extends \app\components\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -29,8 +29,9 @@ class Post_type extends \app\components\ActiveRecord
     public function rules()
     {
         return [
+            [['name_vi', 'name_en'], 'required'],
             [['is_parent', 'parent_id'], 'integer'],
-            [['name', 'column_name'], 'string', 'max' => 32]
+            [['name_vi', 'name_en'], 'string', 'max' => 64]
         ];
     }
 
@@ -41,8 +42,8 @@ class Post_type extends \app\components\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'column_name' => Yii::t('app', 'Column Name'),
+            'name_vi' => Yii::t('app', 'Name Vi'),
+            'name_en' => Yii::t('app', 'Name En'),
             'is_parent' => Yii::t('app', 'Is Parent'),
             'parent_id' => Yii::t('app', 'Parent ID'),
         ];

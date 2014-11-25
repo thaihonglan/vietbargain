@@ -3,15 +3,16 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\City;
+use app\models\PostType;
 use yii\data\ActiveDataProvider;
 use app\components\Controller;
 use yii\web\NotFoundHttpException;
+use app\models\Post_type;
 
 /**
- * CityManagerController implements the CRUD actions for City model.
+ * PostTypeManagerController implements the CRUD actions for PostType model.
  */
-class CityManagerController extends Controller
+class PostTypeManagerController extends Controller
 {
 	public function behaviors()
 	{
@@ -19,28 +20,40 @@ class CityManagerController extends Controller
 	}
 
 	/**
-	 * Lists all City models.
+	 * Lists all PostType models.
 	 * @return mixed
 	 */
 	public function actionIndex()
 	{
+		$model = new PostType();
+// 		print_r($model);exit;
 		$dataProvider = new ActiveDataProvider([
-			'query' => City::find(),
+			'query' => PostType::find(),
 		]);
 
+		$this->getPostTypeJsTree();
+
 		return $this->render('index', [
-			'dataProvider' => $dataProvider,
+			'model' => $model,
+			'data' => $this->getPostTypeJsTree(),
 		]);
 	}
 
 	/**
-	 * Creates a new City model.
+	 * Creates a new PostType model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
-	public function actionCreate()
+	public function actionCreate($id = 0)
 	{
-		$model = new City();
+		if ($id != "0") {
+			if (!PostType::find()->where(['id' => $id])->exists()) {
+				throw new NotFoundHttpException('Invalid ID.');
+			}
+		}
+
+		$model = new PostType();
+		$model->parent_id = $id;
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['view', 'id' => $model->id]);
@@ -52,7 +65,7 @@ class CityManagerController extends Controller
 	}
 
 	/**
-	 * Updates an existing City model.
+	 * Updates an existing PostType model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param string $id
 	 * @return mixed
@@ -71,7 +84,7 @@ class CityManagerController extends Controller
 	}
 
 	/**
-	 * Deletes an existing City model.
+	 * Deletes an existing PostType model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param string $id
 	 * @return mixed
@@ -84,18 +97,36 @@ class CityManagerController extends Controller
 	}
 
 	/**
-	 * Finds the City model based on its primary key value.
+	 * Finds the PostType model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
 	 * @param string $id
-	 * @return City the loaded model
+	 * @return PostType the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	protected function findModel($id)
 	{
-		if (($model = City::findOne($id)) !== null) {
+		if (($model = PostType::findOne($id)) !== null) {
 			return $model;
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');
 		}
+	}
+
+	protected function getPostTypeJsTree()
+	{
+		$postTypeList = PostType::find()->all();
+		list($lang) = explode('-', \Yii::$app->language);
+
+		$data = [];
+
+		foreach ($postTypeList as $type) {
+			$data[] = [
+				'id' => $type['id'],
+				'parent' => ($type['parent_id'] != 0) ? $type['parent_id'] : '#',
+				'text' => $type['name_' . $lang]
+			];
+		}
+
+		return $data;
 	}
 }
