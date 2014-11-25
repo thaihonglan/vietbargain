@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use app\modules\admin\assets\AppAsset;
+use app\modules\admin\AppAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -143,7 +143,7 @@ AppAsset::register($this);
 							['label' => '<i class="fa fa-dashboard fa-fw"></i> Dashboard', 'url' => ['/admin/index'], 'encode' => false],
 							['label' => '<i class="fa fa-table fa-fw"></i> Admin', 'url' => ['/admin/admin-manager/index'], 'encode' => false],
 							['label' => '<i class="fa fa-edit fa-fw"></i> Post', 'url' => ['/admin/post-manager/index'], 'encode' => false],
-							['label' => '<i class="fa fa-wrench fa-fw"></i> City', 'url' => ['/admin/city-manager/index'], 'encode' => false],
+							['label' => '<i class="fa fa-wrench fa-fw"></i> Post type', 'url' => ['/admin/post-type-manager/index'], 'encode' => false],
 							['label' => '<i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown', 'url' => ['/admin/index'], 'encode' => false],
 							['label' => '<i class="fa fa-files-o fa-fw"></i> Sample Pages', 'url' => ['/admin/index'], 'encode' => false],
 						],

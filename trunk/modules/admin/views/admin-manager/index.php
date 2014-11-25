@@ -6,6 +6,8 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$this->registerAssetBundle('dataTables');
+
 $this->title = Yii::t('app', 'Admins Manager');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
