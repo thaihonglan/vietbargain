@@ -42,10 +42,45 @@ class PostType extends \app\components\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name_vi' => Yii::t('app', 'Name Vi'),
-            'name_en' => Yii::t('app', 'Name En'),
+            'name_vi' => Yii::t('app', 'Vietnamese Name'),
+            'name_en' => Yii::t('app', 'English Name'),
             'is_parent' => Yii::t('app', 'Is Parent'),
             'parent_id' => Yii::t('app', 'Parent ID'),
         ];
+    }
+
+    public function scenarios()
+    {
+        return [
+            'create' => ['name_vi', 'name_en'],
+            'update' => ['name_vi', 'name_en'],
+        ];
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        if ($this->parent_id != 0) {
+            $parent = self::findOne(['id' => $this->parent_id]);
+
+            if ($parent->is_parent == 0) {
+                if ($insert || self::find()->where(['is_parent' => $parent->id])->exists()) {
+                    $connection = \Yii::$app->db;
+                    $connection->createCommand()->update(self::tableName(), ['is_parent' => 1], ['id' => $parent->id])->execute();
+                }
+            }
+        }
+    }
+
+    public function getName()
+    {
+        static $lang;
+
+        if (!$lang) {
+            list($lang) = explode('-', \Yii::$app->language);
+        }
+
+        return $this->{'name_' . $lang};
     }
 }

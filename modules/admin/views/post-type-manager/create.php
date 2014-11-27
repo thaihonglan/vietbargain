@@ -14,23 +14,23 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="col-lg-12 post-type-create">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			Create Post Type form
-		</div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Create Post Type form (parent: <strong><?= $parentName ?></strong>)
+        </div>
 
-		<div class="panel-body admin-create">
-			<div class="row">
-				<div class="col-lg-6">
+        <div class="panel-body admin-create">
+            <div class="row">
+                <div class="col-lg-6">
 
-					<?= $this->render('_form', [
-						'model' => $model,
-					]) ?>
+                    <?= $this->render('_form', [
+                        'model' => $model,
+                    ]) ?>
 
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
 
-	</div>
+    </div>
 </div>
 <!-- /.col-lg-12 -->
