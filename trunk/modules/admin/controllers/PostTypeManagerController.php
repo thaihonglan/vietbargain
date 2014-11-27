@@ -47,19 +47,28 @@ class PostTypeManagerController extends Controller
     public function actionCreate($id = 0)
     {
         if ($id != "0") {
-            if (!PostType::find()->where(['id' => $id])->exists()) {
-                throw new NotFoundHttpException('Invalid ID.');
+            if (!$parentPostType = PostType::find()->where(['id' => $id])->one()) {
+                $id = 0;
             }
         }
 
+        if ($id != 0) {
+            $parentName = $parentPostType->getName();
+        } else {
+            $parentName = 'Root';
+        }
+
         $model = new PostType();
+        $model->setScenario('create');
+
         $model->parent_id = $id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'parentName' => $parentName,
             ]);
         }
     }
@@ -73,9 +82,10 @@ class PostTypeManagerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,

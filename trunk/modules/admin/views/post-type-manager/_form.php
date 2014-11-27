@@ -12,9 +12,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'is_parent')->textInput() ?>
-
-    <?= $form->field($model, 'parent_id')->textInput(['maxlength' => 8]) ?>
+<?php
+    foreach (Yii::$app->params['languages'] as $code => $name):
+        list($shortCode) = explode('-', $code);
+?>
+    <?= $form->field($model, 'name_' . $shortCode)->textInput() ?>
+<?php endforeach; ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

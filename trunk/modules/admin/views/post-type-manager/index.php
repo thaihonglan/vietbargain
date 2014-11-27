@@ -46,18 +46,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="panel-body">
             <div class="table-responsive">
-        <?= JsTree::widget([
-            'attribute' => 'is_parent',
-            'model' => $model,
-            'checkbox' => false,
-            'core' => [
-                'data' => $data,
-            ],
-            'bindChanged' => [
-                ['type' => 'val', 'selector' => 'input[name=id]', 'attribute' => 'id'],
-                ['type' => 'html', 'selector' => '#addForm a.submit-button', 'attribute' => 'text', 'stringReplace' => 'Create Post Type from {data}'],
-            ]
-        ]); ?>
+                <?= JsTree::widget([
+                    'attribute' => 'is_parent',
+                    'model' => $model,
+                    'checkbox' => false,
+                    'core' => [
+                        'data' => $data,
+                    ],
+                    'bindChanged' => [
+                        ['type' => 'val', 'selector' => 'input[name=id]', 'attribute' => 'id'],
+                        ['type' => 'html', 'selector' => '#addForm a.submit-button', 'attribute' => 'text', 'stringReplace' => 'Create Post Type belong to {data}'],
+                        ['type' => 'html', 'selector' => '#updateForm a.submit-button', 'attribute' => 'text', 'stringReplace' => 'Update Post Type [{data}]'],
+                    ]
+                ]); ?>
 
             </div>
             <!-- /.table-responsive -->
