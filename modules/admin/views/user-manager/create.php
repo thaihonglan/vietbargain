@@ -4,20 +4,19 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\PostType */
+/* @var $model app\models\User */
 
-$this->title = Yii::t('app', 'Create {modelClass}: parent - {parentName}', [
-	'modelClass' => 'Post Type',
-	'parentName' => $parentName
+$this->title = Yii::t('app', 'Create {modelClass}', [
+    'modelClass' => 'User',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Post Types'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="col-lg-12 post-type-create">
+<div class="col-lg-12 user-create">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			Create Post Type
+			Create User form
 		</div>
 
 		<div class="panel-body admin-create">

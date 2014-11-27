@@ -3,19 +3,19 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\PostType */
+/* @var $model app\models\User */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
-	'modelClass' => 'Post Type',
-]) . ' ' . $model->getName();
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Post Types'), 'url' => ['index']];
+    'modelClass' => 'User',
+]) . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="col-lg-12 post-type-update">
+<div class="col-lg-12 user-update">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			Update Post Type form
+			Update User form
 		</div>
 
 		<div class="panel-body admin-create">
