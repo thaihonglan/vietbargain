@@ -50,7 +50,11 @@ tinymce.init({
 			<div class="posttext pull-left">
 
 				<div>
-					<input type="text" placeholder="Enter Topic Title" class="form-control" />
+					<?= $form->field($model, 'title', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Enter Topic Title']) ?>
+				</div>
+
+				<div>
+					<?= $form->field($model, 'content', ['template' => '{input} {error}'])->textarea(['placeholder' => 'Content']) ?>
 				</div>
 
 				<div class="row">
@@ -62,17 +66,10 @@ tinymce.init({
 						</select>
 					</div>
 					<div class="col-lg-6 col-md-6">
-						<select name="subcategory" id="subcategory"  class="form-control" >
-							<option value="" disabled selected>Select Subcategory</option>
-							<option value="op1">Option1</option>
-							<option value="op2">Option2</option>
-						</select>
+						<?= $form->field($model, 'dealType', ['template' => '{input} {error}'])->dropDownList($model->getDealTypeOptions(), ['prompt' => 'Please choose deal type']) ?>
 					</div>
 				</div>
 
-				<div>
-					<textarea name="desc" id="desc" placeholder="Description" ></textarea>
-				</div>
 				<div class="row newtopcheckbox">
 					<div class="col-lg-6 col-md-6">
 						<div><p>Who can see this?</p></div>
