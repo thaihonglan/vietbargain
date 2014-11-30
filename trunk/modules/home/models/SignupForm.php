@@ -62,7 +62,6 @@ class SignupForm extends Model
 			$user->city_id = $this->city;
 			$user->status = User::STATUS_INACTIVE;
 
-			print_r($user);
 			if ($this->age) {
 				$user->age = $this->age;
 			}
