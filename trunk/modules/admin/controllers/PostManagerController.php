@@ -13,6 +13,8 @@ use yii\web\NotFoundHttpException;
  */
 class PostManagerController extends Controller
 {
+	public $defaultAction = 'index';
+
 	public function behaviors()
 	{
 		return [];

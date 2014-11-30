@@ -13,33 +13,33 @@ use Yii;
  */
 class DealType extends \app\components\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'deal_type';
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName()
+	{
+		return 'deal_type';
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['name_vi', 'name_en'], 'string', 'max' => 64]
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+			[['name_vi', 'name_en'], 'string', 'max' => 64]
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'name_vi' => Yii::t('app', 'Name Vi'),
-            'name_en' => Yii::t('app', 'Name En'),
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'id' => Yii::t('app', 'ID'),
+			'name_vi' => Yii::t('app', 'Vietnames Name'),
+			'name_en' => Yii::t('app', 'English Name'),
+		];
+	}
 }

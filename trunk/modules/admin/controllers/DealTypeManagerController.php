@@ -13,6 +13,8 @@ use yii\web\NotFoundHttpException;
  */
 class DealTypeManagerController extends Controller
 {
+	public $defaultAction = 'index';
+
 	public function behaviors()
 	{
 		return [];
@@ -43,7 +45,7 @@ class DealTypeManagerController extends Controller
 		$model = new DealType();
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+			return $this->redirect(['index', 'id' => $model->id]);
 		} else {
 			return $this->render('create', [
 				'model' => $model,
@@ -62,7 +64,7 @@ class DealTypeManagerController extends Controller
 		$model = $this->findModel($id);
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+			return $this->redirect(['index']);
 		} else {
 			return $this->render('update', [
 				'model' => $model,
