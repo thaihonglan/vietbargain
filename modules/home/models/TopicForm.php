@@ -3,6 +3,8 @@ namespace app\modules\home\models;
 
 use yii\base\Model;
 use Yii;
+use app\models\DealType;
+use yii\helpers\ArrayHelper;
 
 /**
  * Signup form
@@ -55,5 +57,18 @@ class TopicForm extends Model
 		}
 
 		return null;
+	}
+
+	public function getDealTypeOptions()
+	{
+		static $options = null;
+
+		if ($options === null) {
+			list($lang) = explode('-', \Yii::$app->language);
+			$dealTypeList = DealType::find()->all();
+			$options = ArrayHelper::map($dealTypeList, 'id', 'name_' . $lang);
+		}
+
+		return $options;
 	}
 }
