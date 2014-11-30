@@ -4,48 +4,35 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\admin\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Users');
+$this->title = Yii::t('admin', 'Deal Types');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<?= Yii::t('admin', 'test') ?>
 <p>
-	<?= Html::a(Yii::t('app', 'Create {modelClass}', [
-	'modelClass' => 'User',
+	<?= Html::a(Yii::t('admin', 'Create {modelClass}', [
+	'modelClass' => 'Deal Type',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
 </p>
 
-<div class="col-lg-12 user-index">
+<div class="col-lg-12 deal-type-index">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			User list
+			Deal Type list
 		</div>
 		<!-- /.panel-heading -->
 
 		<div class="panel-body">
 			<div class="table-responsive">
 
-	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
-		'filterModel' => $searchModel,
 		'columns' => [
-			'email:email',
-			'facebook_login_id',
-			'first_name',
-			'last_name',
-			'identifier',
-			// 'city_id',
-			'address',
-			'age',
-			'contact_number',
-			// 'avatar',
-			// 'is_unlimited_user',
-			// 'create_datetime',
-			// 'status',
+			'id',
+			'name_vi',
+			'name_en',
 
 			[
 				'class' => 'yii\grid\ActionColumn',

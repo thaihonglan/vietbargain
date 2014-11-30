@@ -7,7 +7,8 @@ $config = [
 	'basePath' => dirname(__DIR__),
 	'bootstrap' => ['log'],
 
-	'language' => 'en-US',
+// 	'language' => 'en-US',
+	'language' => 'vi-VN',
 
 	'modules' => [
 		'admin' => [
@@ -18,6 +19,7 @@ $config = [
 		],
 	// ...
 	],
+
 	'components' => [
 		'urlManager' => [
 			'class' => 'yii\web\UrlManager',
@@ -73,9 +75,32 @@ $config = [
 			],
 		],
 
+		'i18n' => [
+			'translations' => [
+				'admin*' => [
+					'class' => 'yii\i18n\PhpMessageSource',
+					'basePath' => '@app/modules/admin/messages',
+					'sourceLanguage' => 'en-US',
+					'fileMap' => [
+						'admin' => 'main.php',
+						'admin/error' => 'error.php',
+					],
+				],
+				'home*' => [
+					'class' => 'yii\i18n\PhpMessageSource',
+					'basePath' => '@app/modules/home/messages',
+					'sourceLanguage' => 'en-US',
+					'fileMap' => [
+						'home' => 'main.php',
+						'home/error' => 'error.php',
+					],
+				],
+			],
+		],
+
 		'request' => [
 			// !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-			'cookieValidationKey' => 'efaewfawegewg',
+			'cookieValidationKey' => 'thisisaproductofkm',
 		],
 
 		'cache' => [
