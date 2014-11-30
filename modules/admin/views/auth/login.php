@@ -54,7 +54,7 @@ AppAsset::register($this);
 								<?= $form->field($model, 'rememberMe', ['template' => '<div class="checkbox">{input} {label}</div>'])->checkbox() ?>
 
 								<!-- Change this to a button or input when using this as a form -->
-								<a href="javascript:$('form').submit();" class="btn btn-lg btn-success btn-block">Login</a>
+								<a href="javascript:void(0)" class="btn btn-lg btn-success btn-block" onClick="$('form').submit();">Login</a>
 							</fieldset>
 
 						<?php ActiveForm::end(); ?>

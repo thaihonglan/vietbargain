@@ -11,7 +11,7 @@ class TopicForm extends Model
 {
 	public $title;
 	public $content;
-	public $type;
+	public $postType;
 	public $contactNumber;
 	public $storeAddress;
 	public $link;
@@ -27,12 +27,19 @@ class TopicForm extends Model
 	public function rules()
 	{
 		return [
-			[['title', 'content', 'type', 'discountCode', 'dealType', 'dealBeginDate', 'dealEndDate'], 'required'],
-			[['title'], 'string', 'max' => 32],
+			[['title', 'discountCode'], 'filter', 'filter' => 'trim'],
+
+			[['title', 'content', 'postType', 'discountCode', 'dealType', 'dealBeginDate', 'dealEndDate'], 'required'],
+			[['title', 'discountCode'], 'string', 'max' => 32],
+			['link', 'url'],
+			['isOwner', 'boolean'],
 			[['dealBeginDate', 'dealEndDate'], 'date', 'format' => 'd-m-Y'],
 
-			['type', 'exist', 'targetClass' => '\app\models\PostType', 'message' => 'This email address has already been taken.'],
-// 			['city', 'exist', 'targetClass' => '\app\models\City', 'targetAttribute' => 'id'],
+			['dealBeginDate', 'compare', 'compareAttribute' => 'dealEndDate', 'operator' => '<=', 'skipOnEmpty' => true],
+			['dealEndDate', 'compare', 'compareAttribute' => 'dealBeginDate', 'operator' => '>='],
+
+			['postType', 'exist', 'targetClass' => '\app\models\PostType'],
+			['dealType', 'exist', 'targetClass' => '\app\models\DealType'],
 		];
 	}
 

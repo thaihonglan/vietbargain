@@ -9,7 +9,7 @@ use yii\grid\GridView;
 $this->title = Yii::t('admin', 'Deal Types');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?= Yii::t('admin', 'test') ?>
+
 <p>
 	<?= Html::a(Yii::t('admin', 'Create {modelClass}', [
 	'modelClass' => 'Deal Type',
@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'columns' => [
-			'id',
 			'name_vi',
 			'name_en',
 

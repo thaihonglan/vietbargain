@@ -14,6 +14,8 @@ use yii\web\NotFoundHttpException;
  */
 class AdminManagerController extends Controller
 {
+	public $defaultAction = 'index';
+
 	public function behaviors()
 	{
 		return [];

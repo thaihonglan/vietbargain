@@ -13,6 +13,8 @@ use yii\web\NotFoundHttpException;
  */
 class UserManagerController extends Controller
 {
+	public $defaultAction = 'index';
+
 	public function behaviors()
 	{
 		return [];

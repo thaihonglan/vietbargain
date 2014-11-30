@@ -19,7 +19,7 @@ use Yii;
  * @property integer $age
  * @property string $contact_number
  * @property string $avatar
- * @property integer $is_unlimited_user
+ * @property integer $is_power
  * @property string $create_datetime
  * @property integer $status
  */
@@ -42,7 +42,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 	public function rules()
 	{
 		return [
-			[['city_id', 'age', 'is_unlimited_user', 'status'], 'integer'],
+			[['city_id', 'age', 'is_power', 'status'], 'integer'],
 			[['contact_number'], 'required'],
 			[['create_datetime'], 'safe'],
 			[['email', 'facebook_login_id', 'first_name', 'last_name', 'identifier', 'contact_number'], 'string', 'max' => 32],
@@ -69,7 +69,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 			'age' => Yii::t('app', 'Age'),
 			'contact_number' => Yii::t('app', 'Contact Number'),
 			'avatar' => Yii::t('app', 'Avatar'),
-			'is_unlimited_user' => Yii::t('app', 'Is Unlimited User'),
+			'is_power' => Yii::t('app', 'Is Power User'),
 			'create_datetime' => Yii::t('app', 'Create Datetime'),
 			'status' => Yii::t('app', 'Status'),
 		];
