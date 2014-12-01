@@ -1,5 +1,6 @@
 <?php
 use yii\widgets\ActiveForm;
+use app\widgets\chosen\Chosen;
 
 /* @var $this yii\web\View */
 ?>
@@ -59,11 +60,12 @@ tinymce.init({
 
 				<div class="row">
 					<div class="col-lg-6 col-md-6">
-						<select name="category" id="category"  class="form-control" >
-							<option value="" disabled selected>Select Category</option>
-							<option value="op1">Option1</option>
-							<option value="op2">Option2</option>
-						</select>
+						<?= Chosen::widget([
+							'model' => $model,
+							'attribute' => 'postType',
+							'items' => [1 => 'First item', 2 => 'Second item', [10 => 'Third one', 11 => 'Third two']],
+							'multiple' => true,
+						]);?>
 					</div>
 					<div class="col-lg-6 col-md-6">
 						<?= $form->field($model, 'dealType', ['template' => '{input} {error}'])->dropDownList($model->getDealTypeOptions(), ['prompt' => 'Please choose deal type']) ?>

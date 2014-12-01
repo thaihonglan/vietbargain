@@ -16,6 +16,7 @@ class TopicController extends \app\components\Controller
 		}
 
 		$model = new TopicForm();
+		$model->getPostTypeOptions();
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['show']);
 		} else {
