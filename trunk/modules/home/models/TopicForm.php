@@ -5,6 +5,7 @@ use yii\base\Model;
 use Yii;
 use app\models\DealType;
 use yii\helpers\ArrayHelper;
+use app\models\PostType;
 
 /**
  * Signup form
@@ -23,6 +24,8 @@ class TopicForm extends Model
 	public $dealBeginDate;
 	public $dealEndDate;
 
+	private $_lang = null;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -40,8 +43,8 @@ class TopicForm extends Model
 			['dealBeginDate', 'compare', 'compareAttribute' => 'dealEndDate', 'operator' => '<=', 'skipOnEmpty' => true],
 			['dealEndDate', 'compare', 'compareAttribute' => 'dealBeginDate', 'operator' => '>='],
 
-			['postType', 'exist', 'targetClass' => '\app\models\PostType'],
-			['dealType', 'exist', 'targetClass' => '\app\models\DealType'],
+			['postType', 'exist', 'targetClass' => '\app\models\PostType', 'targetAttribute' => 'id'],
+			['dealType', 'exist', 'targetClass' => '\app\models\DealType', 'targetAttribute' => 'id'],
 		];
 	}
 
@@ -64,11 +67,68 @@ class TopicForm extends Model
 		static $options = null;
 
 		if ($options === null) {
-			list($lang) = explode('-', \Yii::$app->language);
+			$options = [];
 			$dealTypeList = DealType::find()->all();
-			$options = ArrayHelper::map($dealTypeList, 'id', 'name_' . $lang);
+			$options = ArrayHelper::map($dealTypeList, 'id', 'name_' . $this->getLang());
 		}
 
 		return $options;
+	}
+
+	public function getPostTypeOptions()
+	{
+		static $options = null;
+
+		if ($options === null) {
+			$options = [];
+			$postTypeList = PostType::find()->all();
+
+			$names = [];
+			$array = [];
+
+			foreach ($postTypeList as $type) {
+				$names[$type->id] = $type->{'name_' . $this->getLang()};
+				$array[$type->parent_id][] =  $type->id;
+			}
+
+			foreach ($array as $parent_id => $id) {
+				if ($parent_id != 0) {
+					if (is_array($id)) {
+						$options[$names[$parent_id]] = [];
+					}
+				}
+			}
+			print_r($options);
+		}
+
+		return $options;
+	}
+
+	private function _loopOptions($options, $deep, &$array, &$names)
+	{
+		$return = [];
+		foreach ($array as $parent_id => $id) {
+			if ($parent_id == 0) {
+				if (is_array($id)) {
+					$return[$names[$parent_id]] = $this->_loopOptions($id, ++$deep, $array, $names);
+				} else {
+					if (isset($array[$id])) {
+
+					} else {
+						$return[$parent_id] = $names[$id];
+					}
+				}
+			}
+		}
+		return $return;
+	}
+
+	private function getLang()
+	{
+		if ($this->_lang === null) {
+			list($this->_lang) = explode('-', \Yii::$app->language);
+		}
+
+		return $this->_lang;
 	}
 }
