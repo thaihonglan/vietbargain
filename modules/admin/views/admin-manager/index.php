@@ -8,11 +8,11 @@ use yii\grid\GridView;
 
 $this->registerAssetBundle('dataTables');
 
-$this->title = Yii::t('app', 'Admins Manager');
+$this->title = Yii::t('admin', 'Admins Manager');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <p>
-<?= Html::a(Yii::t('app', 'Create {modelClass}', [
+<?= Html::a(Yii::t('admin', 'Create {modelClass}', [
 	'modelClass' => 'Admin',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
 </p>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="col-lg-12">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			Admin list
+			<?php echo Yii::t('admin', 'Admin list'); ?>
 		</div>
 		<!-- /.panel-heading -->
 
@@ -63,7 +63,8 @@ $this->params['breadcrumbs'][] = $this->title;
 				'template' => '{update}',
 				'buttons' => [
 					'update' => function($url, $model) {
-						return '<a href="' . $url . '"><button type="button" class="btn btn-primary">Update</button></a>';
+						return '<a href="' . $url . '"><button type="button" class="btn btn-primary">
+			    Cập nhật</button></a>';
 					},
 				],
 			],

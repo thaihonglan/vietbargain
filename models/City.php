@@ -39,10 +39,10 @@ class City extends \app\components\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'code' => Yii::t('app', 'Code'),
-            'zip' => Yii::t('app', 'Zip'),
+            'id' => Yii::t('admin', 'ID'),
+            'name' => Yii::t('admin', 'Name'),
+            'code' => Yii::t('admin', 'Code'),
+            'zip' => Yii::t('admin', 'Zip'),
         ];
     }
 }

@@ -53,15 +53,15 @@ class Admin extends \app\components\ActiveRecord implements \yii\web\IdentityInt
 	public function attributeLabels()
 	{
 		return [
-			'id' => Yii::t('app', 'ID'),
-			'username' => Yii::t('app', 'Username'),
-			'password' => Yii::t('app', 'Password'),
-			'first_name' => Yii::t('app', 'First Name'),
-			'last_name' => Yii::t('app', 'Last Name'),
-			'has_admin_authority' => Yii::t('app', 'Has Admin Authority'),
-			'has_user_authority' => Yii::t('app', 'Has User Authority'),
-			'has_deal_authority' => Yii::t('app', 'Has Deal Authority'),
-			'has_dashboard_authority' => Yii::t('app', 'Has Dashboard Authority'),
+			'id' => Yii::t('admin', 'ID'),
+			'username' => Yii::t('admin', 'Username'),
+			'password' => Yii::t('admin', 'Password'),
+			'first_name' => Yii::t('admin', 'First Name'),
+			'last_name' => Yii::t('admin', 'Last Name'),
+			'has_admin_authority' => Yii::t('admin', 'Has Admin Authority'),
+			'has_user_authority' => Yii::t('admin', 'Has User Authority'),
+			'has_deal_authority' => Yii::t('admin', 'Has Deal Authority'),
+			'has_dashboard_authority' => Yii::t('admin', 'Has Dashboard Authority'),
 		];
 	}
 
