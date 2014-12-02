@@ -1,14 +1,14 @@
 <?php
 use yii\widgets\ActiveForm;
-use yii\helpers\Html;
+use yii\captcha\Captcha;
 
 /* @var $this yii\web\View */
 ?>
 
 <div class="post">
-    <?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic', 'id' => 'login-form']]); ?>
+    <?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic', 'id' => 'forget-password-form']]); ?>
         <div class="postinfotop">
-            <h2>Login</h2>
+            <h2>Recover password</h2>
         </div>
 
         <div class="login-panel panel panel-default">
@@ -16,15 +16,12 @@ use yii\helpers\Html;
                 <fieldset>
                     <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email']) ?>
 
-                    <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Password']) ?>
-                    <!-- Change this to a button or input when using this as a form -->
-                    <a href="javascript:$('form#login-form').submit();" class="btn btn-lg btn-success btn-block">Login</a>
-                </fieldset>
+                    <?= $form->field($model, 'captcha')->widget(Captcha::className(), ['options' => ['class' => 'form-control', 'placeholder' => 'Captcha']]) ?>
 
-                <?= Html::a('Forget password?', ['recover-password']) ?>
+                    <!-- Change this to a button or input when using this as a form -->
+                    <a href="javascript:$('form#forget-password-form').submit();" class="btn btn-lg btn-success btn-block">Send</a>
+                </fieldset>
             </div>
         </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>
