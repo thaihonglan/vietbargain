@@ -63,7 +63,7 @@ tinymce.init({
 						<?= Chosen::widget([
 							'model' => $model,
 							'attribute' => 'postType',
-							'items' => [1 => 'First item', 2 => 'Second item', [10 => 'Third one', 11 => 'Third two']],
+							'items' => $model->getPostTypeOptions(),
 							'multiple' => true,
 						]);?>
 					</div>

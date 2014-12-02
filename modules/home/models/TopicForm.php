@@ -83,40 +83,21 @@ class TopicForm extends Model
 			$options = [];
 			$postTypeList = PostType::find()->all();
 
-			$names = [];
-			$array = [];
-
-			foreach ($postTypeList as $type) {
-				$names[$type->id] = $type->{'name_' . $this->getLang()};
-				$array[$type->parent_id][] =  $type->id;
-			}
-
-			foreach ($array as $parent_id => $id) {
-				if ($parent_id != 0) {
-					if (is_array($id)) {
-						$options[$names[$parent_id]] = [];
-					}
-				}
-			}
-			print_r($options);
+			$options = $this->_loopOptions($postTypeList);
 		}
 
 		return $options;
 	}
 
-	private function _loopOptions($options, $deep, &$array, &$names)
+	private function _loopOptions(&$options, $parent_id = 0)
 	{
 		$return = [];
-		foreach ($array as $parent_id => $id) {
-			if ($parent_id == 0) {
-				if (is_array($id)) {
-					$return[$names[$parent_id]] = $this->_loopOptions($id, ++$deep, $array, $names);
+		foreach ($options as $key => $option) {
+			if ($option->parent_id == $parent_id) {
+				if ($option->is_parent) {
+					$return[$option->{'name_'.$this->getLang()}] = $this->_loopOptions($options, $option->id);
 				} else {
-					if (isset($array[$id])) {
-
-					} else {
-						$return[$parent_id] = $names[$id];
-					}
+					$return[$option->id] = $option->{'name_'.$this->getLang()};
 				}
 			}
 		}
