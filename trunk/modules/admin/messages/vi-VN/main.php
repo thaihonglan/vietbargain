@@ -18,4 +18,27 @@
  */
 return [
 	'test' => 'thu do ma',
+/* Admin model */
+    'Admins manager' => 'Quản lý tài khoản Quản Trị Viên',
+    'Admin list' => 'Danh sách quản trị viên',
+    'Admin' => 'Quản Trị Viên',
+    'create' => 'Tạo ',
+    'Update' => 'Cập nhật',
+    'Username' => 'Tài khoản',
+    'Password' => 'Mật khẩu',
+    'First Name' => 'Tên',
+    'Last Name' => 'Họ',
+    'Has Admin Authority' => 'Có quyền Quản Trị',
+    'Has User Authority' => 'Là người dùng',
+    'Has Deal Authority' => 'Tạo Deal',
+    'Has Dashboard Authority' => 'Tạo bảng điều khiển',
+
+/* City model */
+    'Name' => 'Tỉnh/Thành phố',
+    'Code' => 'Mã tỉnh/thành phố',
+    'Zip' => 'Mã khu vực'
+    
+    
+    
+    
 ];
