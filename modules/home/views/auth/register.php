@@ -10,7 +10,7 @@ use yii\captcha\Captcha;
 <div class="post">
     <?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic']]); ?>
         <div class="postinfotop">
-            <h2>Create New Account</h2>
+            <h2><?php echo Yii::t('admin', 'Create New account'); ?></h2>
         </div>
 
         <!-- acc section -->
@@ -18,7 +18,7 @@ use yii\captcha\Captcha;
             <div class="acccap">
                 <div class="userinfo pull-left">&nbsp;</div>
                 <div class="posttext pull-left">
-                    <h3>Required Fields</h3>
+                    <h3><?php echo Yii::t('admin', 'Required Fields'); ?></h3>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -31,16 +31,16 @@ use yii\captcha\Captcha;
                     </div>
                     <div class="imgsize">60 x 60</div>
                     <div>
-                        <button class="btn">Add</button>
+                        <button class="btn"><?php echo Yii::t('admin', 'Add'); ?></button>
                     </div>
                 </div>
                 <div class="posttext pull-left">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
-                            <?= $form->field($model, 'lastName', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Last Name']) ?>
+                            <?= $form->field($model, 'lastName', ['template' => '{input} {error}'])->textInput(['placeholder' => Yii::t('admin', 'Last Name')]) ?>
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <?= $form->field($model, 'firstName', ['template' => '{input} {error}'])->textInput(['placeholder' => 'First Name']) ?>
+                            <?= $form->field($model, 'firstName', ['template' => '{input} {error}'])->textInput(['placeholder' => Yii::t('admin', 'First Name')]) ?>
                         </div>
                     </div>
                     <div>
@@ -48,15 +48,15 @@ use yii\captcha\Captcha;
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
-                            <?= $form->field($model, 'password', ['template' => '{input} {error}'])->passwordInput(['placeholder' => 'Password']) ?>
+                            <?= $form->field($model, 'password', ['template' => '{input} {error}'])->passwordInput(['placeholder' => Yii::t('admin', 'Password')]) ?>
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <?= $form->field($model, 'confirmPassword', ['template' => '{input} {error}'])->passwordInput(['placeholder' => 'Retype Password']) ?>
+                            <?= $form->field($model, 'confirmPassword', ['template' => '{input} {error}'])->passwordInput(['placeholder' => Yii::t('admin', 'Retype Password')]) ?>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
-                            <?= $form->field($model, 'city', ['template' => '{input} {error}'])->dropDownList(ArrayHelper::map($cityList, 'id', 'name'), ['prompt' => 'Please choose your city']) ?>
+                            <?= $form->field($model, 'city', ['template' => '{input} {error}'])->dropDownList(ArrayHelper::map($cityList, 'id', 'name'), ['prompt' => Yii::t('admin', 'Please choose your city')]) ?>
                         </div>
                     </div>
                 </div>
@@ -82,17 +82,17 @@ use yii\captcha\Captcha;
                 <div class="posttext pull-left">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
-                            <?= $form->field($model, 'identifier', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Identifier']) ?>
+                            <?= $form->field($model, 'identifier', ['template' => '{input} {error}'])->textInput(['placeholder' => Yii::t('admin', 'Identifier')]) ?>
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <?= $form->field($model, 'age', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Age']) ?>
+                            <?= $form->field($model, 'age', ['template' => '{input} {error}'])->textInput(['placeholder' => Yii::t('admin', 'Age')]) ?>
                         </div>
                     </div>
                     <div>
-                        <?= $form->field($model, 'contactNumber', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Contact Number']) ?>
+                        <?= $form->field($model, 'contactNumber', ['template' => '{input} {error}'])->textInput(['placeholder' => Yii::t('admin', 'Contact Number')]) ?>
                     </div>
                     <div>
-                        <?= $form->field($model, 'address', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Address']) ?>
+                        <?= $form->field($model, 'address', ['template' => '{input} {error}'])->textInput(['placeholder' => Yii::t('admin', 'Address')]) ?>
                     </div>
                     <div>
                         <?= $form->field($model, 'captcha')->widget(Captcha::className()) ?>
@@ -108,7 +108,7 @@ use yii\captcha\Captcha;
                 <div class="userinfo pull-left">&nbsp;</div>
                 <div class="posttext pull-left">
                     <div class="htext">
-                        <h3>Social Networks ( Optional )</h3>
+                        <h3><?php echo Yii::t('admin', 'Social Networks (Optional)') ?></h3>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -121,7 +121,7 @@ use yii\captcha\Captcha;
 
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
-                            <button class="btn btn-fb">Link Facebook Account</button>
+                            <button class="btn btn-fb"><?php echo Yii::t('admin', 'Link with Facebook account'); ?></button>
                         </div>
                     </div>
 
@@ -132,7 +132,7 @@ use yii\captcha\Captcha;
 
         <div class="postinfobot">
             <div class="pull-left lblfch">
-                <label for="note">Click Sign Up to agree with the Terms and Conditions of this site.</label>
+                <label for="note"><?php echo Yii::t('admin', 'Click Sign Up to agree with the Terms and Conditions of this site'); ?>.</label>
             </div>
 
             <div class="pull-right postreply">
@@ -140,7 +140,7 @@ use yii\captcha\Captcha;
                     <a href="javascript:void(0)"><i class="fa fa-smile-o"></i></a>
                 </div>
                 <div class="pull-left">
-                    <?= Html::submitButton(Yii::t('app', 'Sign Up'), ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton(Yii::t('admin', 'Sign Up'), ['class' => 'btn btn-primary']) ?>
                 </div>
                 <div class="clearfix"></div>
             </div>

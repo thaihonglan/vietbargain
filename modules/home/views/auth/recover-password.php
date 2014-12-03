@@ -8,7 +8,7 @@ use yii\captcha\Captcha;
 <div class="post">
     <?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic', 'id' => 'forget-password-form']]); ?>
         <div class="postinfotop">
-            <h2>Recover password</h2>
+            <h2><?php echo Yii::t('admin', 'Recover password'); ?></h2>
         </div>
 
         <div class="login-panel panel panel-default">
@@ -19,7 +19,8 @@ use yii\captcha\Captcha;
                     <?= $form->field($model, 'captcha')->widget(Captcha::className(), ['options' => ['class' => 'form-control', 'placeholder' => 'Captcha']]) ?>
 
                     <!-- Change this to a button or input when using this as a form -->
-                    <a href="javascript:$('form#forget-password-form').submit();" class="btn btn-lg btn-success btn-block">Send</a>
+                    <a href="javascript:$('form#forget-password-form').submit();" class="btn btn-lg btn-success btn-block">
+                        <?php echo Yii::t('admin', 'Send'); ?></a>
                 </fieldset>
             </div>
         </div>

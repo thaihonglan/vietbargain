@@ -18,6 +18,7 @@
  */
 return [
 	'test' => 'thu do ma',
+    
 /* ----- General ----- */
     'User ID' => 'Mã số người dùng',
     'Post ID' => 'Mã số bài viết',
@@ -25,6 +26,14 @@ return [
     'Content' => 'Nội dung',
     'Status' => 'Tình trạng',
     'ID' => 'Mã số',
+    'Sign Up' => 'Đăng ký',
+    'Add' => 'Thêm',
+    'Send' => 'Gửi',
+    'Login' => 'Đăng nhập',
+    'Forget password?' => 'Quên mật khẩu ?',
+    'Recover password' => 'Khôi phục mật khẩu',
+    'Link with Facebook account' => 'Liên kết với tài khoản Facebook',
+    'Click Sign Up to agree with the Terms and Conditions of this site' => 'Nhấn vào nút Đăng Ký để chấp nhận các điều khoản của website này', 
     
     
 /* ----- Layout ----- */
@@ -33,7 +42,11 @@ return [
     'Start New Topic' => 'Tạo chủ đề mới',
     'My Active Threads' => 'Những chủ đề nổi bật',
     'Categories' => 'Danh mục',
-    
+    'Required Fields' => 'Thông tin cần thiết',
+    'Please choose your city' => 'Chọn Tỉnh/Thành phố',
+    'Retype Password' => 'Nhập lại mật khẩu',
+    'Social Networks (Optional)' => 'Mạng xã hội (không bắt buộc)',
+    'captcha' => 'Mã xác nhận',
     
 /* ----- Admin model ----- */
     'Admins manager' => 'Quản lý tài khoản Quản Trị Viên',
@@ -80,7 +93,7 @@ return [
     'Facebook Login ID' => 'Tài khoản Facebook',
     'Identifier' => 'Số CMND',
     'City ID' => 'Mã Tỉnh/Thành phố',
-    'Address' => 'Địc chỉ',
+    'Address' => 'Địa chỉ',
     'Age' => 'Tuổi',
     'Avatar' => 'Hình đại diện',
     'Is Power User' => 'Là người dùng cao cấp',
@@ -92,6 +105,13 @@ return [
     'Who can see this' => 'Ai có thể xem',
     'Everyone' => 'Tất cả',
     'Only Friends' => 'Bạn bè',
+    
+/* ----- Authenticate Controller ----- */
+    'This confirm key is invalid!' => 'Mã chứng thực không đúng !',
+    'You have completed the registration.' => 'Chúc mừng bạn đã hoàn tất việc đăng ký.',
+    'Something go wrong. Please try again a few minutes later.' => 'Xuất hiện lỗi, xin chờ vài phút nữa rồi thử lại',
+    'Incorrect username or password.' => 'Tài khoản hoặc mật khẩu không đúng',
+    'There is no user with such email.' => 'Email này không tồn tại',
     
     
     
