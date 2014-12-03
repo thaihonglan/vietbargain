@@ -8,7 +8,7 @@ use yii\helpers\Html;
 <div class="post">
     <?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic', 'id' => 'login-form']]); ?>
         <div class="postinfotop">
-            <h2>Login</h2>
+            <h2><?php echo Yii::t('admin', 'Login'); ?></h2>
         </div>
 
         <div class="login-panel panel panel-default">
@@ -16,12 +16,13 @@ use yii\helpers\Html;
                 <fieldset>
                     <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email']) ?>
 
-                    <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Password']) ?>
+                    <?= $form->field($model, 'password')->passwordInput(['placeholder' => Yii::t('admin', 'Password')]) ?>
                     <!-- Change this to a button or input when using this as a form -->
-                    <a href="javascript:$('form#login-form').submit();" class="btn btn-lg btn-success btn-block">Login</a>
+                    <a href="javascript:$('form#login-form').submit();" class="btn btn-lg btn-success btn-block">
+                        <?php echo Yii::t('admin', 'Login'); ?></a>
                 </fieldset>
 
-                <?= Html::a('Forget password?', ['recover-password']) ?>
+                <?= Html::a(Yii::t('admin', 'Forget password?'), ['recover-password']) ?>
             </div>
         </div>
 

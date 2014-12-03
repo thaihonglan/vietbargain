@@ -68,15 +68,15 @@ class AuthController extends Controller
                     $confirmRequest->status = Request::STATUS_USED;
                     $confirmRequest->save();
 
-                    $message = 'You have completed the registration.';
+                    $message = Yii::t('admin', 'You have completed the registration.');
                 } else {
-                    $message = 'Something go wrong. Please try again a few minutes later.';
+                    $message = Yii::t('admin', 'Something go wrong. Please try again a few minutes later.');
                 }
             } else {
-                $message = 'This confirm key is invalid!';
+                $message = Yii::t('admin', 'This confirm key is invalid!');
             }
         } else {
-            $message = 'This confirm key is invalid!';
+            $message = Yii::t('admin', 'This confirm key is invalid!');
         }
 
         return $this->render('confirm-register', [
