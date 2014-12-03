@@ -37,9 +37,9 @@ class DealType extends \app\components\ActiveRecord
 	public function attributeLabels()
 	{
 		return [
-			'id' => Yii::t('app', 'ID'),
-			'name_vi' => Yii::t('app', 'Vietnames Name'),
-			'name_en' => Yii::t('app', 'English Name'),
+			'id' => Yii::t('admin', 'ID'),
+			'name_vi' => Yii::t('admin', 'Vietnames Name'),
+			'name_en' => Yii::t('admin', 'English Name'),
 		];
 	}
 }

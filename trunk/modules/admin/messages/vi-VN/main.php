@@ -18,7 +18,24 @@
  */
 return [
 	'test' => 'thu do ma',
-/* Admin model */
+/* ----- General ----- */
+    'User ID' => 'Mã số người dùng',
+    'Post ID' => 'Mã số bài viết',
+    'Comment ID' => 'Mã số ý kiến',
+    'Content' => 'Nội dung',
+    'Status' => 'Tình trạng',
+    'ID' => 'Mã số',
+    
+    
+/* ----- Layout ----- */
+    'Create New account' => 'Tạo tài khoản mới',
+    'Search Topics' => 'Tìm kiếm',
+    'Start New Topic' => 'Tạo chủ đề mới',
+    'My Active Threads' => 'Những chủ đề nổi bật',
+    'Categories' => 'Danh mục',
+    
+    
+/* ----- Admin model ----- */
     'Admins manager' => 'Quản lý tài khoản Quản Trị Viên',
     'Admin list' => 'Danh sách quản trị viên',
     'Admin' => 'Quản Trị Viên',
@@ -33,11 +50,48 @@ return [
     'Has Deal Authority' => 'Tạo Deal',
     'Has Dashboard Authority' => 'Tạo bảng điều khiển',
 
-/* City model */
+/* ----- City model ----- */
     'Name' => 'Tỉnh/Thành phố',
     'Code' => 'Mã tỉnh/thành phố',
-    'Zip' => 'Mã khu vực'
+    'Zip' => 'Mã khu vực',
+
+/* ----- Post model ----- */
+    'Post list' => 'Danh sách Deal',
+    'Title' => 'Tiêu đề',
+    'Contact Number' => 'Điện thoại',
+    'Store Address' => 'Địa chỉ cửa hàng',
+    'Link' => 'Liên kết',
+    'Discount Code' => 'Mã khuyến mại',
+    'Is Owner' => 'Chủ cửa hàng',
+    'Image' => 'Hình ảnh',
+    'Deal Type' => 'Loại Deal',
+    'Deal Begin Date' => 'Ngày bắt đầu',
+    'Deal End Date' => 'Ngày kết thúc',
     
+/* ----- Comment model ----- */
+    'Create Datetime' => 'Thời gian tạo',
+    'Is Approved' => 'Được phê duyệt',
+    
+/* ----- Deal Type model ----- */
+    'Vietnames Name' => 'Tên tiếng Việt',
+    'English Name' => 'Tên tiếng Anh',
+    
+/* ----- User model ----- */
+    'Facebook Login ID' => 'Tài khoản Facebook',
+    'Identifier' => 'Số CMND',
+    'City ID' => 'Mã Tỉnh/Thành phố',
+    'Address' => 'Địc chỉ',
+    'Age' => 'Tuổi',
+    'Avatar' => 'Hình đại diện',
+    'Is Power User' => 'Là người dùng cao cấp',
+    
+/* ----- Create New Deal ----- */
+    'Please choose deal type' => 'Chọn loại Deal',
+    'Enter Topic Title' => 'Nhập tiêu đề',
+    'Share on Social Networks' => 'Chia sẻ đến các mạng xã hội',
+    'Who can see this' => 'Ai có thể xem',
+    'Everyone' => 'Tất cả',
+    'Only Friends' => 'Bạn bè',
     
     
     

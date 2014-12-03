@@ -53,20 +53,20 @@ class Post extends \app\components\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Title'),
-            'content' => Yii::t('app', 'Content'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'contact_number' => Yii::t('app', 'Contact Number'),
-            'store_address' => Yii::t('app', 'Store Address'),
-            'link' => Yii::t('app', 'Link'),
-            'discount_code' => Yii::t('app', 'Discount Code'),
-            'is_owner' => Yii::t('app', 'Is Owner'),
-            'image' => Yii::t('app', 'Image'),
-            'deal_type' => Yii::t('app', 'Deal Type'),
-            'deal_begin_date' => Yii::t('app', 'Deal Begin Date'),
-            'deal_end_date' => Yii::t('app', 'Deal End Date'),
-            'status' => Yii::t('app', 'Status'),
+            'id' => Yii::t('admin', 'ID'),
+            'title' => Yii::t('admin', 'Title'),
+            'content' => Yii::t('admin', 'Content'),
+            'user_id' => Yii::t('admin', 'User ID'),
+            'contact_number' => Yii::t('admin', 'Contact Number'),
+            'store_address' => Yii::t('admin', 'Store Address'),
+            'link' => Yii::t('admin', 'Link'),
+            'discount_code' => Yii::t('admin', 'Discount Code'),
+            'is_owner' => Yii::t('admin', 'Is Owner'),
+            'image' => Yii::t('admin', 'Image'),
+            'deal_type' => Yii::t('admin', 'Deal Type'),
+            'deal_begin_date' => Yii::t('admin', 'Deal Begin Date'),
+            'deal_end_date' => Yii::t('admin', 'Deal End Date'),
+            'status' => Yii::t('admin', 'Status'),
         ];
     }
 }

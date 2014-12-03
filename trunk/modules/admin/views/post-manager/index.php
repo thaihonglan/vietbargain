@@ -7,12 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel app\modules\admin\models\PostSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Posts');
+$this->title = Yii::t('admin', 'Posts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <p>
-	<?= Html::a(Yii::t('app', 'Create {modelClass}', [
+	<?= Html::a(Yii::t('admin', 'Create {modelClass}', [
     'modelClass' => 'Post',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
 </p>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="col-lg-12 post-index">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			Post list
+			<?php echo Yii::t('admin', 'Post list'); ?>
 		</div>
 		<!-- /.panel-heading -->
 

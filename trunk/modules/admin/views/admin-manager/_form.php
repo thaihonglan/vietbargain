@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 	<?= $form->field($model, 'last_name')->textInput(['maxlength' => 32]) ?>
 
 	<div class="form-group field-admin-authority">
-		<label class="control-label"><?= Yii::t('app', 'Authority') ?></label>
+		<label class="control-label"><?= Yii::t('admin', 'Authority') ?></label>
 
 		<?= $form->field($model, 'has_admin_authority', ['template' => '{input} {label}', 'options' => ['class' => '']])->checkbox() ?>
 

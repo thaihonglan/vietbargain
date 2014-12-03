@@ -51,11 +51,11 @@ tinymce.init({
 			<div class="posttext pull-left">
 
 				<div>
-					<?= $form->field($model, 'title', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Enter Topic Title']) ?>
+					<?= $form->field($model, 'title', ['template' => '{input} {error}'])->textInput(['placeholder' => Yii::t('admin', 'Enter Topic Title')]) ?>
 				</div>
 
 				<div>
-					<?= $form->field($model, 'content', ['template' => '{input} {error}'])->textarea(['placeholder' => 'Content']) ?>
+					<?= $form->field($model, 'content', ['template' => '{input} {error}'])->textarea(['placeholder' => Yii::t('admin', 'Content')]) ?>
 				</div>
 
 				<div class="row">
@@ -68,25 +68,27 @@ tinymce.init({
 						]);?>
 					</div>
 					<div class="col-lg-6 col-md-6">
-						<?= $form->field($model, 'dealType', ['template' => '{input} {error}'])->dropDownList($model->getDealTypeOptions(), ['prompt' => 'Please choose deal type']) ?>
+						<?= $form->field($model, 'dealType', ['template' => '{input} {error}'])->dropDownList($model->getDealTypeOptions(), ['prompt' => Yii::t('admin', 'Please choose deal type')]) ?>
 					</div>
 				</div>
 
 				<div class="row newtopcheckbox">
 					<div class="col-lg-6 col-md-6">
-						<div><p>Who can see this?</p></div>
+						<div><p><?php echo Yii::t('admin', 'Who can see this') . '?' ?></p></div>
 						<div class="row">
 							<div class="col-lg-6 col-md-6">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" id="everyone" /> Everyone
+										<input type="checkbox" id="everyone" />
+										<?php echo Yii::t('admin', 'Everyone'); ?>
 									</label>
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-6">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" id="friends"  /> Only Friends
+										<input type="checkbox" id="friends"  /> 
+										<?php echo Yii::t('admin', 'Only Friends'); ?>
 									</label>
 								</div>
 							</div>
@@ -94,7 +96,7 @@ tinymce.init({
 					</div>
 					<div class="col-lg-6 col-md-6">
 						<div>
-							<p>Share on Social Networks</p>
+							<p><?php echo Yii::t('admin', 'Share on Social Networks'); ?></p>
 						</div>
 						<div class="row">
 							<div class="col-lg-3 col-md-4">
@@ -133,12 +135,12 @@ tinymce.init({
 			</div>
 
 			<div class="pull-left">
-				<label for="note"> Email me when some one post a reply</label>
+				<label for="note"> Gửi email cho tôi khi có người đăng bài trả lời</label>
 			</div>
 
 			<div class="pull-right postreply">
 				<div class="pull-left smile"><a href="#"><i class="fa fa-smile-o"></i></a></div>
-				<div class="pull-left"><button type="submit" class="btn btn-primary">Post</button></div>
+				<div class="pull-left"><button type="submit" class="btn btn-primary">Đăng</button></div>
 				<div class="clearfix"></div>
 			</div>
 

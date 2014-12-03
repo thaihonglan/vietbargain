@@ -37,8 +37,8 @@ class Like extends \app\components\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'post_id' => Yii::t('app', 'Post ID'),
-            'user_id' => Yii::t('app', 'User ID'),
+            'post_id' => Yii::t('admin', 'Post ID'),
+            'user_id' => Yii::t('admin', 'User ID'),
         ];
     }
 }
