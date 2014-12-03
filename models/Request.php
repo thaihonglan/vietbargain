@@ -47,10 +47,10 @@ class Request extends \app\components\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'request_type' => Yii::t('app', 'Request Type'),
-            'request_key' => Yii::t('app', 'Request Key'),
-            'status' => Yii::t('app', 'Status'),
+            'user_id' => Yii::t('admin', 'User ID'),
+            'request_type' => Yii::t('admin', 'Request Type'),
+            'request_key' => Yii::t('admin', 'Request Key'),
+            'status' => Yii::t('admin', 'Status'),
         ];
     }
 

@@ -42,10 +42,10 @@ class PostType extends \app\components\ActiveRecord
 	{
 		return [
 			'id' => Yii::t('app', 'ID'),
-			'name_vi' => Yii::t('app', 'Vietnamese Name'),
-			'name_en' => Yii::t('app', 'English Name'),
-			'is_parent' => Yii::t('app', 'Is Parent'),
-			'parent_id' => Yii::t('app', 'Parent ID'),
+			'name_vi' => Yii::t('admin', 'Vietnamese Name'),
+			'name_en' => Yii::t('admin', 'English Name'),
+			'is_parent' => Yii::t('admin', 'Is Parent'),
+			'parent_id' => Yii::t('admin', 'Parent ID'),
 		];
 	}
 

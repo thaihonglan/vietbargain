@@ -43,13 +43,13 @@ class Comment extends \app\components\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'content' => Yii::t('app', 'Content'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'post_id' => Yii::t('app', 'Post ID'),
-            'parent_id' => Yii::t('app', 'Parent ID'),
-            'create_datetime' => Yii::t('app', 'Create Datetime'),
-            'is_approved' => Yii::t('app', 'Is Approved'),
+            'id' => Yii::t('admin', 'ID'),
+            'content' => Yii::t('admin', 'Content'),
+            'user_id' => Yii::t('admin', 'User ID'),
+            'post_id' => Yii::t('admin', 'Post ID'),
+            'parent_id' => Yii::t('admin', 'Parent ID'),
+            'create_datetime' => Yii::t('admin', 'Create Datetime'),
+            'is_approved' => Yii::t('admin', 'Is Approved'),
         ];
     }
 }

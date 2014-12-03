@@ -40,11 +40,11 @@ AppAsset::register($this);
 			<div class="tp-banner" >
 				<ul>
 					<!-- SLIDE  -->
-					<li data-transition="fade" data-slotamount="7" data-masterspeed="1500" >
+<!-- 					<li data-transition="fade" data-slotamount="7" data-masterspeed="1500" > -->
 						<!-- MAIN IMAGE -->
-						<img src="/home/images/slide.jpg"  alt="slidebg1"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+						<p style="text-align:center"><img src="/home/images/deal_banner.jpg" alt="slidebg1"  data-bgfit="cover" data-bgposition="center top" data-bgrepeat="no-repeat"></p>
 						<!-- LAYERS -->
-					</li>
+<!-- 					</li> -->
 				</ul>
 			</div>
 		</div>
@@ -68,7 +68,7 @@ AppAsset::register($this);
 					<div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
 						<div class="wrap">
 							<form action="#" method="post" class="form">
-								<div class="pull-left txt"><input type="text" class="form-control" placeholder="Search Topics"></div>
+								<div class="pull-left txt"><input type="text" placeholder=<?php echo Yii::t('admin', 'Search Topics'); ?> class="form-control"> </div>
 								<div class="pull-right"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></div>
 								<div class="clearfix"></div>
 							</form>
@@ -77,7 +77,7 @@ AppAsset::register($this);
 					<div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
 						<div class="stnt pull-left">
 							<a href="<?= Url::to(['/topic/new']) ?>">
-								<button class="btn btn-primary">Start New Topic</button>
+								<button class="btn btn-primary"><?php echo Yii::t('admin','Start New Topic'); ?></button>
 							</a>
 						</div>
 						<div class="env pull-left"><i class="fa fa-envelope"></i></div>
@@ -139,7 +139,8 @@ AppAsset::register($this);
 				<?php else: ?>
 					<!-- Breadcrumb -->
 					<div class="col-lg-8 breadcrumbf">
-						<a href="javascript:void(0)">Create New account</a>
+						<a href="javascript:void(0)">
+						<?php echo Yii::t('admin', 'Create New account'); ?></a>
 					</div>
 				<?php endif; ?>
 				</div>
@@ -154,7 +155,7 @@ AppAsset::register($this);
 
 						<!-- -->
 						<div class="sidebarblock">
-							<h3>Categories</h3>
+							<h3><?php echo Yii::t('admin', 'Categories'); ?></h3>
 							<div class="divline"></div>
 							<div class="blocktxt">
 								<ul class="cats">
@@ -224,7 +225,7 @@ AppAsset::register($this);
 
 						<!-- -->
 						<div class="sidebarblock">
-							<h3>My Active Threads</h3>
+							<h3><?php echo Yii::t('admin', 'My Active Threads'); ?></h3>
 							<div class="divline"></div>
 							<div class="blocktxt">
 								<a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
@@ -256,7 +257,7 @@ AppAsset::register($this);
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-1 col-xs-3 col-sm-2 logo "><a href="#"><img src="images/logo.jpg" alt=""  /></a></div>
-					<div class="col-lg-8 col-xs-9 col-sm-5 ">Copyrights 2014, websitename.com</div>
+					<div class="col-lg-8 col-xs-9 col-sm-5 ">Copyrights 2014, vietbargain.com</div>
 					<div class="col-lg-3 col-xs-12 col-sm-5 sociconcent">
 						<ul class="socialicons">
 							<li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
