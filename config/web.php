@@ -7,6 +7,10 @@ $config = [
 	'basePath' => dirname(__DIR__),
 	'bootstrap' => ['log'],
 
+	'aliases' => [
+		'@yii/jui' => '@vendor/yiisoft/yii2-jui',
+	],
+
 //     'language' => 'en-US',
 	'language' => 'vi-VN',
 
@@ -44,6 +48,17 @@ $config = [
 				'yii\web\JqueryAsset' => [
 					'basePath' => '@webroot/plugins/jquery',
 					'baseUrl' => '@web/plugins/jquery',
+				],
+				'yii\jui\JuiAsset' => [
+// 					'sourcePath' => false,
+					'basePath' => '@webroot/plugins/jquery-ui',
+					'baseUrl' => '@web/plugins/jquery-ui',
+					'js' => ['js/' . (YII_ENV_DEV ? 'jquery-ui.js' : 'jquery-ui.min.js')],
+					'css' => ['themes/overcast/' . (YII_ENV_DEV ? 'jquery-ui.css' : 'jquery-ui.min.css')]
+				],
+				'yii\jui\DatePickerLanguageAsset' => [
+					'basePath' => '@webroot/plugins/jquery-ui',
+					'baseUrl' => '@web/plugins/jquery-ui',
 				],
 				'bootstrap' => [
 					'class' => 'yii\bootstrap\BootstrapAsset',
