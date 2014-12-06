@@ -6,23 +6,24 @@ use Yii;
 use app\models\DealType;
 use yii\helpers\ArrayHelper;
 use app\models\PostType;
+use app\models\Post;
 
 /**
  * Signup form
  */
 class TopicForm extends Model
 {
-	public $title;
-	public $content;
+	public $title; //
+	public $content; //
 	public $postType;
-	public $contactNumber;
-	public $storeAddress;
-	public $link;
-	public $discountCode;
-	public $isOwner;
-	public $dealType;
-	public $dealBeginDate;
-	public $dealEndDate;
+	public $contactNumber; //
+	public $storeAddress; //
+	public $link; //
+	public $discountCode; //
+	public $isOwner; //
+	public $dealType; //
+	public $dealBeginDate; //
+	public $dealEndDate; //
 
 	private $_lang = null;
 
@@ -38,12 +39,12 @@ class TopicForm extends Model
 			[['title', 'discountCode'], 'string', 'max' => 32],
 			['link', 'url'],
 			['isOwner', 'boolean'],
-			[['dealBeginDate', 'dealEndDate'], 'date', 'format' => 'd-m-Y'],
+			[['dealBeginDate', 'dealEndDate'], 'date', 'format' => 'php:d-m-Y'],
 
 			['dealBeginDate', 'compare', 'compareAttribute' => 'dealEndDate', 'operator' => '<=', 'skipOnEmpty' => true],
-			['dealEndDate', 'compare', 'compareAttribute' => 'dealBeginDate', 'operator' => '>='],
+			['dealEndDate', 'compare', 'compareAttribute' => 'dealBeginDate', 'operator' => '>=', 'skipOnEmpty' => true],
 
-			['postType', 'exist', 'targetClass' => '\app\models\PostType', 'targetAttribute' => 'id'],
+			['postType', 'exist', 'targetClass' => '\app\models\PostType', 'targetAttribute' => 'id', 'allowArray' => true],
 			['dealType', 'exist', 'targetClass' => '\app\models\DealType', 'targetAttribute' => 'id'],
 		];
 	}
@@ -56,7 +57,38 @@ class TopicForm extends Model
 	public function save()
 	{
 		if ($this->validate()) {
+			$transaction = \Yii::$app->db->beginTransaction();
 
+			try {
+				$post = new Post();
+
+				// required data
+				$post->title = $this->title;
+				$post->content = $this->content;
+				$post->discount_code = $this->discountCode;
+				$post->deal_type = $this->dealType;
+				$post->deal_begin_date = Yii::$app->formatter->asDatetime($this->dealBeginDate, "php:Y-m-d");
+				$post->deal_end_date = Yii::$app->formatter->asDatetime($this->dealEndDate, "php:Y-m-d");
+
+				// optional data
+				(!$this->contactNumber) OR ($post->contact_number = $this->contactNumber);
+				(!$this->storeAddress) OR ($post->store_address = $this->storeAddress);
+				(!$this->link) OR ($post->link = $this->link);
+				(!$this->isOwner) OR ($post->is_owner = 1);
+
+				// internal data
+				$post->user_id = Yii::$app->user->getId();
+				$post->status = Post::STATUS_UNAPPROVED;
+
+				if ($post->save(false)) {
+					$post->savePostType($this->postType);
+				}
+
+				$transaction->commit();
+			} catch(\Exception $e) {
+				$transaction->rollBack();
+				throw $e;
+			}
 		}
 
 		return null;

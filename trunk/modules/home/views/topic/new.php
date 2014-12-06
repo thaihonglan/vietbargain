@@ -1,6 +1,7 @@
 <?php
 use yii\widgets\ActiveForm;
 use app\widgets\chosen\Chosen;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 ?>
@@ -35,7 +36,7 @@ tinymce.init({
 });
 </script>
 <div class="post">
-	<?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic']]); ?>
+	<?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic'], 'enableClientValidation' => false]); ?>
 <!-- 	<form action="#" class="form newtopic" method="post"> -->
 		<div class="topwrap">
 			<div class="userinfo pull-left">
@@ -58,69 +59,74 @@ tinymce.init({
 					<?= $form->field($model, 'content', ['template' => '{input} {error}'])->textarea(['placeholder' => Yii::t('admin', 'Content')]) ?>
 				</div>
 
+				<div style="height: 60px;">
+					<?= Chosen::widget([
+						'model' => $model,
+						'attribute' => 'postType',
+						'items' => $model->getPostTypeOptions(),
+						'multiple' => true,
+						'placeholder' => 'Please choose post type',
+					]);?>
+				</div>
+
 				<div class="row">
 					<div class="col-lg-6 col-md-6">
-						<?= Chosen::widget([
-							'model' => $model,
-							'attribute' => 'postType',
-							'items' => $model->getPostTypeOptions(),
-							'multiple' => true,
-						]);?>
+					<?php
+						echo $form->field($model, 'dealBeginDate', ['template' => '{input} {error}'])->widget(DatePicker::className(), [
+							'dateFormat' => 'php:d-m-Y',
+							'clientOptions' => [
+								'minDate' => 0,
+							],
+							'options' => [
+								'class' => 'form-control',
+								'placeholder' => 'Deal from'
+							],
+						]);
+						echo $this->registerJs('$("#topicform-dealbegindate").datepicker("option", "onSelect", function(selectedDate) {$("#topicform-dealenddate").datepicker("option", "minDate", selectedDate);});');
+					?>
 					</div>
 					<div class="col-lg-6 col-md-6">
+					<?php
+						echo $form->field($model, 'dealEndDate', ['template' => '{input} {error}'])->widget(DatePicker::className(), [
+							'dateFormat' => 'php:d-m-Y',
+							'clientOptions' => [
+// 								'minDate' => 0,
+							],
+							'options' => [
+								'class' => 'form-control',
+								'placeholder' => 'Deal to'
+							],
+						]);
+						echo $this->registerJs('$("#topicform-dealenddate").datepicker("option", "onSelect", function(selectedDate) {$("#topicform-dealbegindate").datepicker("option", "maxDate", selectedDate);});');
+					?>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6 col-md-6">
 						<?= $form->field($model, 'dealType', ['template' => '{input} {error}'])->dropDownList($model->getDealTypeOptions(), ['prompt' => Yii::t('admin', 'Please choose deal type')]) ?>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<?= $form->field($model, 'discountCode', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Discount code']) ?>
+					</div>
+				</div>
+
+				<div>
+					<?= $form->field($model, 'storeAddress', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Store address']) ?>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6 col-md-6">
+						<?= $form->field($model, 'contactNumber', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Contact number']) ?>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<?= $form->field($model, 'link', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Deal link']) ?>
 					</div>
 				</div>
 
 				<div class="row newtopcheckbox">
 					<div class="col-lg-6 col-md-6">
-						<div><p><?php echo Yii::t('admin', 'Who can see this') . '?' ?></p></div>
-						<div class="row">
-							<div class="col-lg-6 col-md-6">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" id="everyone" />
-										<?php echo Yii::t('admin', 'Everyone'); ?>
-									</label>
-								</div>
-							</div>
-							<div class="col-lg-6 col-md-6">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" id="friends"  /> 
-										<?php echo Yii::t('admin', 'Only Friends'); ?>
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6 col-md-6">
-						<div>
-							<p><?php echo Yii::t('admin', 'Share on Social Networks'); ?></p>
-						</div>
-						<div class="row">
-							<div class="col-lg-3 col-md-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" id="fb"/> <i class="fa fa-facebook-square"></i>
-									</label>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" id="tw" /> <i class="fa fa-twitter"></i>
-									</label>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" id="gp"  /> <i class="fa fa-google-plus-square"></i>
-									</label>
-								</div>
-							</div>
-						</div>
+						<?= $form->field($model, 'isOwner', ['template' => '{input} {error}'])->checkbox() ?>
 					</div>
 				</div>
 
@@ -129,18 +135,9 @@ tinymce.init({
 			<div class="clearfix"></div>
 		</div>
 		<div class="postinfobot">
-
-			<div class="notechbox pull-left">
-				<input type="checkbox" name="note" id="note" class="form-control" />
-			</div>
-
-			<div class="pull-left">
-				<label for="note"> Gửi email cho tôi khi có người đăng bài trả lời</label>
-			</div>
-
 			<div class="pull-right postreply">
 				<div class="pull-left smile"><a href="#"><i class="fa fa-smile-o"></i></a></div>
-				<div class="pull-left"><button type="submit" class="btn btn-primary">Đăng</button></div>
+				<div class="pull-left"><button type="submit" class="btn btn-primary">Post</button></div>
 				<div class="clearfix"></div>
 			</div>
 
