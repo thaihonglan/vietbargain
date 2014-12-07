@@ -8,4 +8,7 @@ return [
 		'en-US' => 'english',
 		'vi-VN' => 'vietnamese',
 	],
+
+	'imagePath' => Yii::$app->basePath . '/web/images/',
+	'imageUrl' => Yii::$app->urlManager->baseUrl . '/images/',
 ];

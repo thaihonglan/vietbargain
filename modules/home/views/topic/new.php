@@ -36,7 +36,7 @@ tinymce.init({
 });
 </script>
 <div class="post">
-	<?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic'], 'enableClientValidation' => false]); ?>
+	<?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic', 'enctype' => 'multipart/form-data'], 'enableClientValidation' => false]); ?>
 <!-- 	<form action="#" class="form newtopic" method="post"> -->
 		<div class="topwrap">
 			<div class="userinfo pull-left">
@@ -122,6 +122,10 @@ tinymce.init({
 					<div class="col-lg-6 col-md-6">
 						<?= $form->field($model, 'link', ['template' => '{input} {error}'])->textInput(['placeholder' => 'Deal link']) ?>
 					</div>
+				</div>
+
+				<div>
+					<?= $form->field($model, 'image', ['template' => '{input} {error}'])->fileInput() ?>
 				</div>
 
 				<div class="row newtopcheckbox">

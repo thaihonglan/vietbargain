@@ -7,23 +7,25 @@ use app\models\DealType;
 use yii\helpers\ArrayHelper;
 use app\models\PostType;
 use app\models\Post;
+use yii\web\UploadedFile;
 
 /**
  * Signup form
  */
 class TopicForm extends Model
 {
-	public $title; //
-	public $content; //
+	public $title;
+	public $content;
 	public $postType;
-	public $contactNumber; //
-	public $storeAddress; //
-	public $link; //
-	public $discountCode; //
-	public $isOwner; //
-	public $dealType; //
-	public $dealBeginDate; //
-	public $dealEndDate; //
+	public $contactNumber;
+	public $storeAddress;
+	public $link;
+	public $discountCode;
+	public $isOwner;
+	public $dealType;
+	public $dealBeginDate;
+	public $dealEndDate;
+	public $image;
 
 	private $_lang = null;
 
@@ -46,6 +48,8 @@ class TopicForm extends Model
 
 			['postType', 'exist', 'targetClass' => '\app\models\PostType', 'targetAttribute' => 'id', 'allowArray' => true],
 			['dealType', 'exist', 'targetClass' => '\app\models\DealType', 'targetAttribute' => 'id'],
+
+			['image', 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png', 'skipOnEmpty' => true],
 		];
 	}
 
@@ -56,6 +60,7 @@ class TopicForm extends Model
 	 */
 	public function save()
 	{
+		$this->image = UploadedFile::getInstance($this, 'image');
 		if ($this->validate()) {
 			$transaction = \Yii::$app->db->beginTransaction();
 
@@ -76,12 +81,21 @@ class TopicForm extends Model
 				(!$this->link) OR ($post->link = $this->link);
 				(!$this->isOwner) OR ($post->is_owner = 1);
 
+				if ($this->image) {
+					$post->image = Yii::$app->security->generateRandomString(32) . '.' . $this->image->extension;
+				}
+
 				// internal data
 				$post->user_id = Yii::$app->user->getId();
 				$post->status = Post::STATUS_UNAPPROVED;
 
 				if ($post->save(false)) {
 					$post->savePostType($this->postType);
+				}
+// 				print_r($this->image);exit;
+
+				if ($this->image) {
+					$this->image->saveAs(Yii::$app->params['imagePath'] . 'post/' . $post->image);
 				}
 
 				$transaction->commit();
