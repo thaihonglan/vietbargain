@@ -29,7 +29,7 @@ class PasswordResetForm extends Model
                 'targetClass' => '\app\models\User',
                 'targetAttribute' => 'email',
                 'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => Yii::t('admin', 'There is no user with such email.')
+                'message' => Yii::t('home', 'There is no user with such email.')
             ],
 
             ['captcha', 'captcha'],

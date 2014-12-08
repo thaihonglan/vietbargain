@@ -19,7 +19,7 @@ use yii\captcha\Captcha;
                     <?= $form->field($model, 'captcha')->widget(Captcha::className(), ['options' => ['class' => 'form-control', 'placeholder' => 'Captcha']]) ?>
 
                     <!-- Change this to a button or input when using this as a form -->
-                    <a href="javascript:$('form#forget-password-form').submit();" class="btn btn-lg btn-success btn-block">
+                    <a href="javascript:void(0)" onClick="$('form#forget-password-form').submit();" class="btn btn-lg btn-success btn-block">
                         <?php echo Yii::t('home', 'Send'); ?></a>
                 </fieldset>
             </div>
