@@ -99,13 +99,13 @@ AppAsset::register($this);
 									'options' => ['class' => 'dropdown-menu', 'role' => 'menu'],
 									'items' => (!Yii::$app->user->isGuest)
 										? [
-											['label' => 'My Profile', 'url' => ['/site/index'], 'options' => ['role' => 'menuitem', 'tabindex' => '-1'], 'linkOptions' => ['role' => 'menuitem']],
-											['label' => 'Inbox', 'url' => ['/site/about'], 'options' => ['role' => 'menuitem', 'tabindex' => '-2'], 'linkOptions' => ['role' => 'menuitem']],
-											['label' => 'Logout (' . Yii::$app->user->identity->first_name . ')', 'url' => ['/auth/logout'], 'linkOptions' => ['data-method' => 'post'], 'options' => ['role' => 'menuitem', 'tabindex' => '-3'], 'linkOptions' => ['role' => 'menuitem']],
+											['label' => Yii::t('model', 'My Profile'), 'url' => ['/site/index'], 'options' => ['role' => 'menuitem', 'tabindex' => '-1'], 'linkOptions' => ['role' => 'menuitem']],
+											['label' => Yii::t('model', 'Inbox'), 'url' => ['/site/about'], 'options' => ['role' => 'menuitem', 'tabindex' => '-2'], 'linkOptions' => ['role' => 'menuitem']],
+											['label' => Yii::t('model', 'Logout') . ' (' . Yii::$app->user->identity->first_name . ')', 'url' => ['/auth/logout'], 'linkOptions' => ['data-method' => 'post'], 'options' => ['role' => 'menuitem', 'tabindex' => '-3'], 'linkOptions' => ['role' => 'menuitem']],
 										]
 										: [
-											['label' => 'Login', 'url' => ['/auth/login']],
-											['label' => 'Create account', 'url' => ['/auth/register']],
+											['label' => Yii::t('model', 'Login'), 'url' => ['/auth/login']],
+											['label' => Yii::t('model', 'Create account'), 'url' => ['/auth/register']],
 										]
 									,
 								]);
