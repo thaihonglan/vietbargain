@@ -30,7 +30,16 @@ class LoginForm extends Model
             ['password', 'validatePassword'],
         ];
     }
-
+    
+    public function attributeLabels()
+    {
+        return [
+            'Incorrect' => Yii::t('home', 'Incorrect username or password.'),
+            'username' => Yii::t('home', 'Username'),
+            'password' => Yii::t('home', 'Password')
+        ];
+    }
+    
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
@@ -44,11 +53,12 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, 'Incorrect');
             }
         }
     }
 
+    
     /**
      * Logs in a user using the provided username and password.
      * @return boolean whether the user is logged in successfully

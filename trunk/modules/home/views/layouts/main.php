@@ -62,7 +62,7 @@ AppAsset::register($this);
 		<div class="headernav">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo "><a href="index.html"><img src="images/logo.jpg" alt=""  /></a></div>
+					<div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo "><a href="index.html"><img src="home/images/logo.jpg" alt=""  /></a></div>
 					<div class="col-lg-3 col-xs-9 col-sm-5 col-md-3 selecttopic">
 						<div class="dropdown">
 							<a data-toggle="dropdown" href="#" >Borderlands 2</a> <b class="caret"></b>
@@ -77,7 +77,7 @@ AppAsset::register($this);
 					<div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
 						<div class="wrap">
 							<form action="#" method="post" class="form">
-								<div class="pull-left txt"><input type="text" placeholder=<?php echo Yii::t('admin', 'Search Topics'); ?> class="form-control"> </div>
+								<div class="pull-left txt"><input type="text" placeholder=<?php echo Yii::t('model', 'Search Topics'); ?> class="form-control"> </div>
 								<div class="pull-right"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></div>
 								<div class="clearfix"></div>
 							</form>
@@ -86,7 +86,7 @@ AppAsset::register($this);
 					<div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
 						<div class="stnt pull-left">
 							<a href="<?= Url::to(['/topic/new']) ?>">
-								<button class="btn btn-primary"><?php echo Yii::t('admin','Start New Topic'); ?></button>
+								<button class="btn btn-primary"><?php echo Yii::t('model','Start New Topic'); ?></button>
 							</a>
 						</div>
 						<div class="env pull-left"><i class="fa fa-envelope"></i></div>
@@ -149,7 +149,7 @@ AppAsset::register($this);
 					<!-- Breadcrumb -->
 					<div class="col-lg-8 breadcrumbf">
 						<a href="javascript:void(0)">
-						<?php echo Yii::t('admin', 'Create New account'); ?></a>
+						<?php echo Yii::t('model', 'Create New account'); ?></a>
 					</div>
 				<?php endif; ?>
 				</div>
@@ -164,7 +164,7 @@ AppAsset::register($this);
 
 						<!-- -->
 						<div class="sidebarblock">
-							<h3><?php echo Yii::t('admin', 'Categories'); ?></h3>
+							<h3><?php echo Yii::t('model', 'Categories'); ?></h3>
 							<div class="divline"></div>
 							<div class="blocktxt">
 								<ul class="cats">
@@ -234,7 +234,7 @@ AppAsset::register($this);
 
 						<!-- -->
 						<div class="sidebarblock">
-							<h3><?php echo Yii::t('admin', 'My Active Threads'); ?></h3>
+							<h3><?php echo Yii::t('model', 'My Active Threads'); ?></h3>
 							<div class="divline"></div>
 							<div class="blocktxt">
 								<a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
@@ -265,7 +265,7 @@ AppAsset::register($this);
 		<footer>
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-1 col-xs-3 col-sm-2 logo "><a href="#"><img src="images/logo.jpg" alt=""  /></a></div>
+					<div class="col-lg-1 col-xs-3 col-sm-2 logo "><a href="#"><img src="home/images/logo.jpg" alt=""  /></a></div>
 					<div class="col-lg-8 col-xs-9 col-sm-5 ">Copyrights 2014, vietbargain.com</div>
 					<div class="col-lg-3 col-xs-12 col-sm-5 sociconcent">
 						<ul class="socialicons">

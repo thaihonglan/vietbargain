@@ -10,12 +10,12 @@
 				<div class="wrap-ut pull-left">
 					<div class="userinfo pull-left">
 						<div class="avatar">
-							<img src="images/avatar.jpg" alt="" />
+							<img src="home/images/avatar.jpg" alt="" />
 							<div class="status green">&nbsp;</div>
 						</div>
 
 						<div class="icons">
-							<img src="images/icon1.jpg" alt="" /><img src="images/icon4.jpg" alt="" />
+							<img src="home/images/icon1.jpg" alt="" /><img src="home/images/icon4.jpg" alt="" />
 						</div>
 					</div>
 					<div class="posttext pull-left">
@@ -44,12 +44,12 @@
 				<div class="wrap-ut pull-left">
 					<div class="userinfo pull-left">
 						<div class="avatar">
-							<img src="images/avatar2.jpg" alt="" />
+							<img src="home/images/avatar2.jpg" alt="" />
 							<div class="status red">&nbsp;</div>
 						</div>
 
 						<div class="icons">
-							<img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+							<img src="home/images/icon3.jpg" alt="" /><img src="home/images/icon4.jpg" alt="" /><img src="home/images/icon5.jpg" alt="" /><img src="home/images/icon6.jpg" alt="" />
 						</div>
 					</div>
 					<div class="posttext pull-left">
@@ -78,12 +78,12 @@
 				<div class="wrap-ut pull-left">
 					<div class="userinfo pull-left">
 						<div class="avatar">
-							<img src="images/avatar3.jpg" alt="" />
+							<img src="home/images/avatar3.jpg" alt="" />
 							<div class="status red">&nbsp;</div>
 						</div>
 
 						<div class="icons">
-							<img src="images/icon2.jpg" alt="" /><img src="images/icon4.jpg" alt="" />
+							<img src="home/images/icon2.jpg" alt="" /><img src="home/images/icon4.jpg" alt="" />
 						</div>
 					</div>
 					<div class="posttext pull-left">
@@ -112,12 +112,12 @@
 				<div class="wrap-ut pull-left">
 					<div class="userinfo pull-left">
 						<div class="avatar">
-							<img src="images/avatar4.jpg" alt="" />
+							<img src="home/images/avatar4.jpg" alt="" />
 							<div class="status yellow">&nbsp;</div>
 						</div>
 
 						<div class="icons">
-							<img src="images/icon1.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+							<img src="home/images/icon1.jpg" alt="" /><img src="home/images/icon4.jpg" alt="" /><img src="home/images/icon6.jpg" alt="" />
 						</div>
 					</div>
 					<div class="posttext pull-left">
@@ -147,12 +147,12 @@
 				<div class="wrap-ut pull-left">
 					<div class="userinfo pull-left">
 						<div class="avatar">
-							<img src="images/avatar.jpg" alt="" />
+							<img src="home/images/avatar.jpg" alt="" />
 							<div class="status green">&nbsp;</div>
 						</div>
 
 						<div class="icons">
-							<img src="images/icon1.jpg" alt="" /><img src="images/icon4.jpg" alt="" />
+							<img src="home/images/icon1.jpg" alt="" /><img src="home/images/icon4.jpg" alt="" />
 						</div>
 					</div>
 					<div class="posttext pull-left">
@@ -181,12 +181,12 @@
 				<div class="wrap-ut pull-left">
 					<div class="userinfo pull-left">
 						<div class="avatar">
-							<img src="images/avatar2.jpg" alt="" />
+							<img src="home/images/avatar2.jpg" alt="" />
 							<div class="status red">&nbsp;</div>
 						</div>
 
 						<div class="icons">
-							<img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+							<img src="home/images/icon3.jpg" alt="" /><img src="home/images/icon4.jpg" alt="" /><img src="home/images/icon5.jpg" alt="" /><img src="home/images/icon6.jpg" alt="" />
 						</div>
 					</div>
 					<div class="posttext pull-left">
@@ -215,12 +215,12 @@
 				<div class="wrap-ut pull-left">
 					<div class="userinfo pull-left">
 						<div class="avatar">
-							<img src="images/avatar3.jpg" alt="" />
+							<img src="home/images/avatar3.jpg" alt="" />
 							<div class="status red">&nbsp;</div>
 						</div>
 
 						<div class="icons">
-							<img src="images/icon2.jpg" alt="" /><img src="images/icon4.jpg" alt="" />
+							<img src="home/images/icon2.jpg" alt="" /><img src="home/images/icon4.jpg" alt="" />
 						</div>
 					</div>
 					<div class="posttext pull-left">
