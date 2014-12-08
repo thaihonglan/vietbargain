@@ -87,12 +87,31 @@ class PostType extends \app\components\ActiveRecord
 
 	public function getName()
 	{
-		static $lang;
+		return $this->{'name_' . self::getLang()};
+	}
 
-		if (!$lang) {
-			list($lang) = explode('-', \Yii::$app->language);
+	public static function findAllAsfiliationArray()
+	{
+		$options = [];
+		$items = self::find()->all();
+
+		$options = self::_loopFiliation($items);
+
+		return $options;
+	}
+
+	private static function _loopFiliation(&$items, $parent_id = 0)
+	{
+		$return = [];
+		foreach ($items as $item) {
+			if ($item->parent_id == $parent_id) {
+				if ($item->is_parent) {
+					$return[$item->{'name_'.self::getLang()}] = self::_loopFiliation($items, $item->id);
+				} else {
+					$return[$item->id] = $item->{'name_'.self::getLang()};
+				}
+			}
 		}
-
-		return $this->{'name_' . $lang};
+		return $return;
 	}
 }
