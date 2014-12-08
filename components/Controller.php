@@ -9,16 +9,16 @@ use Yii;
  */
 class Controller extends \yii\web\Controller
 {
-	public function saveBacklink($action) {
-		$action = trim($action, '/');
-		Yii::$app->response->cookies->add(new \yii\web\Cookie([
-			'name' => 'back/admin/' . $action,
-			'value' => Yii::$app->request->url,
-		]));
-	}
+    public function saveBacklink($action) {
+        $action = trim($action, '/');
+        Yii::$app->response->cookies->add(new \yii\web\Cookie([
+            'name' => $this->module->id . '/back/' . $action,
+            'value' => Yii::$app->request->url,
+        ]));
+    }
 
-	public function getBacklink($action) {
-		$action = trim($action, '/');
-		return Yii::$app->request->cookies->getValue('back/admin/' . $action, \yii\helpers\Url::to([$action]));
-	}
+    public function getBacklink($action) {
+        $action = trim($action, '/');
+        return Yii::$app->request->cookies->getValue($this->module->id . '/back/' . $action, \yii\helpers\Url::to([$action]));
+    }
 }
