@@ -17,7 +17,6 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-	'test' => 'thu do ma',
     
 /* ----- General ----- */
     'User ID' => 'Mã số người dùng',
@@ -48,21 +47,6 @@ return [
     'Social Networks (Optional)' => 'Mạng xã hội (không bắt buộc)',
     'captcha' => 'Mã xác nhận',
     
-/* ----- Admin model ----- */
-    'Admins manager' => 'Quản lý tài khoản Quản Trị Viên',
-    'Admin list' => 'Danh sách quản trị viên',
-    'Admin' => 'Quản Trị Viên',
-    'create' => 'Tạo ',
-    'Update' => 'Cập nhật',
-    'Username' => 'Tài khoản',
-    'Password' => 'Mật khẩu',
-    'First Name' => 'Tên',
-    'Last Name' => 'Họ',
-    'Has Admin Authority' => 'Có quyền Quản Trị',
-    'Has User Authority' => 'Là người dùng',
-    'Has Deal Authority' => 'Tạo Deal',
-    'Has Dashboard Authority' => 'Tạo bảng điều khiển',
-
 /* ----- City model ----- */
     'Name' => 'Tỉnh/Thành phố',
     'Code' => 'Mã tỉnh/thành phố',
@@ -97,6 +81,8 @@ return [
     'Age' => 'Tuổi',
     'Avatar' => 'Hình đại diện',
     'Is Power User' => 'Là người dùng cao cấp',
+    'First Name' => 'Tên',
+    'Last Name' => 'Họ',
     
 /* ----- Create New Deal ----- */
     'Please choose deal type' => 'Chọn loại Deal',
@@ -112,7 +98,8 @@ return [
     'Something go wrong. Please try again a few minutes later.' => 'Xuất hiện lỗi, xin chờ vài phút nữa rồi thử lại',
     'Incorrect username or password.' => 'Tài khoản hoặc mật khẩu không đúng',
     'There is no user with such email.' => 'Email này không tồn tại',
-    
+    'Username' => 'Tài khoản',
+    'Password' => 'Mật khẩu',
     
     
 ];
