@@ -9,5 +9,15 @@ use Yii;
  */
 class ActiveRecord extends \yii\db\ActiveRecord
 {
+	public static function getLang()
+	{
+		static $lang = null;
+
+		if (!$lang) {
+			list($lang) = explode('-', \Yii::$app->language);
+		}
+
+		return $lang;
+	}
 
 }

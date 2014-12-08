@@ -2,7 +2,7 @@
 
 namespace app\modules\home\controllers;
 
-class HomeController extends \app\components\Controller
+class HomeController extends \app\modules\home\components\Controller
 {
 	public $defaultAction = 'index';
 
