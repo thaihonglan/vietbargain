@@ -10,11 +10,12 @@ use app\models\PostType;
  */
 class Controller extends \yii\web\Controller
 {
-	public $params = [];
+    public $params = [];
 
-	public function afterAction($action, $result)
-	{
-		$this->params['postType'] = PostType::findAllAsfiliationArray();
-		return parent::afterAction($action, $result);
-	}
+    public function afterAction($action, $result)
+    {
+        $this->params['postType'] = PostType::findAllAsfiliationArray();
+
+        return parent::afterAction($action, $result);
+    }
 }

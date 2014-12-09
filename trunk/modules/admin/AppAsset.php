@@ -15,24 +15,24 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-	public $basePath = '@webroot/admin';
+    public $basePath = '@webroot/admin';
 
-	public $baseUrl = '@web/admin';
+    public $baseUrl = '@web/admin';
 
-	public $css = [
-		'css/site.css',
-		'css/timeline.css',
-		'css/sb-admin-2.css',
-	];
+    public $css = [
+        'css/site.css',
+        'css/timeline.css',
+        'css/sb-admin-2.css',
+    ];
 
-	public $js = [
-		'js/sb-admin-2.js',
-	];
+    public $js = [
+        'js/sb-admin-2.js',
+    ];
 
-	public $depends = [
-		'yii\web\JqueryAsset',
-		'bootstrap',
-		'metisMenu',// blank
-		'fontAwesome',//blank
-	];
+    public $depends = [
+        'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
+        'metisMenu',// blank
+        'fontAwesome',//blank
+    ];
 }
