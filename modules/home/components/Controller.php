@@ -8,14 +8,13 @@ use app\models\PostType;
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class Controller extends \yii\web\Controller
+class Controller extends \app\components\Controller
 {
-    public $params = [];
+	public $params = [];
 
-    public function afterAction($action, $result)
-    {
-        $this->params['postType'] = PostType::findAllAsfiliationArray();
-
-        return parent::afterAction($action, $result);
-    }
+	public function beforeAction($action)
+	{
+		$this->params['postType'] = PostType::findAllAsfiliationArray();
+		return parent::beforeAction($action);
+	}
 }
