@@ -15,15 +15,15 @@ use yii\web\AssetBundle;
  */
 class SocialButtonsAsset extends AssetBundle
 {
-	public $basePath = '@webroot/plugins/social-buttons';
-	public $baseUrl = '@web/plugins/social-buttons';
+    public $basePath = '@webroot/plugins/social-buttons';
+    public $baseUrl = '@web/plugins/social-buttons';
 
-	public $css = [
-		'bootstrap-social.css',
-	];
+    public $css = [
+        'bootstrap-social.css',
+    ];
 
-	public $depends = [
-		'bootstrap',
-		'fontAwesome',
-	];
+    public $depends = [
+        'yii\bootstrap\BootstrapAsset',
+        'fontAwesome',
+    ];
 }

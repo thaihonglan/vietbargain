@@ -15,23 +15,23 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-	public $basePath = '@webroot/home';
+    public $basePath = '@webroot/home';
 
-	public $baseUrl = '@web/home';
+    public $baseUrl = '@web/home';
 
-	public $css = [
-		'css/custom.css',
-		'http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800',
-		'css/style.css',
-	];
+    public $css = [
+        'css/custom.css',
+        'http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800',
+        'css/style.css',
+    ];
 
-	public $js = [
-	];
+    public $js = [
+    ];
 
-	public $depends = [
-		'yii\web\JqueryAsset',
-		'bootstrap',
-		'fontAwesome',
-		'sliderRevolution',
-	];
+    public $depends = [
+        'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
+        'fontAwesome',
+        'sliderRevolution',
+    ];
 }
