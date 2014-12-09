@@ -32,13 +32,13 @@ AppAsset::register($this);
 </head>
 <body>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-56823696-1', 'auto');
-  ga('send', 'pageview');
+ga('create', 'UA-56823696-1', 'auto');
+ga('send', 'pageview');
 
 </script>
 <?php $this->beginBody() ?>
@@ -67,10 +67,25 @@ AppAsset::register($this);
 						<div class="dropdown">
 							<a data-toggle="dropdown" href="#" >Borderlands 2</a> <b class="caret"></b>
 							<ul class="dropdown-menu" role="menu">
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Borderlands 1</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-2" href="#">Borderlands 2</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-3" href="#">Borderlands 3</a></li>
-
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="<?= Url::to(['topic/show']) ?>" style="padding-left: 20px;">All</a></li>
+<?php
+function loopPostType($postTypes, $level = 1)
+{
+	foreach ($postTypes as $key => $value):
+		if (is_array($value)):
+?>
+	<li role="presentation"><a role="menuitem" href="<?= Url::to(['topic/show', 'pt' => $key]) ?>" style="padding-left: <?= $level * 20 ?>px;"><?= $key ?></a></li>
+	<?php loopPostType($value, $level + 1) ?>
+<?php
+		else:
+?>
+	<li role="presentation"><a role="menuitem" href="<?= Url::to(['topic/show', 'pt' => $key]) ?>" style="padding-left: <?= $level * 20 ?>px;"><?= $value ?></a></li>
+<?php
+		endif;
+	endforeach;
+}
+?>
+							<?php loopPostType($this->context->params['postType']) ?>
 							</ul>
 						</div>
 					</div>
