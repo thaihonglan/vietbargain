@@ -15,103 +15,112 @@ use Yii;
  */
 class PostType extends \app\components\ActiveRecord
 {
-	/**
-	 * @inheritdoc
-	 */
-	public static function tableName()
-	{
-		return 'post_type';
-	}
+    private static $_data = null;
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules()
-	{
-		return [
-			[['name_vi', 'name_en'], 'required'],
-			[['is_parent', 'parent_id'], 'integer'],
-			[['name_vi', 'name_en'], 'string', 'max' => 64]
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'post_type';
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function attributeLabels()
-	{
-		return [
-			'id' => Yii::t('app', 'ID'),
-			'name_vi' => Yii::t('admin', 'Vietnamese Name'),
-			'name_en' => Yii::t('admin', 'English Name'),
-			'is_parent' => Yii::t('admin', 'Is Parent'),
-			'parent_id' => Yii::t('admin', 'Parent ID'),
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['name_vi', 'name_en'], 'required'],
+            [['is_parent', 'parent_id'], 'integer'],
+            [['name_vi', 'name_en'], 'string', 'max' => 64]
+        ];
+    }
 
-	public function scenarios()
-	{
-		return [
-			'create' => ['name_vi', 'name_en'],
-			'update' => ['name_vi', 'name_en'],
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'name_vi' => Yii::t('admin', 'Vietnamese Name'),
+            'name_en' => Yii::t('admin', 'English Name'),
+            'is_parent' => Yii::t('admin', 'Is Parent'),
+            'parent_id' => Yii::t('admin', 'Parent ID'),
+        ];
+    }
 
-	public function afterSave($insert, $changedAttributes)
-	{
-		parent::afterSave($insert, $changedAttributes);
+    public function scenarios()
+    {
+        return [
+            'create' => ['name_vi', 'name_en'],
+            'update' => ['name_vi', 'name_en'],
+        ];
+    }
 
-		if ($this->parent_id != 0) {
-			$parent = self::findOne(['id' => $this->parent_id]);
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
 
-			if ($parent->is_parent == 0) {
-				if ($insert || self::find()->where(['is_parent' => $parent->id])->exists()) {
-					$connection = \Yii::$app->db;
-					$connection->createCommand()->update(self::tableName(), ['is_parent' => 1], ['id' => $parent->id])->execute();
-				}
-			}
-		}
-	}
+        if ($this->parent_id != 0) {
+            $parent = self::findOne(['id' => $this->parent_id]);
 
-	public function afterDelete()
-	{
-		parent::afterDelete();
+            if ($parent->is_parent == 0) {
+                if ($insert || self::find()->where(['is_parent' => $parent->id])->exists()) {
+                    $connection = \Yii::$app->db;
+                    $connection->createCommand()->update(self::tableName(), ['is_parent' => 1], ['id' => $parent->id])->execute();
+                }
+            }
+        }
+    }
 
-		if ($this->parent_id != 0) {
-			if (!self::find()->where(['is_parent' => $this->parent_id])->exists()) {
-				$connection = \Yii::$app->db;
-				$connection->createCommand()->update(self::tableName(), ['is_parent' => 0], ['id' => $this->parent_id])->execute();
-			}
-		}
-	}
+    public function afterDelete()
+    {
+        parent::afterDelete();
 
-	public function getName()
-	{
-		return $this->{'name_' . self::getLang()};
-	}
+        if ($this->parent_id != 0) {
+            if (!self::find()->where(['is_parent' => $this->parent_id])->exists()) {
+                $connection = \Yii::$app->db;
+                $connection->createCommand()->update(self::tableName(), ['is_parent' => 0], ['id' => $this->parent_id])->execute();
+            }
+        }
+    }
 
-	public static function findAllAsfiliationArray()
-	{
-		$options = [];
-		$items = self::find()->all();
+    public function getName()
+    {
+        return $this->{'name_' . self::getLang()};
+    }
 
-		$options = self::_loopFiliation($items);
+    public static function findFull()
+    {
+        if (self::$_data === null) {
+            self::$_data = self::find()->all();
+        }
 
-		return $options;
-	}
+        return self::$_data;
+    }
 
-	private static function _loopFiliation(&$items, $parent_id = 0)
-	{
-		$return = [];
-		foreach ($items as $item) {
-			if ($item->parent_id == $parent_id) {
-				if ($item->is_parent) {
-					$return[$item->{'name_'.self::getLang()}] = self::_loopFiliation($items, $item->id);
-				} else {
-					$return[$item->id] = $item->{'name_'.self::getLang()};
-				}
-			}
-		}
-		return $return;
-	}
+    public static function findAllAsfiliationArray()
+    {
+        $items = self::findFull();
+        $options = self::_loopFiliation($items);
+
+        return $options;
+    }
+
+    private static function _loopFiliation(&$items, $parent_id = 0)
+    {
+        $return = [];
+        foreach ($items as $item) {
+            if ($item->parent_id == $parent_id) {
+                if ($item->is_parent) {
+                    $return[$item->{'name_'.self::getLang()}] = self::_loopFiliation($items, $item->id);
+                } else {
+                    $return[$item->id] = $item->{'name_'.self::getLang()};
+                }
+            }
+        }
+        return $return;
+    }
 }
