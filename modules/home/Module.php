@@ -22,17 +22,20 @@ class Module extends \yii\base\Module
         ]);
 
         // save link
-        $curLinkCookie = Yii::$app->request->cookies->getValue('home/curLink');
-        if ($curLinkCookie != Yii::$app->request->url) {
-            Yii::$app->response->cookies->add(new \yii\web\Cookie([
-                'name' => 'home/preLink',
-                'value' => $curLinkCookie,
-            ]));
+        list($controller) = explode('/', Yii::$app->request->getPathInfo());
+        if ($controller != 'auth') {
+            $curLinkCookie = Yii::$app->request->cookies->getValue('home/curLink');
+            if ($curLinkCookie != Yii::$app->request->url) {
+                Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                    'name' => 'home/preLink',
+                    'value' => $curLinkCookie,
+                ]));
 
-            Yii::$app->response->cookies->add(new \yii\web\Cookie([
-                'name' => 'home/curLink',
-                'value' => Yii::$app->request->url,
-            ]));
+                Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                    'name' => 'home/curLink',
+                    'value' => Yii::$app->request->url,
+                ]));
+            }
         }
     }
 }
