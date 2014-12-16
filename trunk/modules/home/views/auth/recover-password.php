@@ -3,6 +3,7 @@ use yii\widgets\ActiveForm;
 use yii\captcha\Captcha;
 
 /* @var $this yii\web\View */
+/* @var $model app\modules\home\models\PasswordResetForm */
 ?>
 
 <div class="post">
@@ -20,7 +21,8 @@ use yii\captcha\Captcha;
 
                     <!-- Change this to a button or input when using this as a form -->
                     <a href="javascript:void(0)" onClick="$('form#forget-password-form').submit();" class="btn btn-lg btn-success btn-block">
-                        <?php echo Yii::t('home', 'Send'); ?></a>
+                        <?php echo Yii::t('home', 'Send'); ?>
+                    </a>
                 </fieldset>
             </div>
         </div>

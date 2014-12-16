@@ -29,31 +29,6 @@ class Request extends \app\components\ActiveRecord
         return 'request';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['user_id', 'request_type', 'status'], 'integer'],
-            [['request_key'], 'string', 'max' => 32]
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('admin', 'User ID'),
-            'request_type' => Yii::t('admin', 'Request Type'),
-            'request_key' => Yii::t('admin', 'Request Key'),
-            'status' => Yii::t('admin', 'Status'),
-        ];
-    }
-
     public function generateKey($userId, $requestType)
     {
         if ($existRequest = self::findOne(['user_id' => $userId, 'request_type' => $requestType, 'status' => self::STATUS_UNUSED])) {
