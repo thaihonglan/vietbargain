@@ -5,8 +5,7 @@ namespace app\modules\home\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use app\modules\home\models\TopicForm;
-use app\models\Post;
-use yii\data\ActiveDataProvider;
+use app\modules\home\models\PostSearch;
 
 class TopicController extends \app\modules\home\components\Controller
 {
@@ -32,22 +31,13 @@ class TopicController extends \app\modules\home\components\Controller
 
     public function actionShow()
     {
-        $query = Post::find();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-                'pagination' => [
-                'pageSize' => 20,
-            ],
-        ]);
+        $searchModel = new PostSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $query->andFilterWhere([
-            'deal_type' => Yii::$app->request->get('dt'),
-        ]);
-
-//         print_r($dataProvider->getModels()); exit;
+        print_r($dataProvider->getModels()); exit;
 
         return $this->render('show', [
-            'dataProvider' => $dataProvider->getModels()
+            'dataProvider' => $dataProvider
         ]);
     }
 
