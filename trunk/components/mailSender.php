@@ -32,7 +32,7 @@ class MailSender extends Component
     {
         $message = Yii::$app->mailer->compose('home/'.Yii::$app->language.'/user-reset-password', [
             'user' => $user,
-            'confirmLink' => Url::to(['auth/confirm-reset-password', 'k' => $confirmKey], true),
+            'confirmLink' => Url::to(['auth/confirm-recover-password', 'k' => $confirmKey], true),
         ]);
 
         return $message->setFrom($user->email)
