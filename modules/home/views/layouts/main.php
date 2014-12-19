@@ -66,29 +66,29 @@ ga('send', 'pageview');
                     <div class="col-lg-3 col-xs-9 col-sm-5 col-md-3 selecttopic">
                         <div class="dropdown">
                             <a data-toggle="dropdown" href="#" >
-                                <?= (($this->context->id == 'topic') && (\Yii::$app->request->get('pt'))) ? \Yii::$app->request->get('pt') : 'All'?>
+                                <?= (isset($this->context->params['currentPostTypeName'])) ? $this->context->params['currentPostTypeName'] : 'All'?>
                             </a>
                             <b class="caret"></b>
                             <ul class="dropdown-menu" role="menu">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="<?= Url::to(['topic/show']) ?>" style="padding-left: 20px;">All</a></li>
 <?php
-function loopPostType($postTypes, $level = 1)
+function _processLoopPostType($items, $level = 1)
 {
-    foreach ($postTypes as $key => $value):
-        if (is_array($value)):
+    foreach ($items as $item):
+        if ($item->is_parent):
 ?>
-    <li role="presentation"><a role="menuitem" href="<?= Url::to(['topic/show', 'pt' => $key]) ?>" style="padding-left: <?= $level * 20 ?>px;"><?= $key ?></a></li>
-    <?php loopPostType($value, $level + 1) ?>
+    <li role="presentation"><a role="menuitem" href="<?= Url::to(['topic/show', 'pt' => $item->id]) ?>" style="padding-left: <?= $level * 20 ?>px;"><?= $item->name ?></a></li>
+    <?php _processLoopPostType($item->children, $level + 1) ?>
 <?php
         else:
 ?>
-    <li role="presentation"><a role="menuitem" href="<?= Url::to(['topic/show', 'pt' => $value]) ?>" style="padding-left: <?= $level * 20 ?>px;"><?= $value ?></a></li>
+    <li role="presentation"><a role="menuitem" href="<?= Url::to(['topic/show', 'pt' => $item->id]) ?>" style="padding-left: <?= $level * 20 ?>px;"><?= $item->name ?></a></li>
 <?php
         endif;
     endforeach;
 }
 ?>
-                            <?php loopPostType($this->context->params['postType']) ?>
+                            <?php _processLoopPostType($this->context->params['postType']) ?>
                             </ul>
                         </div>
                     </div>
