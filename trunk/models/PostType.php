@@ -17,6 +17,18 @@ class PostType extends \app\components\ActiveRecord
 {
     private static $_data = null;
 
+    private $_children = [];
+
+    public function setChildren($values)
+    {
+        $this->_children = $values;
+    }
+
+    public function getChildren()
+    {
+        return $this->_children;
+    }
+
     /**
      * @inheritdoc
      */
@@ -101,24 +113,23 @@ class PostType extends \app\components\ActiveRecord
         return self::$_data;
     }
 
-    public static function findAllAsfiliationArray()
+    public static function findAllAsFiliation($currentId = 0)
     {
         $items = self::findFull();
-        $options = self::_loopFiliation($items);
+        $options = self::_loopFiliation($items, $currentId);
 
         return $options;
     }
 
-    private static function _loopFiliation(&$items, $parent_id = 0)
+    private static function _loopFiliation(&$items, $currentId)
     {
         $return = [];
         foreach ($items as $item) {
-            if ($item->parent_id == $parent_id) {
+            if ($item->parent_id == $currentId) {
                 if ($item->is_parent) {
-                    $return[$item->{'name_'.self::getLang()}] = self::_loopFiliation($items, $item->id);
-                } else {
-                    $return[$item->id] = $item->{'name_'.self::getLang()};
+                    $item->children = self::_loopFiliation($items, $item->id);
                 }
+                $return[] = $item;
             }
         }
         return $return;

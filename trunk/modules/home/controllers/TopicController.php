@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use app\modules\home\models\TopicForm;
 use app\modules\home\models\PostSearch;
+use app\models\PostType;
 
 class TopicController extends \app\modules\home\components\Controller
 {
@@ -34,7 +35,14 @@ class TopicController extends \app\modules\home\components\Controller
         $searchModel = new PostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        print_r($dataProvider->getModels()); exit;
+        if ($curPostTypeId = Yii::$app->request->get('pt')) {
+            foreach (PostType::findFull() as $item) {
+                if ($item->id == $curPostTypeId) {
+                    $this->params['currentPostTypeName'] = $item->name;
+                    break;
+                }
+            }
+        }
 
         return $this->render('show', [
             'dataProvider' => $dataProvider
