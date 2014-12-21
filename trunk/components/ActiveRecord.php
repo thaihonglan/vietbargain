@@ -20,4 +20,18 @@ class ActiveRecord extends \yii\db\ActiveRecord
 		return $lang;
 	}
 
+	public function beforeSave($insert)
+	{
+		if ($insert) {
+			if (in_array('create_datetime', $this->attributes())) {
+				$this->create_datetime = date('Y-m-d H:i:s');
+			}
+		} else {
+			if (in_array('modify_datetime', $this->attributes())) {
+				$this->modify_datetime = date('Y-m-d H:i:s');
+			}
+		}
+
+		return parent::beforeSave($insert);
+	}
 }
