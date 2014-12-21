@@ -5,12 +5,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-md-8">
+		<?php foreach ($dataProvider->getModels() as $post): ?>
 			<!-- POST -->
 			<div class="post">
 				<div class="wrap-ut pull-left">
 					<div class="userinfo pull-left">
 						<div class="avatar">
-							<img src="home/images/avatar.jpg" alt="" />
+							<img src="<?= Yii::$app->params['imageUrl'] . 'post/' . (($post->image) ? $post->image : Yii::$app->params['postNoImage']) ?>" alt="" />
 							<div class="status green">&nbsp;</div>
 						</div>
 
@@ -19,7 +20,7 @@
 						</div>
 					</div>
 					<div class="posttext pull-left">
-						<h2><a href="02_topic.html">10 Kids Unaware of Their Halloween Costume</a></h2>
+						<h2><a href="02_topic.html"><?= $post->title ?></a></h2>
 						<p>It's one thing to subject yourself to a Halloween costume mishap because, hey, that's your prerogative.</p>
 					</div>
 					<div class="clearfix"></div>
@@ -37,7 +38,7 @@
 				</div>
 				<div class="clearfix"></div>
 			</div><!-- POST -->
-
+		<?php endforeach; ?>
 
 			<!-- POST -->
 			<div class="post">

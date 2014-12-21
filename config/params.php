@@ -9,6 +9,20 @@ return [
 		'vi-VN' => 'vietnamese',
 	],
 
-	'imagePath' => BASE_PATH . '/images/',
 	'imageUrl' => '/images/',
+
+	'postNoImage' => 'avatar.jpg',
+	'userNoImage' => 'avatar.jpg',
+
+	'postImagePath' => [
+		'original' => '/images/post/large/',
+		'scaled' => '/images/post/medium/',
+		'icon' => '/images/post/small/',
+	],
+
+	'userImagePath' => [
+		'original' => '/images/user/large/',
+		'scaled' => '/images/user/medium/',
+		'icon' => '/images/user/small/',
+	],
 ];
