@@ -140,7 +140,7 @@ AppAsset::register($this);
 					echo Nav::widget([
 						'options' => ['id' => 'side-menu','class' => 'nav'],
 						'items' => [
-							['label' => '<i class="fa fa-dashboard fa-fw"></i> Dashboard', 'url' => ['/admin/index'], 'encode' => false],
+							['label' => '<i class="fa fa-dashboard fa-fw"></i> Dashboard', 'url' => ['/admin/daskboard/index'], 'encode' => false],
 							['label' => '<i class="fa fa-table fa-fw"></i> Admin', 'url' => ['/admin/admin-manager/index'], 'encode' => false],
 							['label' => '<i class="fa fa-edit fa-fw"></i> Post', 'url' => ['/admin/post-manager/index'], 'encode' => false],
 							['label' => '<i class="fa fa-wrench fa-fw"></i> Post type', 'url' => ['/admin/post-type-manager/index'], 'encode' => false],
