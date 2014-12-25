@@ -96,7 +96,7 @@ class TopicForm extends Model
 
 				if ($this->image) {
 					// upload image
-					$postImage = Yii::$app->basePath . Yii::$app->params['postImagePath']['original'] . $post->image;
+					$postImage = Yii::$app->basePath . 'web/' . Yii::$app->params['postImagePath']['original'] . $post->image;
 					if (!$this->image->saveAs($postImage)) {
 						throw \Exception('Cannot upload file');
 					}

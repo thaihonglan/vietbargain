@@ -12,7 +12,7 @@ class HomeController extends \app\modules\home\components\Controller
 	public function actionIndex()
 	{
 		$dataProvider = new ActiveDataProvider([
-			'query' => Post::find(),
+			'query' => Post::find()->joinWith('user'),
 			'pagination' => [
 				'pageSize' => 10,
 			],
