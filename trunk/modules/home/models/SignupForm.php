@@ -1,10 +1,12 @@
 <?php
 namespace app\modules\home\models;
 
+use Yii;
 use app\models\User;
 use app\models\Request;
 use yii\base\Model;
-use Yii;
+use yii\web\UploadedFile;
+use yii\image\drivers\Image;
 
 /**
  * Signup form
@@ -22,6 +24,7 @@ class SignupForm extends Model
     public $age;
     public $contactNumber;
     public $captcha;
+    public $avatar;
 
     /**
      * @inheritdoc
@@ -31,7 +34,7 @@ class SignupForm extends Model
         return [
             ['email', 'filter', 'filter' => 'trim'],
 
-            [['email', 'password', 'confirmPassword', 'firstName', 'lastName', 'identifier', 'city', 'captcha'], 'required'],
+            [['email', 'password', 'confirmPassword', 'firstName', 'lastName', 'city', 'captcha'], 'required'],
 
             [['email', 'firstName', 'lastName', 'identifier', 'contactNumber'], 'string', 'max' => 32],
             [['address'], 'string', 'max' => 128],
@@ -40,12 +43,14 @@ class SignupForm extends Model
             ['email', 'email'],
             ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
 
-            ['password', 'compare', 'compareAttribute' => 'confirmPassword'],
+            ['password', 'compare', 'compareAttribute' => 'confirmPassword', 'skipOnEmpty' => true],
             ['password', 'string', 'min' => 6],
 
             ['city', 'exist', 'targetClass' => '\app\models\City', 'targetAttribute' => 'id'],
 
             ['captcha', 'captcha'],
+
+            ['avatar', 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png', 'skipOnEmpty' => true],
         ];
     }
 
@@ -56,6 +61,8 @@ class SignupForm extends Model
      */
     public function signup()
     {
+        $this->avatar = UploadedFile::getInstance($this, 'avatar');
+
         if ($this->validate()) {
             $transaction = \Yii::$app->db->beginTransaction();
 
@@ -73,10 +80,28 @@ class SignupForm extends Model
                 (!$this->contactNumber) OR ($user->contact_number = $this->contactNumber);
                 (!$this->address) OR ($user->address = $this->address);
 
+                if ($this->avatar) {
+                    $user->avatar = Yii::$app->security->generateRandomString(32) . '.' . $this->avatar->extension;
+                }
+
                 $user->insert(false);
 
                 $request = new Request();
                 $confirmKey = $request->generateKey($user->id, Request::TYPE_REGISTER_CONFIRM);
+
+                if ($this->avatar) {
+                    // upload image
+                    $avatar = Yii::$app->basePath . '/web' . Yii::$app->params['userImagePath']['original'] . $user->avatar;
+                    if (!$this->avatar->saveAs($avatar)) {
+                        throw \Exception('Cannot upload file');
+                    }
+
+                    // resize image
+                    $image = Yii::$app->image->load($avatar);
+
+                    $image->resize('120', '120', Image::INVERSE)->save(Yii::$app->basePath . '/web' . Yii::$app->params['userImagePath']['scaled'] . $user->avatar);
+                    $image->resize('60', '60', Image::INVERSE)->save(Yii::$app->basePath . '/web' . Yii::$app->params['userImagePath']['icon'] . $user->avatar);
+                }
 
                 $transaction->commit();
             } catch(\Exception $e) {
