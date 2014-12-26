@@ -8,7 +8,7 @@ use yii\captcha\Captcha;
 ?>
 <!-- POST -->
 <div class="post">
-    <?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic']]); ?>
+    <?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic', 'enctype' => 'multipart/form-data']]); ?>
         <div class="postinfotop">
             <h2><?php echo Yii::t('home', 'Create New account'); ?></h2>
         </div>
@@ -26,12 +26,29 @@ use yii\captcha\Captcha;
             <div class="topwrap">
                 <div class="userinfo pull-left">
                     <div class="avatar">
-                        <img src="home/images/avatar-blank.jpg" alt="" />
-                        <div class="status green">&nbsp;</div>
+                        <img src="/home/images/avatar-blank.jpg" alt="" height="60" width="60"/>
                     </div>
                     <div class="imgsize">60 x 60</div>
                     <div>
-                        <button class="btn"><?php echo Yii::t('home', 'Add'); ?></button>
+                        <label for="signupform-avatar">
+                            <button class="btn" type="button"><?php echo Yii::t('home', 'Add'); ?></button>
+                            <?php
+                                echo $form->field($model, 'avatar', ['template' => '{input} {error}'])->fileInput(['style' => 'display:none;', 'accept' => '.jpeg, .png']);
+
+                                echo $this->registerJs(
+'$("input#signupform-avatar").change(function(e) {
+    for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+        var file = e.originalEvent.srcElement.files[i];
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            $("div.accsection div.avatar img").prop("src", reader.result);
+        }
+        reader.readAsDataURL(file);
+    }
+});'
+                                );
+                            ?>
+                        </label>
                     </div>
                 </div>
                 <div class="posttext pull-left">
