@@ -37,7 +37,6 @@ tinymce.init({
 </script>
 <div class="post">
 	<?php $form = ActiveForm::begin(['options' => ['class' => 'form newtopic', 'enctype' => 'multipart/form-data'], 'enableClientValidation' => false]); ?>
-<!-- 	<form action="#" class="form newtopic" method="post"> -->
 		<div class="topwrap">
 			<div class="userinfo pull-left">
 				<div class="avatar">
@@ -148,7 +147,6 @@ tinymce.init({
 
 			<div class="clearfix"></div>
 		</div>
-<!-- 	</form> -->
 	<?php ActiveForm::end(); ?>
 </div><!-- POST -->
 
