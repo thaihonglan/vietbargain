@@ -10,6 +10,7 @@ $config = [
 	'aliases' => [
 		'@yii/jui' => '@vendor/yiisoft/yii2-jui',
 		'@yii/image' => '@vendor/extentions/image',
+	    '@dosamigos/chartjs' => '@vendor/widgets/chartjs',
 	],
 
 //     'language' => 'en-US',
@@ -103,6 +104,10 @@ $config = [
 				'sliderRevolution' => [ // Slider Revolution
 					'class' => 'app\assets\SliderRevolutionAsset',
 				],
+			    'dosamigos\chartjs\ChartPluginAsset' => [
+			        'basePath' => '@webroot/plugins/chartjs',
+			        'baseUrl' => '@web/plugins/chartjs',
+			    ],
 			],
 		],
 
