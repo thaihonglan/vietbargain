@@ -4,7 +4,7 @@ namespace app\modules\home;
 
 use Yii;
 
-class Module extends \yii\base\Module
+class Module extends \app\components\Module
 {
 	public $controllerNamespace = 'app\modules\home\controllers';
 
@@ -14,12 +14,8 @@ class Module extends \yii\base\Module
 	{
 		parent::init();
 
-		// setting authenticate
-		\Yii::configure(Yii::$app->user, [
-			'identityClass' => 'app\models\User',
-			'returnUrl' => ['/'],
-			'loginUrl' => ['auth/login'],
-		]);
+		// initialize the module with the configuration loaded from config.php
+		self::configure(Yii::$app, require(__DIR__ . '/config.php'));
 
 		// save link
 		list($controller) = explode('/', Yii::$app->request->getPathInfo());

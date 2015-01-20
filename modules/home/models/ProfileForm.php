@@ -4,7 +4,9 @@ namespace app\modules\home\models;
 use Yii;
 use app\models\User;
 use app\models\Request;
+use app\models\City;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 use yii\image\drivers\Image;
 
@@ -13,8 +15,14 @@ use yii\image\drivers\Image;
  */
 class ProfileForm extends Model
 {
+	const ACTION_UPDATE_DATA = 'update-data';
+	const ACTION_UPDATE_PASSWORD = 'update-password';
+	const ACTION_UPDATE_AVATAR = 'update-avatar';
+	const ACTION_UPDATE_EMAIL = 'update-email';
+
 	public $email;
-	public $password;
+	public $oldPassword;
+	public $newPassword;
 	public $confirmPassword;
 	public $firstName;
 	public $lastName;
@@ -26,29 +34,88 @@ class ProfileForm extends Model
 	public $avatar;
 
 	/**
+	 * @var \app\models\User
+	 */
+	private $_user;
+
+	/**
 	 * @inheritdoc
 	 */
 	public function rules()
 	{
 		return [
-			['email', 'filter', 'filter' => 'trim'],
+			// Scenario: update data
+			[['firstName', 'lastName', 'city'], 'required', 'on' => self::ACTION_UPDATE_DATA],
 
-			[['email', 'firstName', 'lastName', 'identifier', 'contactNumber'], 'string', 'max' => 32],
-			[['address'], 'string', 'max' => 128],
-			[['city', 'age'], 'integer'],
+			[['firstName', 'lastName', 'identifier', 'contactNumber'], 'string', 'max' => 32, 'on' => self::ACTION_UPDATE_DATA],
+			[['address'], 'string', 'max' => 128, 'on' => self::ACTION_UPDATE_DATA],
+			[['city', 'age'], 'integer', 'on' => self::ACTION_UPDATE_DATA],
 
-			['email', 'email'],
-			['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
+			['city', 'exist', 'targetClass' => '\app\models\City', 'targetAttribute' => 'id', 'on' => self::ACTION_UPDATE_DATA],
 
-			['password', 'compare', 'compareAttribute' => 'confirmPassword', 'skipOnEmpty' => true],
-			['password', 'string', 'min' => 6],
+			// Scenario: update email
+			['email', 'filter', 'filter' => 'trim', 'on' => self::ACTION_UPDATE_DATA],
+			['email', 'required', 'on' => self::ACTION_UPDATE_EMAIL],
+			['email', 'email', 'on' => self::ACTION_UPDATE_EMAIL],
+			['email', 'string', 'max' => 32, 'on' => self::ACTION_UPDATE_DATA],
+			['email', 'unique', 'targetClass' => '\app\models\User', 'filter' => ['!=', 'email', $this->_user->email], 'message' => 'This email address has already been taken.', 'on' => self::ACTION_UPDATE_EMAIL],
 
-			['city', 'exist', 'targetClass' => '\app\models\City', 'targetAttribute' => 'id'],
+			// Scenario: update password
+			[['oldPassword', 'newPassword', 'confirmPassword'], 'required', 'on' => self::ACTION_UPDATE_PASSWORD],
+			[['oldPassword', 'newPassword', 'confirmPassword'], 'string', 'max' => 32, 'on' => self::ACTION_UPDATE_PASSWORD],
+			['oldPassword', function ($attribute, $params) {
+				if (!Yii::$app->security->validatePassword($this->$attribute, $this->_user->password)) {
+					$this->addError($attribute, 'Your old password is not correct.');
+				}
+			}, 'on' => self::ACTION_UPDATE_PASSWORD],
+			['newPassword', 'compare', 'compareAttribute' => 'confirmPassword', 'on' => self::ACTION_UPDATE_PASSWORD],
+			['newPassword', 'string', 'min' => 6, 'on' => self::ACTION_UPDATE_PASSWORD],
 
-			['captcha', 'captcha'],
-
-			['avatar', 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png', 'skipOnEmpty' => true],
+			// Scenario: update avatar
+			['avatar', 'required', 'on' => self::ACTION_UPDATE_AVATAR],
+			['avatar', 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png', 'on' => self::ACTION_UPDATE_AVATAR],
 		];
+	}
+
+	public function __construct() {
+		$this->_user = User::findOne(Yii::$app->user->id);
+
+		if (empty($this->_user)) {
+			return false;
+		}
+	}
+
+	private function _loadData()
+	{
+		$action = Yii::$app->request->post('action');
+
+		if ($action != self::ACTION_UPDATE_DATA) {
+			$this->firstName = $this->_user->first_name;
+			$this->lastName = $this->_user->last_name;
+			$this->identifier = $this->_user->identifier;
+			$this->city = $this->_user->city_id;
+			$this->address = $this->_user->address;
+			$this->age = $this->_user->age;
+			$this->contactNumber = $this->_user->contact_number;
+		}
+
+		if ($action != self::ACTION_UPDATE_EMAIL) {
+			$this->email = $this->_user->email;
+		}
+
+		$this->avatar = $this->_user->avatar;
+	}
+
+	public function getCityOptions()
+	{
+		return ArrayHelper::map(City::find()->asArray()->all(), 'id', 'name');
+	}
+
+	private function _updateIdentity()
+	{
+		$newIdentity = User::findIdentity($this->_user->id);
+		Yii::$app->user->setIdentity($newIdentity);
+		print_r(Yii::$app->user->getIdentity());die;
 	}
 
 	/**
@@ -56,61 +123,73 @@ class ProfileForm extends Model
 	 *
 	 * @return User|null the saved model or null if saving fails
 	 */
-	public function signup()
+	public function save()
 	{
-		$this->avatar = UploadedFile::getInstance($this, 'avatar');
+		$action = Yii::$app->request->post('action');
+		if (!$action || (!in_array($action, [self::ACTION_UPDATE_DATA, self::ACTION_UPDATE_AVATAR, self::ACTION_UPDATE_PASSWORD, self::ACTION_UPDATE_EMAIL]))) {
+			$this->_loadData();
+			return;
+		}
+
+		$this->setScenario($action);
+
+		if ($action == self::ACTION_UPDATE_AVATAR) {
+			$this->avatar = UploadedFile::getInstance($this, 'avatar');
+		}
 
 		if ($this->validate()) {
-			$transaction = \Yii::$app->db->beginTransaction();
 
-			try {
-				$user = new User();
-				$user->email = $this->email;
-				$user->setPassword($this->password);
-				$user->first_name = $this->firstName;
-				$user->last_name = $this->lastName;
-				$user->city_id = $this->city;
-				$user->status = User::STATUS_INACTIVE;
+			switch ($action) {
+				case self::ACTION_UPDATE_DATA:
+					$this->_user->first_name = $this->firstName;
+					$this->_user->last_name = $this->lastName;
+					$this->_user->city_id = $this->city;
 
-				(!$this->identifier) OR ($user->identifier = $this->identifier);
-				(!$this->age) OR ($user->age = $this->age);
-				(!$this->contactNumber) OR ($user->contact_number = $this->contactNumber);
-				(!$this->address) OR ($user->address = $this->address);
+					(!$this->identifier) OR ($this->_user->identifier = $this->identifier);
+					(!$this->age) OR ($this->_user->age = $this->age);
+					(!$this->contactNumber) OR ($this->_user->contact_number = $this->contactNumber);
+					(!$this->address) OR ($this->_user->address = $this->address);
 
-				if ($this->avatar) {
-					$user->avatar = Yii::$app->security->generateRandomString(32) . '.' . $this->avatar->extension;
-				}
+					$this->_user->update(false);
+					$this->_updateIdentity();
+					break;
 
-				$user->insert(false);
+				case self::ACTION_UPDATE_EMAIL:
+					$request = Request::create(Request::TYPE_UPDATE_PASSWORD, $this->_user->id);
+					$request->data = json_encode(['email' => $this->email]);
 
-				$request = new Request();
-				$confirmKey = $request->generateKey($user->id, Request::TYPE_REGISTER_CONFIRM);
+					$request->save(false);
 
-				if ($this->avatar) {
-					// upload image
-					$avatar = Yii::$app->basePath . '/web' . Yii::$app->params['userImagePath']['original'] . $user->avatar;
-					if (!$this->avatar->saveAs($avatar)) {
-						throw \Exception('Cannot upload file');
-					}
+					Yii::$app->mailSender->sendUserUpdateEmailMail($this->_user, $request->request_key, $this->email);
+					break;
+
+				case self::ACTION_UPDATE_PASSWORD:
+					$this->_user->setPassword($this->newPassword);
+
+					$this->_user->update(false);
+					$this->_updateIdentity();
+					break;
+
+				case self::ACTION_UPDATE_AVATAR:
+					$this->_user->avatar = Yii::$app->security->generateRandomString(32) . '.' . $this->avatar->extension;
+					$this->_user->update(false);
+					$this->_updateIdentity();
+
+					$avatar = Yii::$app->basePath . '/web' . Yii::$app->params['userImagePath']['original'] . $this->_user->avatar;
+					$this->avatar->saveAs($avatar);
 
 					// resize image
 					$image = Yii::$app->image->load($avatar);
 
-					$image->resize('120', '120', Image::INVERSE)->save(Yii::$app->basePath . '/web' . Yii::$app->params['userImagePath']['scaled'] . $user->avatar);
-					$image->resize('60', '60', Image::INVERSE)->save(Yii::$app->basePath . '/web' . Yii::$app->params['userImagePath']['icon'] . $user->avatar);
-				}
-
-				$transaction->commit();
-			} catch(\Exception $e) {
-				$transaction->rollBack();
-				throw $e;
+					$image->resize('120', '120', Image::INVERSE)->save(Yii::$app->basePath . '/web' . Yii::$app->params['userImagePath']['scaled'] . $this->_user->avatar);
+					$image->resize('60', '60', Image::INVERSE)->save(Yii::$app->basePath . '/web' . Yii::$app->params['userImagePath']['icon'] . $this->_user->avatar);
+					break;
 			}
 
-			Yii::$app->mailSender->sendUserRegisterConfirmMail($user, $confirmKey);
-
-			return $user;
+			return true;
 		}
 
+		$this->_loadData();
 		return null;
 	}
 }

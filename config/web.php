@@ -10,7 +10,8 @@ $config = [
 	'aliases' => [
 		'@yii/jui' => '@vendor/yiisoft/yii2-jui',
 		'@yii/image' => '@vendor/extentions/image',
-	    '@dosamigos/chartjs' => '@vendor/widgets/chartjs',
+		'@dosamigos/chartjs' => '@vendor/widgets/chartjs',
+		'@dosamigos/tinymce' => '@vendor/widgets/tinymce',
 	],
 
 //     'language' => 'en-US',
@@ -33,7 +34,7 @@ $config = [
 			'showScriptName' => false,
 			'enableStrictParsing' => true,
 			'rules' => [
-				'' => 'home/home/index',
+				'' => 'home/topic/show',
 				'admin/<controller>/<action>' => 'admin/<controller>/<action>',
 				'site/<action>' => 'site/<action>',
 				'<controller>/<action>' => 'home/<controller>/<action>',
@@ -104,10 +105,14 @@ $config = [
 				'sliderRevolution' => [ // Slider Revolution
 					'class' => 'app\assets\SliderRevolutionAsset',
 				],
-			    'dosamigos\chartjs\ChartPluginAsset' => [
-			        'basePath' => '@webroot/plugins/chartjs',
-			        'baseUrl' => '@web/plugins/chartjs',
-			    ],
+				'dosamigos\chartjs\ChartPluginAsset' => [
+					'basePath' => '@webroot/plugins/chartjs',
+					'baseUrl' => '@web/plugins/chartjs',
+				],
+				'dosamigos\tinymce\TinyMceAsset' => [
+					'basePath' => '@webroot/plugins/tinymce',
+					'baseUrl' => '@web/plugins/tinymce',
+				],
 			],
 		],
 

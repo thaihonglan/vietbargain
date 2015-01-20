@@ -12,74 +12,74 @@ use app\models\PostType;
  */
 class PostSearch extends Post
 {
-    public $pt;
-    public $dt;
+	public $pt;
+	public $dt;
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['pt', 'dt'], 'integer'],
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+			[['pt', 'dt'], 'integer'],
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function safeAttributes()
-    {
-        return ['pt', 'dt'];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function safeAttributes()
+	{
+		return ['pt', 'dt'];
+	}
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
-    public function search($params)
-    {
-        $query = Post::find();
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 *
+	 * @return ActiveDataProvider
+	 */
+	public function search($params)
+	{
+		$query = Post::find()->joinWith('user');
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 20,
-            ],
-        ]);
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+			'pagination' => [
+				'pageSize' => 20,
+			],
+		]);
 
-        if (!($this->load($params, '') && $this->validate())) {
-            return $dataProvider;
-        }
+		if (!($this->load($params, '') && $this->validate())) {
+			return $dataProvider;
+		}
 
-        if ($this->pt) {
-            $postTypeOptions = PostType::findAllAsFiliation($this->pt);
-            $postTypeIds = array_unique($this->_getPostTypeIdFromFiliation($postTypeOptions));
+		if ($this->pt) {
+			$postTypeOptions = PostType::findAllAsFiliation($this->pt);
+			$postTypeIds = array_unique($this->_getPostTypeIdFromFiliation($postTypeOptions));
 
-            $query->joinWith('postType')->andFilterWhere(['post_type.id' => $postTypeIds]);
-        } elseif ($this->dt) {
-            $query->andFilterWhere(['deal_type' => $this->dt]);
-        }
+			$query->joinWith('postType')->andFilterWhere(['post_type.id' => $postTypeIds]);
+		} elseif ($this->dt) {
+			$query->andFilterWhere(['deal_type' => $this->dt]);
+		}
 
-        return $dataProvider;
-    }
+		return $dataProvider;
+	}
 
-    /**
-     *
-     * @param array
-     */
-    private function _getPostTypeIdFromFiliation($items)
-    {
-        $return = [];
-        foreach ($items as $item) {
-            if ($item->is_parent) {
-                $return = array_merge($return, $this->_getPostTypeIdFromFiliation($item->children));
-            }
-            $return[] = $item->id;
-        }
-        return $return;
-    }
+	/**
+	 *
+	 * @param array
+	 */
+	private function _getPostTypeIdFromFiliation($items)
+	{
+		$return = [];
+		foreach ($items as $item) {
+			if ($item->is_parent) {
+				$return = array_merge($return, $this->_getPostTypeIdFromFiliation($item->children));
+			}
+			$return[] = $item->id;
+		}
+		return $return;
+	}
 }
