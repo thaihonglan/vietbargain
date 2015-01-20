@@ -10,12 +10,16 @@ use app\models\PostType;
  */
 class Controller extends \app\components\Controller
 {
-    public $params = [];
+	const TYPE_NORMAL = 1;
+	const TYPE_PARTNER = 2;
+	const TYPE_POWER = 3;
 
-    public function beforeAction($action)
-    {
-        $this->params['postType'] = PostType::findAllAsFiliation();
+	public $params = [];
 
-        return parent::beforeAction($action);
-    }
+	public function beforeAction($action)
+	{
+		$this->params['postType'] = PostType::findAllAsFiliation();
+
+		return parent::beforeAction($action);
+	}
 }

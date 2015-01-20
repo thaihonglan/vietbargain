@@ -10,6 +10,7 @@ use Yii;
  * @property string $id
  * @property string $title
  * @property string $content
+ * @property string $short_content
  * @property string $user_id
  * @property string $contact_number
  * @property string $store_address
@@ -42,6 +43,7 @@ class Post extends \app\components\ActiveRecord
 	{
 		return [
 			[['content'], 'string'],
+			[['short_content'], 'string', 'max' => 512],
 			[['user_id', 'is_owner', 'deal_type', 'status'], 'integer'],
 			[['deal_begin_date', 'deal_end_date'], 'safe'],
 			[['title', 'contact_number', 'discount_code'], 'string', 'max' => 32],
@@ -59,6 +61,7 @@ class Post extends \app\components\ActiveRecord
 			'id' => Yii::t('admin', 'ID'),
 			'title' => Yii::t('admin', 'Title'),
 			'content' => Yii::t('admin', 'Content'),
+			'short_content' => Yii::t('admin', 'Short content'),
 			'user_id' => Yii::t('admin', 'User ID'),
 			'contact_number' => Yii::t('admin', 'Contact Number'),
 			'store_address' => Yii::t('admin', 'Store Address'),
@@ -81,6 +84,12 @@ class Post extends \app\components\ActiveRecord
 	public function getUser()
 	{
 		return $this->hasOne(User::className(), ['id' => 'user_id']);
+	}
+
+	public function increaseViewNumber()
+	{
+		$this->view_number++;
+		$this->update(false, ['view_number']);
 	}
 
 	public function savePostType($postTypes)

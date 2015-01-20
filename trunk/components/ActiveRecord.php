@@ -26,6 +26,9 @@ class ActiveRecord extends \yii\db\ActiveRecord
 			if (in_array('create_datetime', $this->attributes())) {
 				$this->create_datetime = date('Y-m-d H:i:s');
 			}
+			if (in_array('modify_datetime', $this->attributes())) {
+				$this->modify_datetime = date('Y-m-d H:i:s');
+			}
 		} else {
 			if (in_array('modify_datetime', $this->attributes())) {
 				$this->modify_datetime = date('Y-m-d H:i:s');

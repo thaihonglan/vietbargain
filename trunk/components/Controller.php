@@ -25,7 +25,8 @@ class Controller extends \yii\web\Controller
 		$this->_params[$key] = $value;
 	}
 
-	public function saveBacklink($action) {
+	public function saveBacklink($action)
+	{
 		$action = trim($action, '/');
 		Yii::$app->response->cookies->add(new \yii\web\Cookie([
 			'name' => $this->module->id . '/back/' . $action,
@@ -36,5 +37,15 @@ class Controller extends \yii\web\Controller
 	public function getBacklink($action) {
 		$action = trim($action, '/');
 		return Yii::$app->request->cookies->getValue($this->module->id . '/back/' . $action, \yii\helpers\Url::to([$action]));
+	}
+
+	public function ajaxRespone($status, $message = [], $data = [])
+	{
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		return [
+			'status' => $status,
+			'messages' => $message,
+			'data' => $data
+		];
 	}
 }

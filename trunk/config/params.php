@@ -14,6 +14,10 @@ return [
 	'postNoImage' => 'avatar.jpg',
 	'userNoImage' => 'avatar.jpg',
 
+	'userDefaultImages' => [
+		'avatar.jpg'
+	],
+
 	'postImagePath' => [
 		'original' => '/images/post/large/',
 		'scaled' => '/images/post/medium/',
