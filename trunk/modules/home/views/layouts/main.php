@@ -30,7 +30,7 @@ AppAsset::register($this);
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body>
+<body<?php if ($this->context->id == 'topic'): ?> class="topic"<?php endif; ?>>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -110,7 +110,9 @@ function _processLoopPostType($items, $level = 1)
 						<div class="env pull-left"><i class="fa fa-envelope"></i></div>
 
 						<div class="avatar pull-left dropdown">
-							<a data-toggle="dropdown" href="javascript:void(0)" title="<?= (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->first_name : '' ?>"><img src="<?= Yii::$app->params['postImagePath']['icon'] . (((!Yii::$app->user->isGuest) && Yii::$app->user->identity->avatar) ? Yii::$app->user->identity->avatar : Yii::$app->params['postNoImage']) ?>" alt="" /></a> <b class="caret"></b>
+							<a data-toggle="dropdown" href="javascript:void(0)" title="<?= (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->first_name : '' ?>">
+								<img src="<?= Yii::$app->params['userImagePath']['icon'] . (((!Yii::$app->user->isGuest) && Yii::$app->user->identity->avatar) ? Yii::$app->user->identity->avatar : Yii::$app->params['postNoImage']) ?>" alt="" height="37" width="37" />
+							</a> <b class="caret"></b>
 							<div class="status green">&nbsp;</div>
 							<?php
 								echo Nav::widget([
