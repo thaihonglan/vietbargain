@@ -43,7 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			'age',
 			'contact_number',
 			// 'avatar',
-			// 'is_power',
 			// 'create_datetime',
 			// 'status',
 

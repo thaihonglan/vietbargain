@@ -34,8 +34,6 @@ use yii\widgets\ActiveForm;
 
 	<?= $form->field($model, 'avatar')->textInput(['maxlength' => 64]) ?>
 
-	<?= $form->field($model, 'is_power')->textInput() ?>
-
 	<?= $form->field($model, 'create_datetime')->textInput() ?>
 
 	<?= $form->field($model, 'status')->textInput() ?>
