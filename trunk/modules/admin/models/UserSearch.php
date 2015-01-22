@@ -18,7 +18,7 @@ class UserSearch extends User
 	public function rules()
 	{
 		return [
-			[['id', 'city_id', 'age', 'status' , 'is_comment_unlimited', 'type'], 'integer'],
+			[['id', 'city_id', 'age', 'status'], 'integer'],
 			[['email', 'password', 'facebook_login_id', 'first_name', 'last_name', 'identifier', 'address', 'contact_number', 'avatar', 'create_datetime'], 'safe'],
 		];
 	}
@@ -55,7 +55,6 @@ class UserSearch extends User
 			'id' => $this->id,
 			'city_id' => $this->city_id,
 			'age' => $this->age,
-			'is_power' => $this->is_power,
 			'create_datetime' => $this->create_datetime,
 			'status' => $this->status,
 		]);
