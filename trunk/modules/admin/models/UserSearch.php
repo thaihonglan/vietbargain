@@ -18,7 +18,7 @@ class UserSearch extends User
 	public function rules()
 	{
 		return [
-			[['id', 'city_id', 'age', 'is_power', 'status'], 'integer'],
+			[['id', 'city_id', 'age', 'status' , 'is_comment_unlimited', 'type'], 'integer'],
 			[['email', 'password', 'facebook_login_id', 'first_name', 'last_name', 'identifier', 'address', 'contact_number', 'avatar', 'create_datetime'], 'safe'],
 		];
 	}
@@ -51,24 +51,25 @@ class UserSearch extends User
 			return $dataProvider;
 		}
 
-		$query->andFilterWhere([
-			'id' => $this->id,
-			'city_id' => $this->city_id,
-			'age' => $this->age,
-			'is_power' => $this->is_power,
-			'create_datetime' => $this->create_datetime,
-			'status' => $this->status,
-		]);
+// 		$query->andFilterWhere([
+// 			'id' => $this->id,
+// 			'city_id' => $this->city_id,
+// 			'age' => $this->age,
+// 			'is_power' => $this->is_power,
+// 			'create_datetime' => $this->create_datetime,
+// 			'status' => $this->status,
+// 		]);
 
-		$query->andFilterWhere(['like', 'email', $this->email])
-			->andFilterWhere(['like', 'password', $this->password])
-			->andFilterWhere(['like', 'facebook_login_id', $this->facebook_login_id])
-			->andFilterWhere(['like', 'first_name', $this->first_name])
-			->andFilterWhere(['like', 'last_name', $this->last_name])
-			->andFilterWhere(['like', 'identifier', $this->identifier])
-			->andFilterWhere(['like', 'address', $this->address])
-			->andFilterWhere(['like', 'contact_number', $this->contact_number])
-			->andFilterWhere(['like', 'avatar', $this->avatar]);
+		$query->andFilterWhere(['like', 'email', $this->email]);
+// 		$query->andFilterWhere(['like', 'email', $this->email])
+// 			->andFilterWhere(['like', 'password', $this->password])
+// 			->andFilterWhere(['like', 'facebook_login_id', $this->facebook_login_id])
+// 			->andFilterWhere(['like', 'first_name', $this->first_name])
+// 			->andFilterWhere(['like', 'last_name', $this->last_name])
+// 			->andFilterWhere(['like', 'identifier', $this->identifier])
+// 			->andFilterWhere(['like', 'address', $this->address])
+// 			->andFilterWhere(['like', 'contact_number', $this->contact_number])
+// 			->andFilterWhere(['like', 'avatar', $this->avatar]);
 
 		return $dataProvider;
 	}
