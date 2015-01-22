@@ -39,8 +39,6 @@ use yii\widgets\ActiveForm;
 
 	<?php // echo $form->field($model, 'avatar') ?>
 
-	<?php // echo $form->field($model, 'is_power') ?>
-
 	<?php // echo $form->field($model, 'create_datetime') ?>
 
 	<?php // echo $form->field($model, 'status') ?>
