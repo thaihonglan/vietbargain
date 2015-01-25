@@ -18,11 +18,11 @@ class UserSearch extends User
 	public function rules()
 	{
 		return [
-			[['id', 'city_id', 'age', 'status'], 'integer'],
+			[['id', 'city_id', 'age', 'status', 'type'], 'integer'],
 			[['email', 'password', 'facebook_login_id', 'first_name', 'last_name', 'identifier', 'address', 'contact_number', 'avatar', 'create_datetime'], 'safe'],
 		];
 	}
-
+	
 	/**
 	 * @inheritdoc
 	 */
@@ -53,6 +53,7 @@ class UserSearch extends User
 
 		$query->andFilterWhere([
 			'id' => $this->id,
+			'type' => $this->type,
 			'city_id' => $this->city_id,
 			'age' => $this->age,
 			'create_datetime' => $this->create_datetime,
