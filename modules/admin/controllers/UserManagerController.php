@@ -26,12 +26,20 @@ class UserManagerController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$searchModel = new UserSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+		$model = new UserSearch();
+		$dataProvider = $model->search(Yii::$app->request->queryParams);
+		
+		$type = array();
+		foreach (User::getTypes() as $key_type => $val_type) $type[] = ['id' => $key_type, 'name' => $val_type];
+		
+		$status = array();
+		foreach (User::getStatus() as $key_status => $val_status) $status[] = ['id' => $key_status, 'name' => $val_status];
+		
 		return $this->render('index', [
-			'searchModel' => $searchModel,
+			'model' => $model,
 			'dataProvider' => $dataProvider,
+			'status' => $status,
+			'type' => $type
 		]);
 	}
 
@@ -42,14 +50,15 @@ class UserManagerController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model = new User();
+	
+		$model = new user();
 
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+		if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+			return $this->redirect(['index']);
 		} else {
 			return $this->render('create', [
-				'model' => $model,
-			]);
+					'model' => $model,
+					]);
 		}
 	}
 
@@ -64,10 +73,21 @@ class UserManagerController extends Controller
 		$model = $this->findModel($id);
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+			\Yii::$app->getSession()->setFlash('update_success',  \Yii::t('admin', 'Update success.'));
+			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
+			$type = array();
+			foreach (User::getTypes() as $key_type => $val_type) $type[] = ['id' => $key_type, 'name' => $val_type];
+				
+			$status = array();
+			$action_status_list = User::getStatus();
+			unset($action_status_list[User::STATUS_INACTIVE]);
+			foreach ($action_status_list as $key_status => $val_status) $status[] = ['id' => $key_status, 'name' => $val_status];
+			
 			return $this->render('update', [
-				'model' => $model,
+					'model' => $model,
+					'status' => $status,
+					'type' => $type
 			]);
 		}
 	}
@@ -80,9 +100,13 @@ class UserManagerController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->findModel($id)->delete();
-
+		$model = $this->findModel($id);
+		if ($model->delete()) {
+			\Yii::$app->getSession()->setFlash('account_delete',  $model->email);
+			\Yii::$app->getSession()->setFlash('update_success',  \Yii::t('admin', 'Delete success account '));
+		} 
 		return $this->redirect(['index']);
+		
 	}
 
 	/**
