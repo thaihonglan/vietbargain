@@ -45,21 +45,4 @@ class City extends \app\components\ActiveRecord
             'zip' => Yii::t('admin', 'Zip'),
         ];
     }
-    
-	/**
-	 * 
-	 * @param int $key
-	 * @return string
-	 */
-    public static function getName_by_id($key = null)
-    {
-     	if (isset($key)) {
-     		$city = static::findOne(['id' => $key]);
-     		if (isset($city)) {
-     			return $city->name;
-     		}
-        }
-    
-    	return $key;
-    }
 }
