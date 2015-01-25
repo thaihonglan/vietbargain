@@ -177,7 +177,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
      * @param string $key
      * @return content list status or single type by $key
      */
-    public static function getStatus_by_key($key = null)
+    public static function getStatusByKey($key = null)
     {
     	$array = [
 	    	self::STATUS_INACTIVE => Yii::t('model', 'Inactive'),
@@ -198,7 +198,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
      * @param string $key
      * @return content list type or single type by $key
      */
-    public static function getType_by_key($key = null)
+    public static function getTypeByKey($key = null)
     {
     	$array = [
 	    	self::TYPE_NORMAL  => Yii::t('model', 'Normal'),
