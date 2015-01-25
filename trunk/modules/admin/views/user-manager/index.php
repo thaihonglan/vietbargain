@@ -45,13 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'type',
 				'value' => function($model) {
-					return User::getType_by_key($model->type);
+					return User::getTypeByKey($model->type);
 				},
 			],
 			[
 				'attribute' => 'status',
 				'value' => function($model) {
-					return User::getStatus_by_key($model->status);
+					return User::getStatusByKey($model->status);
 				},
 			],
 			'email:email',
@@ -62,7 +62,8 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'city_id',
 				'value' => function($model) {
-					return City::getName_by_id($model->city_id);
+					$city = City::find()->where(['id' => $model->city_id])->one();
+					return isset($city->name) ? $city->name : null;
 				},
 			],
 			'address',
