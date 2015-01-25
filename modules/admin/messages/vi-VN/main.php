@@ -53,6 +53,15 @@ return [
     'Age' => 'Tuổi',
     'Avatar' => 'Hình đại diện',
     'Is Power User' => 'Là người dùng cao cấp',
+    'Please choose your type' => 'Chọn Quyền Thành Viên',
+    'Please choose your city' => 'Chọn Tỉnh/Thành phố',
+    'Please choose your status' => 'Chọn Trạng Thái',
+    'User rights' => 'Quyền thành viên',
+    'Status'      => 'Trạng thái',
+    'Add avatar' => 'Thêm',
     
+/* ----- Status actionlistener ----- */
+	'Update success.' => 'Cập nhật thành công.',
+	'Delete success account ' => 'Tài khoản đã được xóa ',
   
 ];
