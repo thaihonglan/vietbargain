@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "user".
  *
  * @property string $id
+ * @property string $type
  * @property string $email
  * @property string $password
  * @property string $facebook_login_id
@@ -19,33 +20,20 @@ use Yii;
  * @property integer $age
  * @property string $contact_number
  * @property string $avatar
- * @property integer $is_power
  * @property string $create_datetime
  * @property integer $status
+ * @property string $confirmPassword
  */
 class User extends \app\components\ActiveRecord implements \yii\web\IdentityInterface
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const STATUS_BANNED = 2;
 
     const TYPE_NORMAL = 1;
     const TYPE_POWER = 2;
     const TYPE_PARTNER = 3;
-
-    public static function getStatus($key = null)
-    {
-        $array = [
-            self::STATUS_INACTIVE => Yii::t('model', 'Inactive'),
-            self::STATUS_ACTIVE => Yii::t('model', 'Active'),
-        ];
-
-        if ($key) {
-            return $array[$key];
-        }
-
-        return $array;
-    }
-
+    
     /**
      * @inheritdoc
      */
@@ -60,7 +48,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
     public function rules()
     {
         return [
-            [['city_id', 'age', 'is_power', 'status'], 'integer'],
+            [['city_id', 'age',  'status'], 'integer'],
             [['contact_number'], 'required'],
             [['create_datetime'], 'safe'],
             [['email', 'facebook_login_id', 'first_name', 'last_name', 'identifier', 'contact_number'], 'string', 'max' => 32],
@@ -76,6 +64,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'type' => Yii::t('admin', 'User rights'),
             'email' => Yii::t('admin', 'Email'),
             'password' => Yii::t('admin', 'Password'),
             'facebook_login_id' => Yii::t('admin', 'Facebook Login ID'),
@@ -87,7 +76,6 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
             'age' => Yii::t('admin', 'Age'),
             'contact_number' => Yii::t('admin', 'Contact Number'),
             'avatar' => Yii::t('admin', 'Avatar'),
-            'is_power' => Yii::t('admin', 'Is Power User'),
             'create_datetime' => Yii::t('admin', 'Create Datetime'),
             'status' => Yii::t('admin', 'Status'),
         ];
@@ -173,5 +161,81 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password);
+    }
+    
+    /**
+     * List type
+     * @return array:
+     */
+    private function _get_uset_type () {
+    	$types = array();
+    	return $types;
+    }
+    
+    /**
+     *
+     * @param string $key
+     * @return content list status or single type by $key
+     */
+    public static function getStatus_by_key($key = null)
+    {
+    	$array = [
+	    	self::STATUS_INACTIVE => Yii::t('model', 'Inactive'),
+	    	self::STATUS_ACTIVE => Yii::t('model', 'Active'),
+	    	self::STATUS_BANNED => Yii::t('model', 'Banner'),
+    	];
+    
+    	if (isset($key)) {
+    		if (isset($array[$key])) 
+    			return $array[$key];
+    	}
+    
+    	return null;
+    }
+    
+    /**
+     * 
+     * @param string $key
+     * @return content list type or single type by $key
+     */
+    public static function getType_by_key($key = null)
+    {
+    	$array = [
+	    	self::TYPE_NORMAL  => Yii::t('model', 'Normal'),
+	    	self::TYPE_PARTNER => Yii::t('model', 'Parnet'),
+	    	self::TYPE_POWER   => Yii::t('model', 'Power'),
+    	];
+    
+    	if (isset($key)) {
+    		if (isset($array[$key])) 
+    			return $array[$key];
+    	}
+    	return null;
+    }
+    
+    /**
+     *
+     * @return content list type
+     */
+    public static function getTypes()
+    {
+    	return $array = [
+	    	self::TYPE_NORMAL  => Yii::t('model', 'Normal'),
+	    	self::TYPE_PARTNER => Yii::t('model', 'Parnet'),
+	    	self::TYPE_POWER   => Yii::t('model', 'Power'),
+    	];
+    }
+    
+    /**
+     *
+     * @return content list status
+     */
+    public static function getStatus()
+    {
+    	return $array = [
+	    	self::STATUS_INACTIVE => Yii::t('model', 'Inactive'),
+	    	self::STATUS_ACTIVE => Yii::t('model', 'Active'),
+	    	self::STATUS_BANNED => Yii::t('model', 'Banner'),
+    	];
     }
 }
