@@ -46,11 +46,4 @@ class City extends \app\components\ActiveRecord
         ];
     }
     
-    /**
-     * @inheritdoc
-     */
-    public function getcity()
-    {
-    	return $this->getPrimaryKey();
-    }
 }
