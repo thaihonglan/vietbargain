@@ -238,4 +238,8 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 	    	self::STATUS_BANNED => Yii::t('model', 'Banner'),
     	];
     }
+    
+    public function getCity() {
+    	return $this->hasOne(City::className(), ['id' => 'city_id']);
+    }
 }
