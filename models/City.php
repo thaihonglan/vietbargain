@@ -45,4 +45,12 @@ class City extends \app\components\ActiveRecord
             'zip' => Yii::t('admin', 'Zip'),
         ];
     }
+    
+    /**
+     * @inheritdoc
+     */
+    public function getcity()
+    {
+    	return $this->getPrimaryKey();
+    }
 }
