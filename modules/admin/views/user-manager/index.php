@@ -2,7 +2,11 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use yii\jui\DatePicker;
+use dosamigos\tinymce\TinyMce;
+use app\models\City;
+use app\models\User;
+use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\admin\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -12,40 +16,64 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <p>
-	<?= Html::a(Yii::t('app', 'Create {modelClass}', [
-	'modelClass' => 'User',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+	<?php
+// 	Html::a(Yii::t('app', 'Create {modelClass}', [
+// 	'modelClass' => 'User',
+// ]), ['create'], ['class' => 'btn btn-success']) 
+	?>
 </p>
 
 <div class="col-lg-12 user-index">
 	<div class="panel panel-default">
-		<div class="panel-heading">
-			User list
-		</div>
+		<div class="panel-heading"> Search User</div>
 		<!-- /.panel-heading -->
 
 		<div class="panel-body">
 			<div class="table-responsive">
-
-	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+	<?= $this->render('_search', [
+						'model' => $model,
+						'type' => $type,
+						'status' => $status,
+						'cityList' => City::find()->asArray()->all(),
+					]
+				); 
+	?>
 
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
-		'filterModel' => $searchModel,
 		'columns' => [
+			[
+				'attribute' => 'type',
+				'value' => function($model) {
+					return User::getType_by_key($model->type);
+				},
+			],
+			[
+				'attribute' => 'status',
+				'value' => function($model) {
+					return User::getStatus_by_key($model->status);
+				},
+			],
 			'email:email',
 			'facebook_login_id',
 			'first_name',
 			'last_name',
 			'identifier',
-			// 'city_id',
+			[
+				'attribute' => 'city_id',
+				'value' => function($model) {
+					return City::getName_by_id($model->city_id);
+				},
+			],
 			'address',
 			'age',
 			'contact_number',
-			// 'avatar',
-			// 'create_datetime',
-			// 'status',
-
+			'is_comment_unlimited',
+			[
+				'attribute' => 'create_datetime',
+				'format' => ['date', 'php:d-m-Y']
+			],
+			
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'template' => '{update}',
