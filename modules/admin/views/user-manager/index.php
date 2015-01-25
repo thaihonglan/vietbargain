@@ -59,13 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'first_name',
 			'last_name',
 			'identifier',
-			[
-				'attribute' => 'city_id',
-				'value' => function($model) {
-					$city = City::find()->where(['id' => $model->city_id])->one();
-					return isset($city->name) ? $city->name : null;
-				},
-			],
+			'city.name',
 			'address',
 			'age',
 			'contact_number',
