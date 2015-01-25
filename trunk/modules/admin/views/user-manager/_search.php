@@ -1,53 +1,63 @@
-<?php
+	<?php
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use yii\jui\DatePicker;
+use dosamigos\tinymce\TinyMce;
+use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\UserSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
 <div class="user-search">
-
 	<?php $form = ActiveForm::begin([
 		'action' => ['index'],
 		'method' => 'get',
 	]); ?>
-
-	<?= $form->field($model, 'id') ?>
-
-	<?= $form->field($model, 'email') ?>
-
-	<?= $form->field($model, 'password') ?>
-
-	<?= $form->field($model, 'facebook_login_id') ?>
-
-	<?= $form->field($model, 'first_name') ?>
-
-	<?php // echo $form->field($model, 'last_name') ?>
-
-	<?php // echo $form->field($model, 'identifier') ?>
-
-	<?php // echo $form->field($model, 'city_id') ?>
-
-	<?php // echo $form->field($model, 'address') ?>
-
-	<?php // echo $form->field($model, 'age') ?>
-
-	<?php // echo $form->field($model, 'contact_number') ?>
-
-	<?php // echo $form->field($model, 'avatar') ?>
-
-	<?php // echo $form->field($model, 'create_datetime') ?>
-
-	<?php // echo $form->field($model, 'status') ?>
-
-	<div class="form-group">
-		<?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-		<?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
-	</div>
-
+	
+	<?php $form = ActiveForm::begin(); ?>
+		<!-- acc section -->
+		<div class="accsection">
+			<div class="topwrap">
+				<div class="row">
+					<div class="col-lg-3 col-md-3"><?= $form->field($model, 'type')->dropDownList(ArrayHelper::map($type, 'id', 'name'), ['prompt' => Yii::t('admin', 'Please choose your type')]) ?></div>
+					<div class="col-lg-3 col-md-3"><?= $form->field($model, 'status')->dropDownList(ArrayHelper::map($status, 'id', 'name'), ['prompt' => Yii::t('admin', 'Please choose your status')]) ?></div>
+					<div class="col-lg-3 col-md-3"><?= $form->field($model, 'email')->textInput(['maxlength' => 32, 'placeholder' => Yii::t('admin', 'email')]) ?></div>
+					<div class="col-lg-3 col-md-3"><?= $form->field($model, 'facebook_login_id')->textInput(['maxlength' => 32, 'placeholder' => Yii::t('admin', 'Facebook login id')]) ?></div>
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-3 col-md-3"><?= $form->field($model, 'first_name')->textInput(['maxlength' => 32, 'placeholder' => Yii::t('admin', 'First name')]) ?></div>
+					<div class="col-lg-3 col-md-3"><?= $form->field($model, 'last_name')->textInput(['maxlength' => 32, 'placeholder' => Yii::t('admin', 'Last name')]) ?></div>
+					<div class="col-lg-3 col-md-3"><?= $form->field($model, 'identifier')->textInput(['maxlength' => 32, 'placeholder' => Yii::t('admin', 'Identifier')]) ?></div>
+					<div class="col-lg-3 col-md-3"><?= $form->field($model, 'age')->textInput(['maxlength' => 2, 'placeholder' => Yii::t('admin', 'Age')]) ?></div>
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-3 col-md-3"> <?= $form->field($model, 'address')->textInput(['maxlength' => 45, 'placeholder' => Yii::t('admin', 'Address')]) ?></div>
+					<div class="col-lg-3 col-md-3"> <?= $form->field($model, 'city_id')->dropDownList(ArrayHelper::map($cityList, 'id', 'name'), ['prompt' => Yii::t('admin', 'Please choose your city')]) ?></div>
+					<div class="col-lg-3 col-md-3"> <?= $form->field($model, 'address')->textInput(['maxlength' => 45, 'placeholder' => Yii::t('admin', 'Address')]) ?></div>
+					<div class="col-lg-3 col-md-3"> <?= $form->field($model, 'contact_number')->textInput(['maxlength' => 32, 'placeholder' => Yii::t('admin', 'Phone')]) ?></div>
+					<div class="col-lg-3 col-md-3">
+						<?php $form->field($model, 'create_datetime')
+								->widget(DatePicker::className(), [
+									'dateFormat' => 'php:Y-m-d',
+									'options' => [
+										'class' => 'form-control',
+										'placeholder' => 'Create date'
+									],
+								]);
+						?>
+					</div>
+				</div>
+					
+					<div class="clearfix"></div>
+					<div>
+						<?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+						<?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+					</div>
+			</div>
+		</div><!-- acc section END -->
 	<?php ActiveForm::end(); ?>
-
-</div>
+	<br /><?php if (Yii::$app->session->getFlash('update_success')) {?><div class='message_success'><?= Yii::$app->session->getFlash('update_success'); ?> <?= Yii::$app->session->getFlash('account_delete'); ?></div><br /><?php } ?>
+</div><!-- POST -->
