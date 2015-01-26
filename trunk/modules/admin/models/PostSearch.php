@@ -41,12 +41,23 @@ class PostSearch extends Post
      */
     public function search($params)
     {
-        $query = Post::find();
+    	
+    	
+    	$query = Post::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
+        $dataProvider = new ActiveDataProvider(
+        		[
+	        		'query' => $query,
+	        		'pagination' => array('pageSize' => 20),
+//         			'sort' => [
+//         				'attributes' => [
+//         						'email',
+//         						'first_name',
+// //         						Yii::t('admin', 'email'),
+//         					]
+//         			],
+        		]);
+       
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
@@ -54,7 +65,6 @@ class PostSearch extends Post
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'is_owner' => $this->is_owner,
             'deal_type' => $this->deal_type,
             'deal_begin_date' => $this->deal_begin_date,
             'deal_end_date' => $this->deal_end_date,
@@ -68,7 +78,7 @@ class PostSearch extends Post
             ->andFilterWhere(['like', 'link', $this->link])
             ->andFilterWhere(['like', 'discount_code', $this->discount_code])
             ->andFilterWhere(['like', 'image', $this->image]);
-
+        
         return $dataProvider;
     }
 }
