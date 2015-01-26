@@ -45,13 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'type',
 				'value' => function($model) {
-					return User::getTypeByKey($model->type);
+					return User::getTypes($model->type);
 				},
 			],
 			[
 				'attribute' => 'status',
 				'value' => function($model) {
-					return User::getStatusByKey($model->status);
+					return User::getStatus($model->status);
 				},
 			],
 			'email:email',
