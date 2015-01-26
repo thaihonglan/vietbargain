@@ -177,20 +177,15 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
      * @param string $key
      * @return content list status or single type by $key
      */
-    public static function getStatusByKey($key = null)
+    public static function getStatus($key = null)
     {
     	$array = [
 	    	self::STATUS_INACTIVE => Yii::t('model', 'Inactive'),
 	    	self::STATUS_ACTIVE => Yii::t('model', 'Active'),
 	    	self::STATUS_BANNED => Yii::t('model', 'Banner'),
     	];
-    
-    	if (isset($key)) {
-    		if (isset($array[$key])) 
-    			return $array[$key];
-    	}
-    
-    	return null;
+    	
+    	return $key !== null ? isset($array[$key]) ? $array[$key] : null : $array;
     }
     
     /**
@@ -198,7 +193,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
      * @param string $key
      * @return content list type or single type by $key
      */
-    public static function getTypeByKey($key = null)
+    public static function getTypes($key = null)
     {
     	$array = [
 	    	self::TYPE_NORMAL  => Yii::t('model', 'Normal'),
@@ -206,37 +201,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 	    	self::TYPE_POWER   => Yii::t('model', 'Power'),
     	];
     
-    	if (isset($key)) {
-    		if (isset($array[$key])) 
-    			return $array[$key];
-    	}
-    	return null;
-    }
-    
-    /**
-     *
-     * @return content list type
-     */
-    public static function getTypes()
-    {
-    	return $array = [
-	    	self::TYPE_NORMAL  => Yii::t('model', 'Normal'),
-	    	self::TYPE_PARTNER => Yii::t('model', 'Parnet'),
-	    	self::TYPE_POWER   => Yii::t('model', 'Power'),
-    	];
-    }
-    
-    /**
-     *
-     * @return content list status
-     */
-    public static function getStatus()
-    {
-    	return $array = [
-	    	self::STATUS_INACTIVE => Yii::t('model', 'Inactive'),
-	    	self::STATUS_ACTIVE => Yii::t('model', 'Active'),
-	    	self::STATUS_BANNED => Yii::t('model', 'Banner'),
-    	];
+    	return $key !== null ? isset($array[$key]) ? $array[$key] : null : $array ;
     }
     
     public function getCity() {
