@@ -41,11 +41,17 @@ class UserSearch extends User
 	 */
 	public function search($params)
 	{
-		$query = User::find();
+		$query = User::find()->joinWith('city');
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
+		    'pagination' => array('pageSize' => 20),
 		]);
+		
+		$dataProvider->sort->attributes['city.name'] = [
+			'asc' => ['city.name' => SORT_ASC],
+			'desc' => ['city.name' => SORT_DESC],
+		];
 
 		if (!($this->load($params) && $this->validate())) {
 			return $dataProvider;
