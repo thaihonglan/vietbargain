@@ -41,23 +41,26 @@ class PostSearch extends Post
      */
     public function search($params)
     {
-    	
-    	
-    	$query = Post::find();
+    	// @NOTE tam thoi chua biet quan he the nao cu left join choi toi
+    	$query = Post::find()->innerJoinWith(['user', 'postType']);
 
         $dataProvider = new ActiveDataProvider(
         		[
 	        		'query' => $query,
 	        		'pagination' => array('pageSize' => 20),
-//         			'sort' => [
-//         				'attributes' => [
-//         						'email',
-//         						'first_name',
-// //         						Yii::t('admin', 'email'),
-//         					]
-//         			],
         		]);
        
+        // add function sort in grid view
+        $dataProvider->sort->attributes['user.email'] = [
+        	'asc' => ['user.email' => SORT_ASC],
+        	'desc' => ['user.email' => SORT_DESC],
+        ];
+        
+        $dataProvider->sort->attributes['fullName'] = [
+        	'asc' => ['user.first_name' => SORT_ASC],
+        	'desc' => ['user.first_name' => SORT_DESC],
+        ];
+        
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
