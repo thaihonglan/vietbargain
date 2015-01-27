@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\User;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\admin\models\PostSearch */
@@ -27,21 +29,38 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 			<div class="table-responsive">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+			<?= $this->render('_search', [
+						'searchModel' => $searchModel,
+								
+					]
+				); 
+	?>
+	
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
-		'filterModel' => $searchModel,
+// 			'filterModel' => $searchModel,
         'columns' => [
-            'id',
-            'title',
-            'content:ntext',
-            'user_id',
-            'contact_number',
+			'id',
+// 			'PostTypeAllocation.id',
+			'user.email',
+			'fullName',
+
+			'postType.name',
+			// get email of user by id
+
+
+				
+				
+				
+				
+//             'title',
+//             'short_content',
+//             'content:ntext',
+//             'user_id',
+//             'contact_number',
             // 'store_address',
             // 'link',
             // 'discount_code',
-            // 'is_owner',
             // 'image',
             // 'deal_type',
             // 'deal_begin_date',
