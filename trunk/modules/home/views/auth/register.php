@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\captcha\Captcha;
+use Zelenin\yii\widgets\Recaptcha;
 
 /* @var $this yii\web\View */
 ?>
@@ -112,7 +113,11 @@ use yii\captcha\Captcha;
 						<?= $form->field($model, 'address', ['template' => '{input} {error}'])->textInput(['placeholder' => Yii::t('home', 'Address')]) ?>
 					</div>
 					<div>
-						<?= $form->field($model, 'captcha')->widget(Captcha::className()) ?>
+						<?= $form->field($model, 'captcha')->widget('Zelenin\yii\widgets\Recaptcha\widgets\Recaptcha', [
+						    'clientOptions' => [
+						        'data-sitekey' => Yii::$app->params['recaptcha']
+						    ]
+						]) ?>
 					</div>
 				</div>
 				<div class="clearfix"></div>
