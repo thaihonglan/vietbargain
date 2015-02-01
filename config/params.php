@@ -29,4 +29,6 @@ return [
 		'scaled' => '/images/user/medium/',
 		'icon' => '/images/user/small/',
 	],
+	
+	'recaptcha' => '6LcLTgETAAAAAKWKr46mNw8B9UfqzT9zj5R0Qykb'
 ];
