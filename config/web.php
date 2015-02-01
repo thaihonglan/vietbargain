@@ -12,8 +12,9 @@ $config = [
 		'@yii/image' => '@vendor/extentions/image',
 		'@dosamigos/chartjs' => '@vendor/widgets/chartjs',
 		'@dosamigos/tinymce' => '@vendor/widgets/tinymce',
+		'@kartik/detail' => '@vendor/widgets/detail',
+		'@Zelenin/yii/widgets/Recaptcha' => '@vendor/widgets/recaptcha',
 	],
-
 //     'language' => 'en-US',
 	'language' => 'vi-VN',
 
