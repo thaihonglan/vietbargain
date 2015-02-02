@@ -53,7 +53,12 @@ class UserSearch extends User
 			'desc' => ['city.name' => SORT_DESC],
 		];
 
+		if (!isset($params['UserSearch']['status']) || ($params['UserSearch']['status'] != User::STATUS_BANNED ) ) {
+			$dataProvider->query->where('status <> ' . User::STATUS_BANNED);
+		}
+		
 		if (!($this->load($params) && $this->validate())) {
+			
 			return $dataProvider;
 		}
 
