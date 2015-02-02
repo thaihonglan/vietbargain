@@ -17,6 +17,10 @@ use Yii;
  */
 class Comment extends \app\components\ActiveRecord
 {
+	const STATUS_UNAPPROVED = 0;
+	const STATUS_APPROVED = 1;
+	const STATUS_BANNER = 2;
+	
 	/**
 	 * @inheritdoc
 	 */
@@ -33,8 +37,24 @@ class Comment extends \app\components\ActiveRecord
 		return [
 			[['content'], 'string'],
 			[['user_id', 'post_id', 'parent_id', 'is_approved'], 'integer'],
+			[['is_approved'], 'required'],
 			[['create_datetime'], 'safe']
 		];
+	}
+	
+	/**
+	 * @inheritdoc
+	 */
+	public function attributes()
+	{
+		$attributes = parent::attributes();
+		
+		$user = new User();
+		foreach ($user->attributes() as $field) {
+			$attributes[] = 'user_' . $field;
+		}
+		$attributes[] = 'user_full_name';
+		return $attributes;
 	}
 
 	/**
@@ -50,6 +70,7 @@ class Comment extends \app\components\ActiveRecord
 			'parent_id' => Yii::t('admin', 'Parent ID'),
 			'create_datetime' => Yii::t('admin', 'Create Datetime'),
 			'is_approved' => Yii::t('admin', 'Is Approved'),
+			'post.title' => Yii::t('admin', 'Is Approved'),
 		];
 	}
 
@@ -61,5 +82,21 @@ class Comment extends \app\components\ActiveRecord
 	public function getPost()
 	{
 		return $this->hasOne(Post::className(), ['id' => 'post_id']);
+	}
+	
+	/**
+	 *
+	 * @param string $key
+	 * @return content list status or single type by $key
+	 */
+	public static function getStatus($key = null)
+	{
+		$array = [
+			self::STATUS_UNAPPROVED => Yii::t('model', 'Inactive'),
+			self::STATUS_APPROVED   => Yii::t('model', 'Active'),
+			self::STATUS_BANNER   => Yii::t('model', 'Banner'),
+		];
+		
+		return $key !== null ? isset($array[$key]) ? $array[$key] : null : $array;
 	}
 }
