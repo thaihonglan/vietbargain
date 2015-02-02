@@ -207,4 +207,9 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
     public function getCity() {
     	return $this->hasOne(City::className(), ['id' => 'city_id']);
     }
+    
+    public function getFullName()
+    {
+    	return $this->last_name . ' ' . $this->first_name;
+    }
 }
