@@ -3,13 +3,16 @@
  * Message translations.
  */
 return [
-    
+/* ----- action button ----- */
+	'create' => 'Tạo ',
+	'Update' => 'Cập nhật',
+	'View'   => 'Xem',
+	'delete' => 'Xóa',
+
 /* ----- Admin model ----- */
     'Admins manager' => 'Quản lý tài khoản Quản Trị Viên',
     'Admin list' => 'Danh sách quản trị viên',
     'Admin' => 'Quản Trị Viên',
-    'create' => 'Tạo ',
-    'Update' => 'Cập nhật',
     'Username' => 'Tài khoản',
     'Password' => 'Mật khẩu',
     'First Name' => 'Tên',
