@@ -1,5 +1,5 @@
 <?php
-namespace yii\image\drivers;
+namespace yii\image\drivers\Kohana;
 
 use yii\base\ErrorException;
 /**
@@ -11,7 +11,7 @@ use yii\base\ErrorException;
  * @copyright  (c) 2008-2009 Kohana Team
  * @license    http://kohanaphp.com/license.html
  */
-abstract class Kohana_Image {
+abstract class Image {
 
 		// Resizing constraints
 		const NONE    = 0x01;
@@ -53,7 +53,7 @@ abstract class Kohana_Image {
 				}
 
 				// Set the class name
-				$class = 'yii\image\drivers\Image_'.$driver;
+				$class = 'yii\image\drivers\Image\\' . $driver;
 
 				return new $class($file);
 		}
@@ -507,7 +507,7 @@ abstract class Kohana_Image {
 		 * @return  $this
 		 * @uses    Image::_do_watermark
 		 */
-		public function watermark(Kohana_Image $watermark, $offset_x = NULL, $offset_y = NULL, $opacity = 100)
+		public function watermark(\yii\image\drivers\Kohana\Image $watermark, $offset_x = NULL, $offset_y = NULL, $opacity = 100)
 		{
 				if ($offset_x === NULL)
 				{
@@ -730,7 +730,7 @@ abstract class Kohana_Image {
 		 * @param   integer       $opacity   opacity of watermark
 		 * @return  void
 		 */
-		abstract protected function _do_watermark(Kohana_Image $image, $offset_x, $offset_y, $opacity);
+		abstract protected function _do_watermark(\yii\image\drivers\Kohana\Image $image, $offset_x, $offset_y, $opacity);
 
 		/**
 		 * Execute a background.
