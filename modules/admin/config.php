@@ -5,13 +5,13 @@ return [
 
 	// list of component configurations
 	'components' => [
-		'view' => [
-			'class' => '\yii\web\View',
-			'theme' => [
-				'pathMap' => ['@app/views' => '@app/modules/admin/views'],
-				'baseUrl' => '@web/themes/basic',
-			],
-		],
+// 		'view' => [
+// 			'class' => '\yii\web\View',
+// 			'theme' => [
+// 				'pathMap' => ['@app/views' => '@app/modules/admin/views'],
+// 				'baseUrl' => '@web/themes/basic',
+// 			],
+// 		],
 
 // 		'assetManager' => [
 // 			'class' => '\yii\web\AssetManager',
@@ -26,7 +26,7 @@ return [
 	],
 
 	// list of parameters
-	'params' => [
+// 	'params' => [
 // 		'dashboardUrl' => ['admin-manager/index'],
-	],
+// 	],
 ];

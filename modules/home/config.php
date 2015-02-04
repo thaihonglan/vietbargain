@@ -13,11 +13,11 @@ return [
 			'loginUrl' => ['auth/login'],
 		],
 
-		'assetManager' => [
-			'bundles' => [
-				'recursive' => true,
-			],
-			'recursive' => true,
-		],
+// 		'assetManager' => [
+// 			'bundles' => [
+// 				'recursive' => true,
+// 			],
+// 			'recursive' => true,
+// 		],
 	],
 ];

@@ -42,4 +42,9 @@ class DealType extends \app\components\ActiveRecord
 			'name_en' => Yii::t('admin', 'English Name'),
 		];
 	}
+
+	public function getName()
+	{
+		return $this->{'name_' . self::getLang()};
+	}
 }
