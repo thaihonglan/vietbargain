@@ -1,6 +1,6 @@
 <?php
 
-namespace yii\image\drivers;
+namespace yii\image\drivers\Image;
 /**
  * Support for image manipulation using [Imagick](http://php.net/Imagick).
  *
@@ -10,6 +10,6 @@ namespace yii\image\drivers;
  * @copyright  (c) 2009-2012 Kohana Team
  * @license    http://kohanaphp.com/license.html
  */
-class Image_GD extends Kohana_Image_GD {}
+class GD extends \yii\image\drivers\Kohana\Image\GD {}
 
 ?>
