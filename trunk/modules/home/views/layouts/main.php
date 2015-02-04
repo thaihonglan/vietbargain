@@ -2,8 +2,6 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\modules\home\AppAsset;
 
 /* @var $this \yii\web\View */
@@ -66,7 +64,7 @@ ga('send', 'pageview');
 					<div class="col-lg-3 col-xs-9 col-sm-5 col-md-3 selecttopic">
 						<div class="dropdown">
 							<a data-toggle="dropdown" href="#" >
-								<?= (isset($this->context->params['currentPostTypeName'])) ? $this->context->params['currentPostTypeName'] : 'All'?>
+								<?= (isset($this->context->data['currentPostTypeName'])) ? $this->context->data['currentPostTypeName'] : 'All'?>
 							</a>
 							<b class="caret"></b>
 							<ul class="dropdown-menu" role="menu">
@@ -88,7 +86,7 @@ function _processLoopPostType($items, $level = 1)
 	endforeach;
 }
 ?>
-							<?php _processLoopPostType($this->context->params['postType']) ?>
+							<?php _processLoopPostType($this->context->data['postType']) ?>
 							</ul>
 						</div>
 					</div>
@@ -169,7 +167,8 @@ function _processLoopPostType($items, $level = 1)
 					<!-- Breadcrumb -->
 					<div class="col-lg-8 breadcrumbf">
 						<a href="javascript:void(0)">
-						<?php echo Yii::t('model', 'Create New account'); ?></a>
+						<?= $this->title ?>
+						</a>
 					</div>
 				<?php endif; ?>
 				</div>
@@ -184,99 +183,18 @@ function _processLoopPostType($items, $level = 1)
 
 						<!-- -->
 						<div class="sidebarblock">
-							<h3><?php echo Yii::t('model', 'Categories'); ?></h3>
+							<h3><?php echo Yii::t('model', 'Deal types'); ?></h3>
 							<div class="divline"></div>
 							<div class="blocktxt">
 								<ul class="cats">
-									<li><a href="#">Trading for Money <span class="badge pull-right">20</span></a></li>
-									<li><a href="#">Vault Keys Giveway <span class="badge pull-right">10</span></a></li>
-									<li><a href="#">Misc Guns Locations <span class="badge pull-right">50</span></a></li>
-									<li><a href="#">Looking for Players <span class="badge pull-right">36</span></a></li>
-									<li><a href="#">Stupid Bugs &amp; Solves <span class="badge pull-right">41</span></a></li>
-									<li><a href="#">Video &amp; Audio Drivers <span class="badge pull-right">11</span></a></li>
-									<li><a href="#">2K Official Forums <span class="badge pull-right">5</span></a></li>
+								<?php foreach ($this->context->data['dealType'] as $dealType): ?>
+									<li>
+										<a href="<?= Url::to(['topic/show', 'dt' => $dealType->id]) ?>"><?= $dealType->name ?> <!-- <span class="badge pull-right">20</span> --></a>
+									</li>
+								<?php endforeach; ?>
 								</ul>
 							</div>
 						</div>
-
-						<!-- -->
-						<div class="sidebarblock">
-							<h3>Poll of the Week</h3>
-							<div class="divline"></div>
-							<div class="blocktxt">
-								<p>Which game you are playing this week?</p>
-								<form action="#" method="post" class="form">
-									<table class="poll">
-										<tr>
-											<td>
-												<div class="progress">
-													<div class="progress-bar color1" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
-														Call of Duty Ghosts
-													</div>
-												</div>
-											</td>
-											<td class="chbox">
-												<input id="opt1" type="radio" name="opt" value="1">
-												<label for="opt1"></label>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div class="progress">
-													<div class="progress-bar color2" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 63%">
-														Titanfall
-													</div>
-												</div>
-											</td>
-											<td class="chbox">
-												<input id="opt2" type="radio" name="opt" value="2" checked>
-												<label for="opt2"></label>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div class="progress">
-													<div class="progress-bar color3" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-														Battlefield 4
-													</div>
-												</div>
-											</td>
-											<td class="chbox">
-												<input id="opt3" type="radio" name="opt" value="3">
-												<label for="opt3"></label>
-											</td>
-										</tr>
-									</table>
-								</form>
-								<p class="smal">Voting ends on 19th of October</p>
-							</div>
-						</div>
-
-						<!-- -->
-						<div class="sidebarblock">
-							<h3><?php echo Yii::t('model', 'My Active Threads'); ?></h3>
-							<div class="divline"></div>
-							<div class="blocktxt">
-								<a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
-							</div>
-							<div class="divline"></div>
-							<div class="blocktxt">
-								<a href="#">Who Wins in the Battle for Power on the Internet?</a>
-							</div>
-							<div class="divline"></div>
-							<div class="blocktxt">
-								<a href="#">Sony QX10: A Funky, Overpriced Lens Camera for Your Smartphone</a>
-							</div>
-							<div class="divline"></div>
-							<div class="blocktxt">
-								<a href="#">FedEx Simplifies Shipping for Small Businesses</a>
-							</div>
-							<div class="divline"></div>
-							<div class="blocktxt">
-								<a href="#">Loud and Brave: Saudi Women Set to Protest Driving Ban</a>
-							</div>
-						</div>
-
 					</div>
 				</div>
 			</div>

@@ -3,6 +3,7 @@ namespace app\modules\home\components;
 
 use Yii;
 use app\models\PostType;
+use app\models\DealType;
 
 /**
  * Controller is the customized base controller class.
@@ -10,15 +11,13 @@ use app\models\PostType;
  */
 class Controller extends \app\components\Controller
 {
-	const TYPE_NORMAL = 1;
-	const TYPE_PARTNER = 2;
-	const TYPE_POWER = 3;
-
-	public $params = [];
+	public $data = [];
 
 	public function beforeAction($action)
 	{
-		$this->params['postType'] = PostType::findAllAsFiliation();
+		$this->data['postType'] = PostType::findAllAsFiliation();
+
+		$this->data['dealType'] = DealType::find()->all();
 
 		return parent::beforeAction($action);
 	}

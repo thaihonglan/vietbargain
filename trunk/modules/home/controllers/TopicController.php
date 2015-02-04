@@ -15,7 +15,7 @@ use yii\data\Pagination;
 class TopicController extends \app\modules\home\components\Controller
 {
 	protected $_params = [
-		'commentPageSize' => 2
+		'commentPageSize' => 5
 	];
 
 	public $defaultAction = 'show';
@@ -51,7 +51,7 @@ class TopicController extends \app\modules\home\components\Controller
 		if ($curPostTypeId = Yii::$app->request->get('pt')) {
 			foreach (PostType::findFull() as $item) {
 				if ($item->id == $curPostTypeId) {
-					$this->params['currentPostTypeName'] = $item->name;
+					$this->data['currentPostTypeName'] = $item->name;
 					break;
 				}
 			}

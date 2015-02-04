@@ -5,6 +5,10 @@ use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider app\modules\home\models\PostSearch */
+
+$this->title = Yii::t('home', 'View detail: {title}', [
+	'title' => $model->title
+]);
 ?>
 
 <!-- POST -->
@@ -45,36 +49,23 @@ use yii\widgets\LinkPager;
 	</div>
 </div><!-- POST -->
 
-<?php echo LinkPager::widget([
-	'pagination' => $pages,
-	'options' => ['class' => 'paginationforum'],
-	'linkOptions' => ['class' => 'item'],
-	'prevPageLabel' => '<i class="fa fa-angle-left"></i>',
-	'nextPageLabel' => '<i class="fa fa-angle-right"></i>',
-	'nextPageCssClass' => 'prevnext last',
-]) ?>
-
 <div class="paginationf">
-	<div class="pull-left"><a href="#" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
+<?php if ($pages->getPage() > 0): ?>
+	<div class="pull-left"><a href="<?= Url::to(['topic/view', 'p' => Yii::$app->request->get('p'), 'cm-p' => $pages->getPage()]) ?>" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
+<?php endif; ?>
 	<div class="pull-left">
-		<ul class="paginationforum">
-			<li class="hidden-xs"><a href="#">1</a></li>
-			<li class="hidden-xs"><a href="#">2</a></li>
-			<li class="hidden-xs"><a href="#">3</a></li>
-			<li class="hidden-xs"><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">6</a></li>
-			<li><a href="#" class="active">7</a></li>
-			<li><a href="#">8</a></li>
-			<li class="hidden-xs"><a href="#">9</a></li>
-			<li class="hidden-xs"><a href="#">10</a></li>
-			<li class="hidden-xs hidden-md"><a href="#">11</a></li>
-			<li class="hidden-xs hidden-md"><a href="#">12</a></li>
-			<li class="hidden-xs hidden-sm hidden-md"><a href="#">13</a></li>
-			<li><a href="#">1586</a></li>
-		</ul>
+		<?php echo LinkPager::widget([
+			'pagination' => $pages,
+			'options' => ['class' => 'paginationforum'],
+			'linkOptions' => ['class' => 'item'],
+			'prevPageLabel' => false,
+			'nextPageLabel' => false,
+			'hideOnSinglePage' => false,
+		]) ?>
 	</div>
-	<div class="pull-left"><a href="#" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
+<?php if ($pages->getPage() < ($pages->getPageCount() - 1)): ?>
+	<div class="pull-left"><a href="<?= Url::to(['topic/view', 'p' => Yii::$app->request->get('p'), 'cm-p' => $pages->getPage() + 2]) ?>" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
+<?php endif; ?>
 	<div class="clearfix"></div>
 </div>
 
@@ -160,3 +151,23 @@ SCRIPT;
 	<?php ActiveForm::end(); ?>
 </div><!-- POST -->
 <?php endif; ?>
+
+<div class="paginationf">
+<?php if ($pages->getPage() > 0): ?>
+	<div class="pull-left"><a href="<?= Url::to(['topic/view', 'p' => Yii::$app->request->get('p'), 'cm-p' => $pages->getPage()]) ?>" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
+<?php endif; ?>
+	<div class="pull-left">
+		<?php echo LinkPager::widget([
+			'pagination' => $pages,
+			'options' => ['class' => 'paginationforum'],
+			'linkOptions' => ['class' => 'item'],
+			'prevPageLabel' => false,
+			'nextPageLabel' => false,
+			'hideOnSinglePage' => false,
+		]) ?>
+	</div>
+<?php if ($pages->getPage() < ($pages->getPageCount() - 1)): ?>
+	<div class="pull-left"><a href="<?= Url::to(['topic/view', 'p' => Yii::$app->request->get('p'), 'cm-p' => $pages->getPage() + 2]) ?>" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
+<?php endif; ?>
+	<div class="clearfix"></div>
+</div>
