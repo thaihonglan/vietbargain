@@ -1,16 +1,16 @@
 <?php
 use yii\helpers\Html;
-use yii\widgets\LinkPager;
 use yii\helpers\Url;
+use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider app\modules\home\models\PostSearch */
 
-$this->title = Yii::t('home', 'Home');
+$this->title = Yii::t('home', 'My posts');
 
 $dataProvider->setPagination([
 	'pageSize' => 20,
-	'pageParam' => 'p-p',
+	'pageParam' => 'sp-p',
 	'pageSizeParam' => false,
 ]);
 
@@ -20,7 +20,7 @@ $pages = $dataProvider->getPagination();
 
 <div class="paginationf">
 <?php if ($pages->getPage() > 0): ?>
-	<div class="pull-left"><a href="<?= Url::to(['topic/show', 'pt' => Yii::$app->request->get('pt'), 'dt' => Yii::$app->request->get('dt'), 'p-p' => $pages->getPage()]) ?>" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
+	<div class="pull-left"><a href="<?= Url::to(['topic/show', 'sp-p' => $pages->getPage()]) ?>" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
 <?php endif; ?>
 	<div class="pull-left">
 		<?php echo LinkPager::widget([
@@ -33,7 +33,7 @@ $pages = $dataProvider->getPagination();
 		]) ?>
 	</div>
 <?php if ($pages->getPage() < ($pages->getPageCount() - 1)): ?>
-	<div class="pull-left"><a href="<?= Url::to(['topic/show', 'pt' => Yii::$app->request->get('pt'), 'dt' => Yii::$app->request->get('dt'), 'p-p' => $pages->getPage() + 2]) ?>" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
+	<div class="pull-left"><a href="<?= Url::to(['topic/show', 'sp-p' => $pages->getPage() + 2]) ?>" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
 <?php endif; ?>
 	<div class="clearfix"></div>
 </div>
@@ -71,7 +71,7 @@ $pages = $dataProvider->getPagination();
 
 <div class="paginationf">
 <?php if ($pages->getPage() > 0): ?>
-	<div class="pull-left"><a href="<?= Url::to(['topic/show', 'pt' => Yii::$app->request->get('pt'), 'dt' => Yii::$app->request->get('dt'), 'p-p' => $pages->getPage()]) ?>" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
+	<div class="pull-left"><a href="<?= Url::to(['topic/show', 'sp-p' => $pages->getPage()]) ?>" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
 <?php endif; ?>
 	<div class="pull-left">
 		<?php echo LinkPager::widget([
@@ -84,7 +84,7 @@ $pages = $dataProvider->getPagination();
 		]) ?>
 	</div>
 <?php if ($pages->getPage() < ($pages->getPageCount() - 1)): ?>
-	<div class="pull-left"><a href="<?= Url::to(['topic/show', 'pt' => Yii::$app->request->get('pt'), 'dt' => Yii::$app->request->get('dt'), 'p-p' => $pages->getPage() + 2]) ?>" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
+	<div class="pull-left"><a href="<?= Url::to(['topic/show', 'sp-p' => $pages->getPage() + 2]) ?>" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
 <?php endif; ?>
 	<div class="clearfix"></div>
 </div>

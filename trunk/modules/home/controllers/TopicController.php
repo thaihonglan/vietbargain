@@ -11,13 +11,10 @@ use app\models\Post;
 use yii\web\NotFoundHttpException;
 use app\models\Comment;
 use yii\data\Pagination;
+use yii\data\ActiveDataProvider;
 
 class TopicController extends \app\modules\home\components\Controller
 {
-	protected $_params = [
-		'commentPageSize' => 5
-	];
-
 	public $defaultAction = 'show';
 
 	public function behaviors()
@@ -85,17 +82,9 @@ class TopicController extends \app\modules\home\components\Controller
 			$model->increaseViewNumber();
 		}
 
-		$commentQuery = Comment::find()->joinWith('user')->where(['post_id' => Yii::$app->request->get('p'), 'is_approved' => 1]);
-		$pages = new Pagination([
-			'totalCount' => $commentQuery->count(),
-			'pageParam' => 'cm-p',
-			'pageSizeParam' => false,
+		$commentsProvider = new ActiveDataProvider([
+			'query' => Comment::find()->joinWith('user')->where(['post_id' => Yii::$app->request->get('p'), 'is_approved' => 1]),
 		]);
-		$pages->setPageSize($this->_params['commentPageSize']);
-
-		$comments = $commentQuery->offset($pages->offset)
-								->limit($pages->limit)
-								->all();
 
 		if (!Yii::$app->user->isGuest) {
 			$commentForm = new CommentForm();
@@ -105,9 +94,9 @@ class TopicController extends \app\modules\home\components\Controller
 
 		return $this->render('view', [
 			'model' => $model,
-			'comments' => $comments,
+			'commentsProvider' => $commentsProvider,
 			'commentForm' => $commentForm,
-			'pages' => $pages
+// 			'pages' => $pages
 		]);
 	}
 

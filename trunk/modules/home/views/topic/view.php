@@ -9,6 +9,15 @@ use yii\widgets\LinkPager;
 $this->title = Yii::t('home', 'View detail: {title}', [
 	'title' => $model->title
 ]);
+
+$commentsProvider->setPagination([
+	'pageSize' => 10,
+	'pageParam' => 'cm-p',
+	'pageSizeParam' => false,
+]);
+
+$commentsProvider->prepare();
+$pages = $commentsProvider->getPagination();
 ?>
 
 <!-- POST -->
@@ -69,7 +78,7 @@ $this->title = Yii::t('home', 'View detail: {title}', [
 	<div class="clearfix"></div>
 </div>
 
-<?php foreach ($comments as $comment): ?>
+<?php foreach ($commentsProvider->getModels() as $comment): ?>
 <!-- POST -->
 <div class="post">
 	<div class="topwrap">
