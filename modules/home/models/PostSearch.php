@@ -46,9 +46,6 @@ class PostSearch extends Post
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
-			'pagination' => [
-				'pageSize' => 20,
-			],
 		]);
 
 		if (!($this->load($params, '') && $this->validate())) {
