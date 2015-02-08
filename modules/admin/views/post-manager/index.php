@@ -43,9 +43,20 @@ $this->params['breadcrumbs'][] = $this->title;
 			'id',
 // 			'PostTypeAllocation.id',
 			'user.email',
-			'fullName',
+			'user.fullName',
+			[
+				'attribute' => 'postType',
+				'value' => function($model) {
+					return implode(', ', ArrayHelper::getColumn($model->postType, 'name'));
+				},
+			],
 
-			'postType.name',
+// 			[
+// 				'attribute' => 'postType',
+// 				'value' => function($model) {
+// 					return implode(', ', ArrayHelper::getColumn($model->postType, 'name'));
+// 				},
+// 			],
 			// get email of user by id
 
 
