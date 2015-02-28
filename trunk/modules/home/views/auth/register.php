@@ -2,8 +2,6 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use yii\captcha\Captcha;
-use Zelenin\yii\widgets\Recaptcha;
 
 /* @var $this yii\web\View */
 ?>
@@ -115,7 +113,7 @@ use Zelenin\yii\widgets\Recaptcha;
 					<div>
 						<?= $form->field($model, 'captcha')->widget('Zelenin\yii\widgets\Recaptcha\widgets\Recaptcha', [
 						    'clientOptions' => [
-						        'data-sitekey' => Yii::$app->params['recaptcha']
+						        'data-sitekey' => Yii::$app->params['recaptcha']['sitekey']
 						    ]
 						]) ?>
 					</div>
