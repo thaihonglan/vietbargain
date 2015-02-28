@@ -27,6 +27,7 @@ class Post extends \app\components\ActiveRecord
 {
 	const STATUS_UNAPPROVED = 0;
 	const STATUS_APPROVED = 1;
+	const STATUS_BANNER = 2;
 
 	/**
 	 * @inheritdoc
@@ -80,7 +81,7 @@ class Post extends \app\components\ActiveRecord
 	{
 		return $this->hasMany(PostType::className(), ['id' => 'post_type_id'])->viaTable('post_type_allocation', ['post_id' => 'id']);
 	}
-
+	
 	public function getUser()
 	{
 		return $this->hasOne(User::className(), ['id' => 'user_id']);
