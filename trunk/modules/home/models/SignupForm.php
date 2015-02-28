@@ -34,7 +34,7 @@ class SignupForm extends Model
 		return [
 			['email', 'filter', 'filter' => 'trim'],
 
-			[['email', 'password', 'confirmPassword', 'firstName', 'lastName', 'city', 'captcha'], 'required'],
+			[['email', 'password', 'confirmPassword', 'firstName', 'lastName', 'city'], 'required'],
 
 			[['email', 'firstName', 'lastName', 'identifier', 'contactNumber'], 'string', 'max' => 32],
 			[['address'], 'string', 'max' => 128],
@@ -48,7 +48,12 @@ class SignupForm extends Model
 
 			['city', 'exist', 'targetClass' => '\app\models\City', 'targetAttribute' => 'id'],
 
-			['captcha', 'captcha'],
+// 			['captcha', 'captcha'],
+			[
+			'captcha',
+				'Zelenin\yii\widgets\Recaptcha\validators\RecaptchaValidator',
+				'secret' => Yii::$app->params['recaptcha']['secret']
+			],
 
 			['avatar', 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png', 'skipOnEmpty' => true],
 		];
