@@ -30,5 +30,8 @@ return [
 		'icon' => '/images/user/small/',
 	],
 	
-	'recaptcha' => '6LcLTgETAAAAAKWKr46mNw8B9UfqzT9zj5R0Qykb'
+	'recaptcha' => [
+		'sitekey' => '6LcLTgETAAAAAKWKr46mNw8B9UfqzT9zj5R0Qykb',
+		'secret'  => '6LcLTgETAAAAADLhWJUpcqpFec_rRwFN407qj-5K',
+	]
 ];
