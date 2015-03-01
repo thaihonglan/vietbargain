@@ -72,6 +72,19 @@ class TopicController extends \app\modules\home\components\Controller
 		}
 	}
 
+	public function actionEdit()
+	{
+		$model = TopicForm::findOne(Yii::$app->request->get('p'));
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(Yii::$app->request->cookies->getValue('home/preLink'));
+		} else {
+			return $this->render('edit', [
+				'model' => $model,
+			]);
+		}
+	}
+
 	public function actionView()
 	{
 		if (!$model = Post::find()->joinWith('user')->where(['post.id' => Yii::$app->request->get('p')])->one()) {
@@ -96,7 +109,6 @@ class TopicController extends \app\modules\home\components\Controller
 			'model' => $model,
 			'commentsProvider' => $commentsProvider,
 			'commentForm' => $commentForm,
-// 			'pages' => $pages
 		]);
 	}
 
