@@ -36,6 +36,7 @@ $config = [
 			'enableStrictParsing' => true,
 			'rules' => [
 				'' => 'home/topic/show',
+				'debug/<controller>/<action>' => 'debug/<controller>/<action>',
 				'admin/<controller>/<action>' => 'admin/<controller>/<action>',
 				'site/<action>' => 'site/<action>',
 				'<controller>/<action>' => 'home/<controller>/<action>',

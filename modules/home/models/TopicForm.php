@@ -8,7 +8,6 @@ use yii\helpers\ArrayHelper;
 use app\models\PostType;
 use app\models\Post;
 use yii\web\UploadedFile;
-use yii\image\drivers\Image;
 
 /**
  * Signup form
@@ -27,9 +26,36 @@ class TopicForm extends Model
 	public $dealType;
 	public $dealBeginDate;
 	public $dealEndDate;
-	public $image;
 
+	public $id;
+	public $isNewRecord = true;
 	private $_lang = null;
+
+	public static function findOne($id)
+	{
+		if (!$post = Post::findOne($id)) {
+			return false;
+		}
+
+		$model = new TopicForm();
+		$model->title = $post->title;
+		$model->content = $post->content;
+		$model->shortContent = $post->short_content;
+		$model->postType = ArrayHelper::getColumn($post->postType, 'id');
+		$model->contactNumber = $post->contact_number;
+		$model->storeAddress = $post->store_address;
+		$model->link = $post->link;
+		$model->discountCode = $post->discount_code;
+		$model->isOwner = $post->is_owner;
+		$model->dealType = $post->deal_type;
+		$model->dealBeginDate = $post->deal_begin_date;
+		$model->dealEndDate = $post->deal_end_date;
+
+		$model->isNewRecord = false;
+		$model->id = $id;
+
+		return $model;
+	}
 
 	/**
 	 * @inheritdoc
@@ -41,7 +67,7 @@ class TopicForm extends Model
 
 			[['title', 'content', 'shortContent', 'postType', 'discountCode', 'dealType', 'dealBeginDate', 'dealEndDate'], 'required'],
 			[['title', 'discountCode'], 'string', 'max' => 32],
-			['shortContent', 'string', 'max' => 32],
+			['shortContent', 'string', 'max' => 512],
 			['link', 'url'],
 			['isOwner', 'boolean'],
 			[['dealBeginDate', 'dealEndDate'], 'date', 'format' => 'php:d-m-Y'],
@@ -51,8 +77,6 @@ class TopicForm extends Model
 
 			['postType', 'exist', 'targetClass' => '\app\models\PostType', 'targetAttribute' => 'id', 'allowArray' => true],
 			['dealType', 'exist', 'targetClass' => '\app\models\DealType', 'targetAttribute' => 'id'],
-
-			['image', 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png', 'skipOnEmpty' => true],
 		];
 	}
 
@@ -63,12 +87,15 @@ class TopicForm extends Model
 	 */
 	public function save()
 	{
-		$this->image = UploadedFile::getInstance($this, 'image');
 		if ($this->validate()) {
 			$transaction = \Yii::$app->db->beginTransaction();
 
 			try {
-				$post = new Post();
+				if ($this->isNewRecord) {
+					$post = new Post();
+				} else {
+					$post = Post::findOne($this->id);
+				}
 
 				// required data
 				$post->title = $this->title;
@@ -85,30 +112,12 @@ class TopicForm extends Model
 				(!$this->link) OR ($post->link = $this->link);
 				(!$this->isOwner) OR ($post->is_owner = 1);
 
-				if ($this->image) {
-					$post->image = Yii::$app->security->generateRandomString(32) . '.' . $this->image->extension;
-				}
-
 				// internal data
 				$post->user_id = Yii::$app->user->getId();
 				$post->status = Post::STATUS_UNAPPROVED;
 
 				if ($post->save(false)) {
 					$post->savePostType($this->postType);
-				}
-
-				if ($this->image) {
-					// upload image
-					$postImage = Yii::$app->basePath . '/web' . Yii::$app->params['postImagePath']['original'] . $post->image;
-					if (!$this->image->saveAs($postImage)) {
-						throw \Exception('Cannot upload file');
-					}
-
-					// resize image
-					$image = Yii::$app->image->load($postImage);
-
-					$image->resize('120', '120', Image::INVERSE)->save(Yii::$app->basePath . '/web' . Yii::$app->params['postImagePath']['scaled'] . $post->image);
-					$image->resize('60', '60', Image::INVERSE)->save(Yii::$app->basePath . '/web' . Yii::$app->params['postImagePath']['icon'] . $post->image);
 				}
 
 				$transaction->commit();

@@ -26,190 +26,211 @@ use Yii;
  */
 class User extends \app\components\ActiveRecord implements \yii\web\IdentityInterface
 {
-    const STATUS_INACTIVE = 0;
-    const STATUS_ACTIVE = 1;
-    const STATUS_BANNED = 2;
+	const STATUS_INACTIVE = 0;
+	const STATUS_ACTIVE = 1;
+	const STATUS_BANNED = 2;
 
-    const TYPE_NORMAL = 1;
-    const TYPE_POWER = 2;
-    const TYPE_PARTNER = 3;
-    
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'user';
-    }
+	const TYPE_NORMAL = 1;
+	const TYPE_POWER = 2;
+	const TYPE_PARTNER = 3;
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['city_id', 'age',  'status'], 'integer'],
-            [['contact_number'], 'required'],
-            [['create_datetime'], 'safe'],
-            [['email', 'facebook_login_id', 'first_name', 'last_name', 'identifier', 'contact_number'], 'string', 'max' => 32],
-            [['password', 'avatar'], 'string', 'max' => 64],
-            [['address'], 'string', 'max' => 45]
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName()
+	{
+		return 'user';
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'type' => Yii::t('admin', 'User rights'),
-            'email' => Yii::t('admin', 'Email'),
-            'password' => Yii::t('admin', 'Password'),
-            'facebook_login_id' => Yii::t('admin', 'Facebook Login ID'),
-            'first_name' => Yii::t('admin', 'First Name'),
-            'last_name' => Yii::t('admin', 'Last Name'),
-            'identifier' => Yii::t('admin', 'Identifier'),
-            'city_id' => Yii::t('admin', 'City ID'),
-            'address' => Yii::t('admin', 'Address'),
-            'age' => Yii::t('admin', 'Age'),
-            'contact_number' => Yii::t('admin', 'Contact Number'),
-            'avatar' => Yii::t('admin', 'Avatar'),
-            'create_datetime' => Yii::t('admin', 'Create Datetime'),
-            'status' => Yii::t('admin', 'Status'),
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+			[['city_id', 'age',  'status'], 'integer'],
+			[['contact_number'], 'required'],
+			[['create_datetime'], 'safe'],
+			[['email', 'facebook_login_id', 'first_name', 'last_name', 'identifier', 'contact_number'], 'string', 'max' => 32],
+			[['password', 'avatar'], 'string', 'max' => 64],
+			[['address'], 'string', 'max' => 45]
+		];
+	}
 
-    /**
-     * Generates password hash from password and sets it to the model
-     *
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $this->encryptPassword($password);
-    }
+	public function attributes()
+	{
+		return [
+			'id',
+			'type',
+			'email',
+			'password',
+			'facebook_login_id',
+			'first_name',
+			'last_name',
+			'identifier',
+			'city_id',
+			'address',
+			'age',
+			'contact_number',
+			'avatar',
+			'create_datetime',
+			'status',
+		];
+	}
 
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    public static function findByUsername($email)
-    {
-        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'id' => Yii::t('app', 'ID'),
+			'type' => Yii::t('admin', 'User rights'),
+			'email' => Yii::t('admin', 'Email'),
+			'password' => Yii::t('admin', 'Password'),
+			'facebook_login_id' => Yii::t('admin', 'Facebook Login ID'),
+			'first_name' => Yii::t('admin', 'First Name'),
+			'last_name' => Yii::t('admin', 'Last Name'),
+			'identifier' => Yii::t('admin', 'Identifier'),
+			'city_id' => Yii::t('admin', 'City ID'),
+			'address' => Yii::t('admin', 'Address'),
+			'age' => Yii::t('admin', 'Age'),
+			'contact_number' => Yii::t('admin', 'Contact Number'),
+			'avatar' => Yii::t('admin', 'Avatar'),
+			'create_datetime' => Yii::t('admin', 'Create Datetime'),
+			'status' => Yii::t('admin', 'Status'),
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentity($id)
-    {
-        return static::findOne(['id' => $id]);
-    }
+	/**
+	 * Generates password hash from password and sets it to the model
+	 *
+	 * @param string $password
+	 */
+	public function setPassword($password)
+	{
+		$this->password = $this->encryptPassword($password);
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
-    }
+	/**
+	 * Finds user by username
+	 *
+	 * @param string $username
+	 * @return static|null
+	 */
+	public static function findByUsername($email)
+	{
+		return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function getId()
-    {
-        return $this->getPrimaryKey();
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public static function findIdentity($id)
+	{
+		return static::findOne(['id' => $id]);
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function getAuthKey()
-    {
-        return '';
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public static function findIdentityByAccessToken($token, $type = null)
+	{
+		throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->getAuthKey() === $authKey;
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function getId()
+	{
+		return $this->getPrimaryKey();
+	}
 
-    /**
-     * Generates password hash from password
-     *
-     * @param string $password
-     */
-    public function encryptPassword($password)
-    {
-        return Yii::$app->security->generatePasswordHash($password);
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function getAuthKey()
+	{
+		return '';
+	}
 
-    /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return boolean if password provided is valid for current user
-     */
-    public function validatePassword($password)
-    {
-        return Yii::$app->security->validatePassword($password, $this->password);
-    }
-    
-    /**
-     * List type
-     * @return array:
-     */
-    private function _get_uset_type () {
-    	$types = array();
-    	return $types;
-    }
-    
-    /**
-     *
-     * @param string $key
-     * @return content list status or single type by $key
-     */
-    public static function getStatus($key = null)
-    {
-    	$array = [
-	    	self::STATUS_INACTIVE => Yii::t('model', 'Inactive'),
-	    	self::STATUS_ACTIVE => Yii::t('model', 'Active'),
-	    	self::STATUS_BANNED => Yii::t('model', 'Banner'),
-    	];
-    	
-    	return $key !== null ? isset($array[$key]) ? $array[$key] : null : $array;
-    }
-    
-    /**
-     * 
-     * @param string $key
-     * @return content list type or single type by $key
-     */
-    public static function getTypes($key = null)
-    {
-    	$array = [
-	    	self::TYPE_NORMAL  => Yii::t('model', 'Normal'),
-	    	self::TYPE_PARTNER => Yii::t('model', 'Parnet'),
-	    	self::TYPE_POWER   => Yii::t('model', 'Power'),
-    	];
-    
-    	return $key !== null ? isset($array[$key]) ? $array[$key] : null : $array ;
-    }
-    
-    public function getCity() {
-    	return $this->hasOne(City::className(), ['id' => 'city_id']);
-    }
-    
-    public function getFullName()
-    {
-    	return $this->last_name . ' ' . $this->first_name;
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function validateAuthKey($authKey)
+	{
+		return $this->getAuthKey() === $authKey;
+	}
+
+	/**
+	 * Generates password hash from password
+	 *
+	 * @param string $password
+	 */
+	public function encryptPassword($password)
+	{
+		return Yii::$app->security->generatePasswordHash($password);
+	}
+
+	/**
+	 * Validates password
+	 *
+	 * @param string $password password to validate
+	 * @return boolean if password provided is valid for current user
+	 */
+	public function validatePassword($password)
+	{
+		return Yii::$app->security->validatePassword($password, $this->password);
+	}
+
+	/**
+	 * List type
+	 * @return array:
+	 */
+	private function _get_uset_type () {
+		$types = array();
+		return $types;
+	}
+
+	/**
+	 *
+	 * @param string $key
+	 * @return content list status or single type by $key
+	 */
+	public static function getStatus($key = null)
+	{
+		$array = [
+			self::STATUS_INACTIVE => Yii::t('model', 'Inactive'),
+			self::STATUS_ACTIVE => Yii::t('model', 'Active'),
+			self::STATUS_BANNED => Yii::t('model', 'Banner'),
+		];
+
+		return $key !== null ? isset($array[$key]) ? $array[$key] : null : $array;
+	}
+
+	/**
+	 *
+	 * @param string $key
+	 * @return content list type or single type by $key
+	 */
+	public static function getTypes($key = null)
+	{
+		$array = [
+			self::TYPE_NORMAL  => Yii::t('model', 'Normal'),
+			self::TYPE_PARTNER => Yii::t('model', 'Parnet'),
+			self::TYPE_POWER   => Yii::t('model', 'Power'),
+		];
+
+		return $key !== null ? isset($array[$key]) ? $array[$key] : null : $array ;
+	}
+
+	public function getCity() {
+		return $this->hasOne(City::className(), ['id' => 'city_id']);
+	}
+
+	public function getFullName()
+	{
+		return $this->last_name . ' ' . $this->first_name;
+	}
 }

@@ -48,11 +48,13 @@ $pages = $commentsProvider->getPagination();
 
 		<div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <?= Yii::$app->formatter->asDatetime($model->create_datetime, 'long') ?></div>
 
+	<?php if (Yii::$app->user->id == $model->user->id): ?>
 		<div class="next pull-right">
-<!-- 			<a href="#"><i class="fa fa-share"></i></a> -->
-
-<!-- 			<a href="#"><i class="fa fa-flag"></i></a> -->
+			<a href="<?= Url::to(['topic/edit', 'p' => Yii::$app->request->get('p')]) ?>">
+				<button class="btn btn-primary">Edit post</button>
+			</a>
 		</div>
+	<?php endif; ?>
 
 		<div class="clearfix"></div>
 	</div>
@@ -150,7 +152,7 @@ SCRIPT;
 		<div class="postinfobot">
 
 			<div class="pull-right postreply">
-				<div class="pull-left smile"><a href="#"><i class="fa fa-smile-o"></i></a></div>
+				<div class="pull-left smile"><a href="javascript:void(0)"><i class="fa fa-smile-o"></i></a></div>
 				<div class="pull-left"><button type="button" class="btn btn-primary">Post Reply</button></div>
 				<div class="clearfix"></div>
 			</div>

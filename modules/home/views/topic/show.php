@@ -18,26 +18,6 @@ $dataProvider->prepare();
 $pages = $dataProvider->getPagination();
 ?>
 
-<div class="paginationf">
-<?php if ($pages->getPage() > 0): ?>
-	<div class="pull-left"><a href="<?= Url::to(['topic/show', 'pt' => Yii::$app->request->get('pt'), 'dt' => Yii::$app->request->get('dt'), 'p-p' => $pages->getPage()]) ?>" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
-<?php endif; ?>
-	<div class="pull-left">
-		<?php echo LinkPager::widget([
-			'pagination' => $pages,
-			'options' => ['class' => 'paginationforum'],
-			'linkOptions' => ['class' => 'item'],
-			'prevPageLabel' => false,
-			'nextPageLabel' => false,
-			'hideOnSinglePage' => false,
-		]) ?>
-	</div>
-<?php if ($pages->getPage() < ($pages->getPageCount() - 1)): ?>
-	<div class="pull-left"><a href="<?= Url::to(['topic/show', 'pt' => Yii::$app->request->get('pt'), 'dt' => Yii::$app->request->get('dt'), 'p-p' => $pages->getPage() + 2]) ?>" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
-<?php endif; ?>
-	<div class="clearfix"></div>
-</div>
-
 <?php foreach ($dataProvider->getModels() as $model): ?>
 <!-- POST -->
 <div class="post">
