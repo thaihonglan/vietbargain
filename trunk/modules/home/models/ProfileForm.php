@@ -115,7 +115,6 @@ class ProfileForm extends Model
 	{
 		$newIdentity = User::findIdentity($this->_user->id);
 		Yii::$app->user->setIdentity($newIdentity);
-		print_r(Yii::$app->user->getIdentity());die;
 	}
 
 	/**
