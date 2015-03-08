@@ -28,16 +28,9 @@ class PostTypeManagerController extends Controller
 	public function actionIndex()
 	{
 		$model = new PostType();
-//         print_r($model);exit;
-		$dataProvider = new ActiveDataProvider([
-			'query' => PostType::find(),
-		]);
-
-		$this->getPostTypeJsTree();
 
 		return $this->render('index', [
 			'model' => $model,
-			'data' => $this->getPostTypeJsTree(),
 		]);
 	}
 
@@ -122,33 +115,5 @@ class PostTypeManagerController extends Controller
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');
 		}
-	}
-
-	/**
-	 * Get PostType list as JsTree format
-	 * @return array
-	 */
-	protected function getPostTypeJsTree()
-	{
-		$postTypeList = PostType::find()->all();
-		list($lang) = explode('-', \Yii::$app->language);
-
-		$data = [
-			[
-				'id' => '0',
-				'parent' => '#',
-				'text' => 'Root'
-			]
-		];
-
-		foreach ($postTypeList as $type) {
-			$data[] = [
-				'id' => $type['id'],
-				'parent' => $type['parent_id'],
-				'text' => $type['name_' . $lang]
-			];
-		}
-
-		return $data;
 	}
 }

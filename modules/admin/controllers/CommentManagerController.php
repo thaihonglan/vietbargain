@@ -28,12 +28,12 @@ class CommentManagerController extends Controller
 	{
 		$searchModel = new CommentSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		
+
 		$type = array();
-		foreach (User::getTypes() as $key_type => $val_type) $type[] = ['id' => $key_type, 'name' => $val_type];
+		foreach (User::getTypeOptions() as $key_type => $val_type) $type[] = ['id' => $key_type, 'name' => $val_type];
 
 		$is_approved = array();
-		foreach (comment::getStatus() as $key_type => $val_type) $is_approved[] = ['id' => $key_type, 'name' => $val_type];
+		foreach (Comment::getStatusOptions() as $key_type => $val_type) $is_approved[] = ['id' => $key_type, 'name' => $val_type];
 
 		return $this->render('index', [
 			'searchModel' => $searchModel,
@@ -70,15 +70,15 @@ class CommentManagerController extends Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
-		
+
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['index']);
 		} else {
 			$status = array();
-			$action_status_list = comment::getStatus();
-			unset($action_status_list[comment::STATUS_APPROVED]);
+			$action_status_list = Comment::getStatusOptions();
+			unset($action_status_list[Comment::STATUS_APPROVED]);
 			foreach ( $action_status_list as $key_status => $val_status) $status[] = ['id' => $key_status, 'name' => $val_status];
-			
+
 			return $this->render('update', [
 				'model' => $model,
 				'status' => $status,
@@ -101,18 +101,18 @@ class CommentManagerController extends Controller
 		->andWhere(['IN', 'comment.is_approved', [comment::STATUS_UNAPPROVED, comment::STATUS_APPROVED]])
 		->andWhere(['in', 'comment.id', $id])
 		->one();
-		
+
 		if (empty($model)) {
 			return $this->redirect('index');
 		}
-		
+
 		return $this->render('view', [
 				'model' => $model,
 				]);
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Deletes an existing comment model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.

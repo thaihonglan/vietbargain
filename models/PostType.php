@@ -7,17 +7,39 @@ use Yii;
 /**
  * This is the model class for table "post_type".
  *
- * @property string $id
+ * @property integer $id
  * @property string $name_vi
  * @property string $name_en
  * @property integer $is_parent
- * @property string $parent_id
+ * @property integer $parent_id
  */
 class PostType extends \app\components\ActiveRecord
 {
 	private static $_data = null;
 
 	private $_children = [];
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName()
+	{
+		return 'post_type';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function attributes()
+	{
+		return [
+			'id',
+			'name_vi',
+			'name_en',
+			'is_parent',
+			'parent_id',
+		];
+	}
 
 	public function setChildren($values)
 	{
@@ -27,14 +49,6 @@ class PostType extends \app\components\ActiveRecord
 	public function getChildren()
 	{
 		return $this->_children;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public static function tableName()
-	{
-		return 'post_type';
 	}
 
 	/**
@@ -132,7 +146,34 @@ class PostType extends \app\components\ActiveRecord
 				return [$item];
 			}
 		}
+	}
 
+	/**
+	 * Get PostType list as JsTree format
+	 * @return array
+	 */
+	public static function findPostTypeJsTree()
+	{
+		$postTypeList = PostType::find()->all();
+		list($lang) = explode('-', \Yii::$app->language);
+
+		$data = [
+			[
+				'id' => '0',
+				'parent' => '#',
+				'text' => 'Root'
+			]
+		];
+
+		foreach ($postTypeList as $type) {
+			$data[] = [
+				'id' => $type['id'],
+				'parent' => $type['parent_id'],
+				'text' => $type['name_' . $lang]
+			];
+		}
+
+		return $data;
 	}
 
 	private static function _loopFiliation(&$items, $currentId)

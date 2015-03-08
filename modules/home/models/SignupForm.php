@@ -85,6 +85,9 @@ class SignupForm extends Model
 				(!$this->contactNumber) OR ($user->contact_number = $this->contactNumber);
 				(!$this->address) OR ($user->address = $this->address);
 
+				// Sign up user always be "normal" type
+				$user->type = User::TYPE_NORMAL;
+
 				if ($this->avatar) {
 					$user->avatar = Yii::$app->security->generateRandomString(32) . '.' . $this->avatar->extension;
 				} else {

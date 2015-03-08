@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "deal_type".
  *
- * @property string $id
+ * @property integer $id
  * @property string $name_vi
  * @property string $name_en
  */
@@ -19,6 +19,18 @@ class DealType extends \app\components\ActiveRecord
 	public static function tableName()
 	{
 		return 'deal_type';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function attributes()
+	{
+		return [
+			'id',
+			'name_vi',
+			'name_en',
+		];
 	}
 
 	/**

@@ -3,8 +3,7 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\User;
-use app\modules\admin\models\UserSearch;
+use app\modules\admin\models\User;
 use app\components\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -26,20 +25,12 @@ class UserManagerController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$model = new UserSearch();
+		$model = new User();
 		$dataProvider = $model->search(Yii::$app->request->queryParams);
-		
-		$type = array();
-		foreach (User::getTypes() as $key_type => $val_type) $type[] = ['id' => $key_type, 'name' => $val_type];
-		
-		$status = array();
-		foreach (User::getStatus() as $key_status => $val_status) $status[] = ['id' => $key_status, 'name' => $val_status];
-		
+
 		return $this->render('index', [
 			'model' => $model,
 			'dataProvider' => $dataProvider,
-			'status' => $status,
-			'type' => $type
 		]);
 	}
 
@@ -50,15 +41,15 @@ class UserManagerController extends Controller
 	 */
 	public function actionCreate()
 	{
-	
+
 		$model = new user();
 
 		if ($model->load(Yii::$app->request->post()) && $model->signup()) {
 			return $this->redirect(['index']);
 		} else {
 			return $this->render('create', [
-					'model' => $model,
-					]);
+				'model' => $model,
+			]);
 		}
 	}
 
@@ -77,13 +68,13 @@ class UserManagerController extends Controller
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
 			$type = array();
-			foreach (User::getTypes() as $key_type => $val_type) $type[] = ['id' => $key_type, 'name' => $val_type];
-				
+			foreach (User::getTypeOptions() as $key_type => $val_type) $type[] = ['id' => $key_type, 'name' => $val_type];
+
 			$status = array();
-			$action_status_list = User::getStatus();
+			$action_status_list = User::getStatusOptions();
 			unset($action_status_list[User::STATUS_INACTIVE]);
 			foreach ($action_status_list as $key_status => $val_status) $status[] = ['id' => $key_status, 'name' => $val_status];
-			
+
 			return $this->render('update', [
 					'model' => $model,
 					'status' => $status,
@@ -104,9 +95,9 @@ class UserManagerController extends Controller
 		if ($model->delete()) {
 			\Yii::$app->getSession()->setFlash('account_delete',  $model->email);
 			\Yii::$app->getSession()->setFlash('update_success',  \Yii::t('admin', 'Delete success account '));
-		} 
+		}
 		return $this->redirect(['index']);
-		
+
 	}
 
 	/**
