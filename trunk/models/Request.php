@@ -7,8 +7,8 @@ use Yii;
 /**
  * This is the model class for table "request".
  *
- * @property string $id
- * @property string $user_id
+ * @property integer $id
+ * @property integer $user_id
  * @property integer $request_type
  * @property string $request_key
  * @property string $data
@@ -29,6 +29,21 @@ class Request extends \app\components\ActiveRecord
 	public static function tableName()
 	{
 		return 'request';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function attributes()
+	{
+		return [
+			'id',
+			'user_id',
+			'request_type',
+			'request_key',
+			'data',
+			'status'
+		];
 	}
 
 	public function generateKey($userId, $requestType, $data = null)

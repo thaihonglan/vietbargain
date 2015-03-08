@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?php
 // 	Html::a(Yii::t('app', 'Create {modelClass}', [
 // 	'modelClass' => 'User',
-// ]), ['create'], ['class' => 'btn btn-success']) 
+// ]), ['create'], ['class' => 'btn btn-success'])
 	?>
 </p>
 
@@ -32,11 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="table-responsive">
 	<?= $this->render('_search', [
 						'model' => $model,
-						'type' => $type,
-						'status' => $status,
 						'cityList' => City::find()->asArray()->all(),
 					]
-				); 
+				);
 	?>
 
 	<?= GridView::widget([
@@ -45,13 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'type',
 				'value' => function($model) {
-					return User::getTypes($model->type);
+					return User::getTypeOptions($model->type);
 				},
 			],
 			[
 				'attribute' => 'status',
 				'value' => function($model) {
-					return User::getStatus($model->status);
+					return User::getStatusOptions($model->status);
 				},
 			],
 			'email:email',
@@ -63,12 +61,16 @@ $this->params['breadcrumbs'][] = $this->title;
 			'address',
 			'age',
 			'contact_number',
-			'is_comment_unlimited',
+			[
+				'attribute' => 'is_comment_unlimited',
+				'value' => function($model) {
+					return ($model->is_comment_unlimited == 1) ? Yii::t('app', 'Yes') : '';
+				},
+			],
 			[
 				'attribute' => 'create_datetime',
 				'format' => ['date', 'php:d-m-Y']
 			],
-			
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'template' => '{update}',

@@ -16,18 +16,18 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="comment-view">
 
 <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
+		'model' => $model,
+		'attributes' => [
 			'user.Fullname',
-            'create_datetime',
+			'create_datetime',
 			[
 				'attribute' => 'is_approved',
-				'value' => Comment::getStatus($model->is_approved),
+				'value' => Comment::getStatusOptions($model->is_approved),
 			],
 
 
 // 			 [
-// 		        'attribute'=>'create_datetime', 
+// 		        'attribute'=>'create_datetime',
 // 		        'format'=>'date',
 // 		        'type'=>DetailView::INPUT_DATE,
 // 		        'widgetOptions'=>[
@@ -37,21 +37,21 @@ $this->params['breadcrumbs'][] = $this->title;
 // 		    ],
 
 			'content:ntext',
-        ],
-    ]) ?>
-    <p>
-    	<?php $form = ActiveForm::begin(); ?>
+		],
+	]) ?>
+	<p>
+		<?php $form = ActiveForm::begin(); ?>
 		<?=  Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('admin', 'Are you sure you want to delete this commnet?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-        <?= Html::a(Html::button(Yii::t('app', 'Back'), ['class' => 'btn btn-default']), ['index']) ?>
-        <?php ActiveForm::end(); ?>
-    </p>
-			
+		<?= Html::a('Delete', ['delete', 'id' => $model->id], [
+			'class' => 'btn btn-danger',
+			'data' => [
+				'confirm' => Yii::t('admin', 'Are you sure you want to delete this commnet?'),
+				'method' => 'post',
+			],
+		]) ?>
+		<?= Html::a(Html::button(Yii::t('app', 'Back'), ['class' => 'btn btn-default']), ['index']) ?>
+		<?php ActiveForm::end(); ?>
+	</p>
+
 </div>
 <!-- /.col-lg-12 -->

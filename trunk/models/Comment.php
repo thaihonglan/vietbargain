@@ -7,11 +7,11 @@ use Yii;
 /**
  * This is the model class for table "comment".
  *
- * @property string $id
+ * @property integer $id
  * @property string $content
- * @property string $user_id
- * @property string $post_id
- * @property string $parent_id
+ * @property integer $user_id
+ * @property integer $post_id
+ * @property integer $parent_id
  * @property string $create_datetime
  * @property integer $is_approved
  */
@@ -20,13 +20,36 @@ class Comment extends \app\components\ActiveRecord
 	const STATUS_UNAPPROVED = 0;
 	const STATUS_APPROVED = 1;
 	const STATUS_BANNER = 2;
-	
+
 	/**
 	 * @inheritdoc
 	 */
 	public static function tableName()
 	{
 		return 'comment';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function attributes()
+	{
+		$attributes = [
+			'id',
+			'content',
+			'user_id',
+			'post_id',
+			'parent_id',
+			'create_datetime',
+			'is_approved',
+		];
+
+		$user = new User();
+		foreach ($user->attributes() as $field) {
+			$attributes[] = 'user_' . $field;
+		}
+		$attributes[] = 'user_full_name';
+		return $attributes;
 	}
 
 	/**
@@ -40,21 +63,6 @@ class Comment extends \app\components\ActiveRecord
 			[['is_approved'], 'required'],
 			[['create_datetime'], 'safe']
 		];
-	}
-	
-	/**
-	 * @inheritdoc
-	 */
-	public function attributes()
-	{
-		$attributes = parent::attributes();
-		
-		$user = new User();
-		foreach ($user->attributes() as $field) {
-			$attributes[] = 'user_' . $field;
-		}
-		$attributes[] = 'user_full_name';
-		return $attributes;
 	}
 
 	/**
@@ -83,20 +91,20 @@ class Comment extends \app\components\ActiveRecord
 	{
 		return $this->hasOne(Post::className(), ['id' => 'post_id']);
 	}
-	
+
 	/**
 	 *
 	 * @param string $key
 	 * @return content list status or single type by $key
 	 */
-	public static function getStatus($key = null)
+	public static function getStatusOptions($key = null)
 	{
 		$array = [
 			self::STATUS_UNAPPROVED => Yii::t('model', 'Inactive'),
 			self::STATUS_APPROVED   => Yii::t('model', 'Active'),
 			self::STATUS_BANNER   => Yii::t('model', 'Banner'),
 		];
-		
+
 		return $key !== null ? isset($array[$key]) ? $array[$key] : null : $array;
 	}
 }

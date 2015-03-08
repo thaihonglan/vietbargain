@@ -7,11 +7,11 @@ use Yii;
 /**
  * This is the model class for table "post".
  *
- * @property string $id
+ * @property integer $id
  * @property string $title
  * @property string $content
  * @property string $short_content
- * @property string $user_id
+ * @property integer $user_id
  * @property string $contact_number
  * @property string $store_address
  * @property string $link
@@ -19,9 +19,15 @@ use Yii;
  * @property integer $is_owner
  * @property string $image
  * @property integer $deal_type
+ * @property integer $like_number
+ * @property integer $dislike_number
+ * @property integer $comment_number
+ * @property integer $view_number
  * @property string $deal_begin_date
  * @property string $deal_end_date
- * @property string $status
+ * @property string $create_datetime
+ * @property string $modify_datetime
+ * @property integer $status
  */
 class Post extends \app\components\ActiveRecord
 {
@@ -40,14 +46,44 @@ class Post extends \app\components\ActiveRecord
 	/**
 	 * @inheritdoc
 	 */
+	public function attributes()
+	{
+		return [
+			'id',
+			'title',
+			'content',
+			'short_content',
+			'user_id',
+			'contact_number',
+			'store_address',
+			'link',
+			'discount_code',
+			'is_owner',
+			'image',
+			'deal_type',
+			'like_number',
+			'dislike_number',
+			'comment_number',
+			'view_number',
+			'deal_begin_date',
+			'deal_end_date',
+			'create_datetime',
+			'modify_datetime',
+			'status',
+		];
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public function rules()
 	{
 		return [
 			[['content'], 'string'],
-			[['short_content'], 'string', 'max' => 512],
-			[['user_id', 'is_owner', 'deal_type', 'status'], 'integer'],
-			[['deal_begin_date', 'deal_end_date'], 'safe'],
+			[['user_id', 'is_owner', 'deal_type', 'like_number', 'dislike_number', 'comment_number', 'view_number', 'status'], 'integer'],
+			[['deal_begin_date', 'deal_end_date', 'create_datetime', 'modify_datetime'], 'safe'],
 			[['title', 'contact_number', 'discount_code'], 'string', 'max' => 32],
+			[['short_content'], 'string', 'max' => 512],
 			[['store_address'], 'string', 'max' => 128],
 			[['link', 'image'], 'string', 'max' => 64]
 		];
@@ -59,21 +95,27 @@ class Post extends \app\components\ActiveRecord
 	public function attributeLabels()
 	{
 		return [
-			'id' => Yii::t('admin', 'ID'),
-			'title' => Yii::t('admin', 'Title'),
-			'content' => Yii::t('admin', 'Content'),
-			'short_content' => Yii::t('admin', 'Short content'),
-			'user_id' => Yii::t('admin', 'User ID'),
-			'contact_number' => Yii::t('admin', 'Contact Number'),
-			'store_address' => Yii::t('admin', 'Store Address'),
-			'link' => Yii::t('admin', 'Link'),
-			'discount_code' => Yii::t('admin', 'Discount Code'),
-			'is_owner' => Yii::t('admin', 'Is Owner'),
-			'image' => Yii::t('admin', 'Image'),
-			'deal_type' => Yii::t('admin', 'Deal Type'),
-			'deal_begin_date' => Yii::t('admin', 'Deal Begin Date'),
-			'deal_end_date' => Yii::t('admin', 'Deal End Date'),
-			'status' => Yii::t('admin', 'Status'),
+			'id' => Yii::t('app', 'ID'),
+			'title' => Yii::t('app', 'Title'),
+			'content' => Yii::t('app', 'Content'),
+			'short_content' => Yii::t('app', 'Short Content'),
+			'user_id' => Yii::t('app', 'User ID'),
+			'contact_number' => Yii::t('app', 'Contact Number'),
+			'store_address' => Yii::t('app', 'Store Address'),
+			'link' => Yii::t('app', 'Link'),
+			'discount_code' => Yii::t('app', 'Discount Code'),
+			'is_owner' => Yii::t('app', 'Is Owner'),
+			'image' => Yii::t('app', 'Image'),
+			'deal_type' => Yii::t('app', 'Deal Type'),
+			'like_number' => Yii::t('app', 'Like Number'),
+			'dislike_number' => Yii::t('app', 'Dislike Number'),
+			'comment_number' => Yii::t('app', 'Comment Number'),
+			'view_number' => Yii::t('app', 'View Number'),
+			'deal_begin_date' => Yii::t('app', 'Deal Begin Date'),
+			'deal_end_date' => Yii::t('app', 'Deal End Date'),
+			'create_datetime' => Yii::t('app', 'Create Datetime'),
+			'modify_datetime' => Yii::t('app', 'Modify Datetime'),
+			'status' => Yii::t('app', 'Status'),
 		];
 	}
 
@@ -81,7 +123,7 @@ class Post extends \app\components\ActiveRecord
 	{
 		return $this->hasMany(PostType::className(), ['id' => 'post_type_id'])->viaTable('post_type_allocation', ['post_id' => 'id']);
 	}
-	
+
 	public function getUser()
 	{
 		return $this->hasOne(User::className(), ['id' => 'user_id']);

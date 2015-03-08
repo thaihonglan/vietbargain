@@ -22,38 +22,38 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<div class="panel-body">
 			<div class="table-responsive">
-			    <?php echo $this->render('_search', ['model' => $searchModel, 'type' => $type, 'is_approved' => $is_approved ]); ?>
-			 
-				<?= 
+				<?php echo $this->render('_search', ['model' => $searchModel, 'type' => $type, 'is_approved' => $is_approved ]); ?>
+
+				<?=
 					GridView::widget([
 						'dataProvider' => $dataProvider,
-				        'columns' => [
+						'columns' => [
 							'user.FullName',
 							[
 								'attribute' => 'user.type',
 								'value' => function($model) {
-									return User::getTypes(ArrayHelper::getValue($model, 'user.type'));
+									return User::getTypeOptions(ArrayHelper::getValue($model, 'user.type'));
 								},
 							],
 							'post.title:ntext',
-				            [
-					            'attribute' => 'content',
-					            'value' => function($model) {
-				            		return  BaseStringHelper::truncate($model->content, 100);
-				           		}
-				            ],
-				            
+							[
+								'attribute' => 'content',
+								'value' => function($model) {
+									return  BaseStringHelper::truncate($model->content, 100);
+								}
+							],
+
 							[
 								'attribute' => 'status',
 								'value' => function($model) {
-									return Comment::getStatus($model->is_approved);
+									return Comment::getStatusOptions($model->is_approved);
 								},
 							],
 							[
 								'attribute' => 'create_datetime',
 								'format' => ['date', 'php:d-m-Y h:i']
 							],
-							
+
 							[
 								'class' => 'yii\grid\ActionColumn',
 								'template' => '{view}',
@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							],
 						],
 					]);
-				 ?>
+				?>
 			</div>
 			<!-- /.table-responsive -->
 		</div>

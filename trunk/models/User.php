@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "user".
  *
  * @property string $id
- * @property string $type
+ * @property integer $type
  * @property string $email
  * @property string $password
  * @property string $facebook_login_id
@@ -20,9 +20,9 @@ use Yii;
  * @property integer $age
  * @property string $contact_number
  * @property string $avatar
+ * @property integer $is_comment_unlimited
  * @property string $create_datetime
  * @property integer $status
- * @property string $confirmPassword
  */
 class User extends \app\components\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -45,36 +45,39 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 	/**
 	 * @inheritdoc
 	 */
+	public function attributes()
+	{
+		return [
+		'id',
+		'type',
+		'email',
+		'password',
+		'facebook_login_id',
+		'first_name',
+		'last_name',
+		'identifier',
+		'city_id',
+		'address',
+		'age',
+		'contact_number',
+		'avatar',
+		'is_comment_unlimited',
+		'create_datetime',
+		'status',
+		];
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public function rules()
 	{
 		return [
-			[['city_id', 'age',  'status'], 'integer'],
-			[['contact_number'], 'required'],
+			[['type', 'city_id', 'age', 'is_comment_unlimited', 'status'], 'integer'],
 			[['create_datetime'], 'safe'],
 			[['email', 'facebook_login_id', 'first_name', 'last_name', 'identifier', 'contact_number'], 'string', 'max' => 32],
 			[['password', 'avatar'], 'string', 'max' => 64],
 			[['address'], 'string', 'max' => 45]
-		];
-	}
-
-	public function attributes()
-	{
-		return [
-			'id',
-			'type',
-			'email',
-			'password',
-			'facebook_login_id',
-			'first_name',
-			'last_name',
-			'identifier',
-			'city_id',
-			'address',
-			'age',
-			'contact_number',
-			'avatar',
-			'create_datetime',
-			'status',
 		];
 	}
 
@@ -84,8 +87,8 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 	public function attributeLabels()
 	{
 		return [
-			'id' => Yii::t('app', 'ID'),
-			'type' => Yii::t('admin', 'User rights'),
+			'id' => Yii::t('admin', 'ID'),
+			'type' => Yii::t('admin', 'Type'),
 			'email' => Yii::t('admin', 'Email'),
 			'password' => Yii::t('admin', 'Password'),
 			'facebook_login_id' => Yii::t('admin', 'Facebook Login ID'),
@@ -97,6 +100,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 			'age' => Yii::t('admin', 'Age'),
 			'contact_number' => Yii::t('admin', 'Contact Number'),
 			'avatar' => Yii::t('admin', 'Avatar'),
+			'is_comment_unlimited' => Yii::t('admin', 'Is Comment Unlimited'),
 			'create_datetime' => Yii::t('admin', 'Create Datetime'),
 			'status' => Yii::t('admin', 'Status'),
 		];
@@ -185,25 +189,16 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 	}
 
 	/**
-	 * List type
-	 * @return array:
-	 */
-	private function _get_uset_type () {
-		$types = array();
-		return $types;
-	}
-
-	/**
 	 *
 	 * @param string $key
 	 * @return content list status or single type by $key
 	 */
-	public static function getStatus($key = null)
+	public static function getStatusOptions($key = null)
 	{
 		$array = [
 			self::STATUS_INACTIVE => Yii::t('model', 'Inactive'),
 			self::STATUS_ACTIVE => Yii::t('model', 'Active'),
-			self::STATUS_BANNED => Yii::t('model', 'Banner'),
+			self::STATUS_BANNED => Yii::t('model', 'Banned'),
 		];
 
 		return $key !== null ? isset($array[$key]) ? $array[$key] : null : $array;
@@ -214,7 +209,7 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 	 * @param string $key
 	 * @return content list type or single type by $key
 	 */
-	public static function getTypes($key = null)
+	public static function getTypeOptions($key = null)
 	{
 		$array = [
 			self::TYPE_NORMAL  => Yii::t('model', 'Normal'),
@@ -225,7 +220,8 @@ class User extends \app\components\ActiveRecord implements \yii\web\IdentityInte
 		return $key !== null ? isset($array[$key]) ? $array[$key] : null : $array ;
 	}
 
-	public function getCity() {
+	public function getCity()
+	{
 		return $this->hasOne(City::className(), ['id' => 'city_id']);
 	}
 

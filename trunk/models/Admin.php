@@ -36,6 +36,24 @@ class Admin extends \app\components\ActiveRecord implements \yii\web\IdentityInt
 	/**
 	 * @inheritdoc
 	 */
+	public function attributes()
+	{
+		return [
+			'id',
+			'username',
+			'password',
+			'first_name',
+			'last_name',
+			'has_admin_authority',
+			'has_user_authority',
+			'has_deal_authority',
+			'has_dashboard_authority',
+		];
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public function rules()
 	{
 		return [

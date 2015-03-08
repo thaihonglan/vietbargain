@@ -41,19 +41,19 @@ $this->params['breadcrumbs'][] = $this->title;
 				},
 			],
 			[
-			'attribute' => 'has_user_authority',
+				'attribute' => 'has_user_authority',
 				'value' => function($model) {
 					return ($model->has_user_authority == 1) ? Yii::t('app', 'Yes') : '';
 				},
 			],
 			[
-			'attribute' => 'has_deal_authority',
+				'attribute' => 'has_deal_authority',
 				'value' => function($model) {
 					return ($model->has_deal_authority == 1) ? Yii::t('app', 'Yes') : '';
 				},
 			],
 			[
-			'attribute' => 'has_dashboard_authority',
+				'attribute' => 'has_dashboard_authority',
 				'value' => function($model) {
 					return ($model->has_dashboard_authority == 1) ? Yii::t('app', 'Yes') : '';
 				},
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'buttons' => [
 					'update' => function($url, $model) {
 						return '<a href="' . $url . '"><button type="button" class="btn btn-primary">
-			    Cập nhật</button></a>';
+				Cập nhật</button></a>';
 					},
 				],
 			],
