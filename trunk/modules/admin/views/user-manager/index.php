@@ -2,13 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\jui\DatePicker;
-use dosamigos\tinymce\TinyMce;
-use app\models\City;
 use app\models\User;
-use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\admin\models\UserSearch */
+/* @var $searchModel app\modules\admin\models\User */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Users');
@@ -31,10 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 			<div class="table-responsive">
 	<?= $this->render('_search', [
-						'model' => $model,
-						'cityList' => City::find()->asArray()->all(),
-					]
-				);
+			'model' => $model,
+		]);
 	?>
 
 	<?= GridView::widget([

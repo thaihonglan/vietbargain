@@ -1,11 +1,12 @@
-	<?php
+<?php
 
+use app\models\City;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\modules\admin\models\User;
 /* @var $this yii\web\View */
-/* @var $model app\modules\admin\models\UserSearch */
+/* @var $model app\modules\admin\models\User */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="user-search">
@@ -63,7 +64,7 @@ use app\modules\admin\models\User;
 					</div>
 					<div class="col-lg-3 col-md-3">
 						<?= $form->field($model, 'city_id')
-								->dropDownList(ArrayHelper::map($cityList, 'id', 'name'), ['prompt' => Yii::t('admin', 'Please choose your city')]) ?>
+								->dropDownList(ArrayHelper::map(City::find()->all(), 'id', 'name'), ['prompt' => Yii::t('admin', 'Please choose your city')]) ?>
 					</div>
 					<div class="col-lg-3 col-md-3">
 						<?= $form->field($model, 'contact_number')
