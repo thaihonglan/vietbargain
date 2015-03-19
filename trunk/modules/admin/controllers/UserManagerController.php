@@ -39,19 +39,19 @@ class UserManagerController extends Controller
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
-	public function actionCreate()
-	{
+// 	public function actionCreate()
+// 	{
 
-		$model = new user();
+// 		$model = new user();
 
-		if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-			return $this->redirect(['index']);
-		} else {
-			return $this->render('create', [
-				'model' => $model,
-			]);
-		}
-	}
+// 		if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+// 			return $this->redirect(['index']);
+// 		} else {
+// 			return $this->render('create', [
+// 				'model' => $model,
+// 			]);
+// 		}
+// 	}
 
 	/**
 	 * Updates an existing User model.
@@ -67,18 +67,8 @@ class UserManagerController extends Controller
 			\Yii::$app->getSession()->setFlash('update_success',  \Yii::t('admin', 'Update success.'));
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
-			$type = array();
-			foreach (User::getTypeOptions() as $key_type => $val_type) $type[] = ['id' => $key_type, 'name' => $val_type];
-
-			$status = array();
-			$action_status_list = User::getStatusOptions();
-			unset($action_status_list[User::STATUS_INACTIVE]);
-			foreach ($action_status_list as $key_status => $val_status) $status[] = ['id' => $key_status, 'name' => $val_status];
-
 			return $this->render('update', [
 					'model' => $model,
-					'status' => $status,
-					'type' => $type
 			]);
 		}
 	}
