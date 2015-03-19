@@ -1,42 +1,61 @@
 <?php
 
+use app\modules\admin\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 /* @var $form yii\widgets\ActiveForm */
+
+$this->title = $model->fullName;
 ?>
 
 <div class="user-form">
 
+<?php if (!$model->isNewRecord): ?>
+	<img src="<?= Yii::$app->params['userImagePath']['scaled'] . $model->avatar ?>" height="160" width="160"/>
+<?php endif; ?>
+
 	<?php $form = ActiveForm::begin(); ?>
 
-	<?= $form->field($model, 'email')->textInput(['maxlength' => 32]) ?>
+	<?= $form->field($model, 'email')
+			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'password')->passwordInput(['maxlength' => 64]) ?>
+	<?= ($model->isNewRecord)
+			? $form->field($model, 'password')
+					->passwordInput(['maxlength' => 64])
+			: '' ?>
 
-	<?= $form->field($model, 'facebook_login_id')->textInput(['maxlength' => 32]) ?>
+	<?= $form->field($model, 'facebook_login_id')
+			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'first_name')->textInput(['maxlength' => 32]) ?>
+	<?= $form->field($model, 'first_name')
+			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'last_name')->textInput(['maxlength' => 32]) ?>
+	<?= $form->field($model, 'last_name')
+			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'identifier')->textInput(['maxlength' => 32]) ?>
+	<?= $form->field($model, 'identifier')
+			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'city_id')->textInput(['maxlength' => 8]) ?>
+	<?= $form->field($model, 'city_id')
+			->textInput(['maxlength' => 8, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'address')->textInput(['maxlength' => 45]) ?>
+	<?= $form->field($model, 'address')
+			->textInput(['maxlength' => 45, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'age')->textInput() ?>
+	<?= $form->field($model, 'age')
+			->textInput(['maxlength' => 3, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'contact_number')->textInput(['maxlength' => 32]) ?>
+	<?= $form->field($model, 'contact_number')
+			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'avatar')->textInput(['maxlength' => 64]) ?>
+	<?= $form->field($model, 'type')
+			->dropDownList(User::getTypeOptions(), ($model->isNewRecord) ? ['prompt' => Yii::t('admin', 'Please choose your type')] : []) ?>
 
-	<?= $form->field($model, 'create_datetime')->textInput() ?>
-
-	<?= $form->field($model, 'status')->textInput() ?>
+	<?= $form->field($model, 'status')
+			->dropDownList(User::getStatusOptions(), ($model->isNewRecord) ? ['prompt' => Yii::t('admin', 'Please choose your status')] : []) ?>
 
 	<div class="form-group">
 		<?= Html::a(Html::button(Yii::t('app', 'Back'), ['class' => 'btn btn-default']), $this->context->getBacklink('user-manager/index')) ?>
