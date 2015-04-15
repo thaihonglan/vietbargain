@@ -19,48 +19,48 @@ $this->title = $model->fullName;
 
 	<?php $form = ActiveForm::begin(); ?>
 
-	<?= $form->field($model, 'email')
-			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
+		<?= $form->field($model, 'email')
+				->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= ($model->isNewRecord)
-			? $form->field($model, 'password')
-					->passwordInput(['maxlength' => 64])
-			: '' ?>
+		<?= ($model->isNewRecord)
+				? $form->field($model, 'password')
+						->passwordInput(['maxlength' => 64])
+				: '' ?>
 
-	<?= $form->field($model, 'facebook_login_id')
-			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
+		<?= $form->field($model, 'facebook_login_id')
+				->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'first_name')
-			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
+		<?= $form->field($model, 'first_name')
+				->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'last_name')
-			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
+		<?= $form->field($model, 'last_name')
+				->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'identifier')
-			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
+		<?= $form->field($model, 'identifier')
+				->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'city_id')
-			->textInput(['maxlength' => 8, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
+		<?= $form->field($model, 'city_id')
+				->textInput(['maxlength' => 8, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'address')
-			->textInput(['maxlength' => 45, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
+		<?= $form->field($model, 'address')
+				->textInput(['maxlength' => 45, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'age')
-			->textInput(['maxlength' => 3, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
+		<?= $form->field($model, 'age')
+				->textInput(['maxlength' => 3, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'contact_number')
-			->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
+		<?= $form->field($model, 'contact_number')
+				->textInput(['maxlength' => 32, 'disabled' => (!$model->isNewRecord) ? 'disabled' : false]) ?>
 
-	<?= $form->field($model, 'type')
-			->dropDownList(User::getTypeOptions(), ($model->isNewRecord) ? ['prompt' => Yii::t('admin', 'Please choose your type')] : []) ?>
+		<?= $form->field($model, 'type')
+				->dropDownList(User::getTypeOptions(), ($model->isNewRecord) ? ['prompt' => Yii::t('admin', 'Please choose your type')] : []) ?>
 
-	<?= $form->field($model, 'status')
-			->dropDownList(User::getStatusOptions(), ($model->isNewRecord) ? ['prompt' => Yii::t('admin', 'Please choose your status')] : []) ?>
+		<?= $form->field($model, 'status')
+				->dropDownList(User::getStatusOptions(), ($model->isNewRecord) ? ['prompt' => Yii::t('admin', 'Please choose your status')] : []) ?>
 
-	<div class="form-group">
-		<?= Html::a(Html::button(Yii::t('app', 'Back'), ['class' => 'btn btn-default']), $this->context->getBacklink('user-manager/index')) ?>
-		<?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	</div>
+		<div class="form-group">
+			<?= Html::a(Html::button(Yii::t('app', 'Back'), ['class' => 'btn btn-default']), $this->context->getBacklink('user-manager/index')) ?>
+			<?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+		</div>
 
 	<?php ActiveForm::end(); ?>
 

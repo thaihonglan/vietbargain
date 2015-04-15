@@ -4,9 +4,9 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Post;
-use app\modules\admin\models\PostSearch;
 use app\components\Controller;
 use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 
 /**
  * PostManagerController implements the CRUD actions for Post model.
@@ -26,11 +26,18 @@ class PostManagerController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$searchModel = new PostSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$query = Post::find()->innerJoinWith(['user', 'postType', 'dealType'])
+							->orderBy([
+								'FIELD(post.status, ' . Post::STATUS_UNLIKED . ', ' . Post::STATUS_UNAPPROVED . ')' => SORT_DESC,
+								'post.create_datetime' => SORT_DESC
+							]);
+
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+			'pagination' => array('pageSize' => 20),
+		]);
 
 		return $this->render('index', [
-			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
 		]);
 	}
@@ -64,7 +71,7 @@ class PostManagerController extends Controller
 		$model = $this->findModel($id);
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+			return $this->redirect(['index']);
 		} else {
 			return $this->render('update', [
 				'model' => $model,

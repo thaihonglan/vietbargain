@@ -2,9 +2,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\modules\admin\AppAsset;
+use yii\widgets\Menu;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -133,19 +132,19 @@ AppAsset::register($this);
 
 			<div class="navbar-default sidebar" role="navigation">
 				<div class="sidebar-nav navbar-collapse">
-				<?php
-					echo Nav::widget([
+				<?= Menu::widget([
 						'options' => ['id' => 'side-menu','class' => 'nav'],
+						'submenuTemplate' => '<ul class="nav nav-second-level collapse">{items}</ul>',
 						'items' => [
 							['label' => '<i class="fa fa-dashboard fa-fw"></i> Dashboard', 'url' => ['/admin/daskboard/index'], 'encode' => false],
-							['label' => '<i class="fa fa-table fa-fw"></i> Admin', 'url' => ['/admin/admin-manager/index'], 'encode' => false],
-							['label' => '<i class="fa fa-edit fa-fw"></i> Post', 'url' => ['/admin/post-manager/index'], 'encode' => false],
-							['label' => '<i class="fa fa-wrench fa-fw"></i> Post type', 'url' => ['/admin/post-type-manager/index'], 'encode' => false],
-							['label' => '<i class="fa fa-sitemap fa-fw"></i> Deal type', 'url' => ['/admin/deal-type-manager/index'], 'encode' => false],
-							['label' => '<i class="fa fa-files-o fa-fw"></i> User', 'url' => ['/admin/user-manager/index'], 'encode' => false],
+							['label' => '<i class="fa fa-table fa-fw"></i> Admins', 'url' => ['/admin/admin-manager/index'], 'encode' => false],
+							['label' => ' <i class="fa fa-files-o fa-fw"></i> Posts', 'url' => ['/admin/post-manager/index'], 'encode' => false],
+							['label' => '<i class="fa fa-wrench fa-fw"></i> Post types', 'url' => ['/admin/post-type-manager/index'], 'encode' => false],
+							['label' => '<i class="fa fa-sitemap fa-fw"></i> Deal types', 'url' => ['/admin/deal-type-manager/index'], 'encode' => false],
+							['label' => '<i class="fa fa-files-o fa-fw"></i> Users', 'url' => ['/admin/user-manager/index'], 'encode' => false],
 						],
-					]);
-				?>
+					]
+				) ?>
 <!-- 					<ul class="nav" id="side-menu"> -->
 <!-- 						<li class="sidebar-search"> -->
 <!-- 							<div class="input-group custom-search-form"> -->
