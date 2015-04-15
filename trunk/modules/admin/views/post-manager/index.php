@@ -1,8 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
-use app\models\User;
+use app\models\Post;
 use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
@@ -12,12 +11,6 @@ use yii\helpers\ArrayHelper;
 $this->title = Yii::t('admin', 'Posts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<p>
-	<?= Html::a(Yii::t('admin', 'Create {modelClass}', [
-    'modelClass' => 'Post',
-]), ['create'], ['class' => 'btn btn-success']) ?>
-</p>
 
 <div class="col-lg-12 post-index">
 	<div class="panel panel-default">
@@ -29,66 +22,47 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 			<div class="table-responsive">
 
-			<?= $this->render('_search', [
-						'searchModel' => $searchModel,
-								
-					]
-				); 
-	?>
-	
-	<?= GridView::widget([
-		'dataProvider' => $dataProvider,
-// 			'filterModel' => $searchModel,
-        'columns' => [
-			'id',
-// 			'PostTypeAllocation.id',
-			'user.email',
-			'user.fullName',
-			[
-				'attribute' => 'postType',
-				'value' => function($model) {
-					return implode(', ', ArrayHelper::getColumn($model->postType, 'name'));
-				},
-			],
+				<?= GridView::widget([
+					'dataProvider' => $dataProvider,
+					'columns' => [
+						'title',
+						'user.fullName',
+						[
+							'attribute' => 'postType',
+							'value' => function($model) {
+								return implode(', ', ArrayHelper::getColumn($model->postType, 'name'));
+							},
+						],
+						'dealType.name',
+						'deal_begin_date',
+						'deal_end_date',
+						[
+							'attribute' => 'status',
+							'value' => function($model) {
+								return Post::getStatusOptions($model->status);
+							},
+						],
+						'create_datetime',
+						[
+							'class' => 'yii\grid\ActionColumn',
+							'template' => '{update}',
+							'buttons' => [
+								'update' => function($url, $model) {
+									return '<a href="' . $url . '"><button type="button" class="btn btn-primary">Update</button></a>';
+								},
+							],
+						],
+					],
+					'rowOptions' => function($model, $key, $index, $grid) {
+						switch ($model->status) {
+							case Post::STATUS_UNLIKED:
+								return ['class' => 'danger'];
+							case Post::STATUS_UNAPPROVED:
+								return ['class' => 'warning'];
+						}
+					}
+				]); ?>
 
-// 			[
-// 				'attribute' => 'postType',
-// 				'value' => function($model) {
-// 					return implode(', ', ArrayHelper::getColumn($model->postType, 'name'));
-// 				},
-// 			],
-			// get email of user by id
-
-
-				
-				
-				
-				
-//             'title',
-//             'short_content',
-//             'content:ntext',
-//             'user_id',
-//             'contact_number',
-            // 'store_address',
-            // 'link',
-            // 'discount_code',
-            // 'image',
-            // 'deal_type',
-            // 'deal_begin_date',
-            // 'deal_end_date',
-            // 'status',
-
-			[
-				'class' => 'yii\grid\ActionColumn',
-				'template' => '{update}',
-				'buttons' => [
-					'update' => function($url, $model) {
-						return '<a href="' . $url . '"><button type="button" class="btn btn-primary">Update</button></a>';
-					},
-				],
-			],
-		],
-	]); ?>
 			</div>
 			<!-- /.table-responsive -->
 		</div>
